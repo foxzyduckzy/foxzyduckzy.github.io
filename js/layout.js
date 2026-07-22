@@ -52,7 +52,9 @@
 
   var navLinks = [
     { href: "features.html", key: "features", label: "Features" },
-    { href: "pricing.html", key: "pricing", label: "Pricing" },
+    // Pricing is hidden pre-launch: nothing can be purchased until the
+    // payment provider is live, so a price list only raises a question
+    // we cannot answer yet. Restore this line when checkout works.
     { href: "docs.html", key: "docs", label: "Docs" },
     { href: "blog.html", key: "blog", label: "Blog" },
     { href: "changelog.html", key: "changelog", label: "Changelog" }
@@ -113,7 +115,6 @@
         "<div><h4>Product</h4><ul>" +
           '<li><a href="features.html">Features</a></li>' +
           '<li><a href="download.html">Download</a></li>' +
-          '<li><a href="pricing.html">Pricing</a></li>' +
           '<li><a href="changelog.html">Changelog</a></li>' +
           '<li><a href="features.html#roadmap">Roadmap</a></li>' +
         "</ul></div>" +
