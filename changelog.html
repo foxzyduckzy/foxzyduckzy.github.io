@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Changelog — Loopable8 Release Notes</title>
+  <meta name="description" content="Every Loopable8 release: new features, improvements and fixes, from v1.0.0 to the latest agent mode and MCP marketplace update." />
+  <link rel="canonical" href="https://foxzyduckzy.github.io/changelog.html" />
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="Loopable8" />
+  <meta property="og:title" content="Changelog — Loopable8 Release Notes" />
+  <meta property="og:description" content="What shipped, release by release." />
+  <meta property="og:url" content="https://foxzyduckzy.github.io/changelog.html" />
+  <script>
+    (function(){try{var t=localStorage.getItem("lo8_theme");if(!t)t=matchMedia("(prefers-color-scheme: light)").matches?"light":"dark";document.documentElement.setAttribute("data-theme",t);}catch(e){}})();
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='8' fill='%23101013'/><text x='16' y='23' font-family='sans-serif' font-size='19' font-weight='bold' fill='white' text-anchor='middle'>%E2%88%9E</text></svg>" />
+</head>
+<body data-page="changelog">
+<a class="skip-link" href="#main">Skip to content</a>
+<div class="shell">
+
+  <main id="main">
+    <header class="page-hero">
+      <div class="container">
+        <span class="section-label reveal">// changelog</span>
+        <h1 class="reveal" data-delay="1">What shipped, release by release</h1>
+        <p class="section-sub reveal" data-delay="2">
+          We ship every few weeks. Subscribe in the footer and we'll send you the
+          highlights — never more than one email per release.
+        </p>
+      </div>
+    </header>
+
+    <section class="section-sm">
+      <div class="container">
+        <div class="changelog">
+
+          <div class="log-entry latest reveal">
+            <div class="log-head">
+              <span class="ver">v1.4.0</span>
+              <span class="badge badge-live">Latest</span>
+              <span class="date">July 10, 2026</span>
+            </div>
+            <h3>Agent mode &amp; MCP marketplace</h3>
+            <ul>
+              <li><span class="log-tag new">New</span><span>Agent mode — delegate multi-file tasks; the agent plans, edits, runs checks and reports back with reviewable diffs.</span></li>
+              <li><span class="log-tag new">New</span><span>MCP tool marketplace — browse and install Model Context Protocol servers without editing JSON.</span></li>
+              <li><span class="log-tag new">New</span><span>Inline diff review v2 — hunk-level accept/reject/refine with keyboard shortcuts.</span></li>
+              <li><span class="log-tag imp">Improved</span><span>Cold start is 38% faster; the editor is interactive before AI services finish warming up.</span></li>
+              <li><span class="log-tag fix">Fixed</span><span>Command palette no longer loses focus when a background task completes.</span></li>
+            </ul>
+          </div>
+
+          <div class="log-entry reveal">
+            <div class="log-head">
+              <span class="ver">v1.3.2</span>
+              <span class="date">June 21, 2026</span>
+            </div>
+            <h3>Stability patch</h3>
+            <ul>
+              <li><span class="log-tag fix">Fixed</span><span>Memory leak in sessions longer than two hours — controllers now dispose cleanly.</span></li>
+              <li><span class="log-tag fix">Fixed</span><span>Voice input occasionally captured the first word twice on slower microphones.</span></li>
+              <li><span class="log-tag imp">Improved</span><span>Reduced idle CPU usage by batching status bar updates.</span></li>
+            </ul>
+          </div>
+
+          <div class="log-entry reveal">
+            <div class="log-head">
+              <span class="ver">v1.3.0</span>
+              <span class="date">June 2, 2026</span>
+            </div>
+            <h3>The IDE update</h3>
+            <ul>
+              <li><span class="log-tag new">New</span><span>Command palette (Ctrl+Shift+P) with fuzzy search across files, commands and settings.</span></li>
+              <li><span class="log-tag new">New</span><span>Git panel — stage, commit, branch, history, with AI-written commit messages.</span></li>
+              <li><span class="log-tag new">New</span><span>Notification, task and log panels; status bar with live engine state.</span></li>
+              <li><span class="log-tag new">New</span><span>Explorer context menus with rename, reveal and safe delete.</span></li>
+              <li><span class="log-tag imp">Improved</span><span>Theme system rebuilt on semantic tokens — custom themes coming later.</span></li>
+            </ul>
+          </div>
+
+          <div class="log-entry reveal">
+            <div class="log-head">
+              <span class="ver">v1.2.0</span>
+              <span class="date">May 11, 2026</span>
+            </div>
+            <h3>Real tools over MCP</h3>
+            <ul>
+              <li><span class="log-tag new">New</span><span>MCP JSON-RPC client with Gemini function calling — the model can call your tools mid-conversation.</span></li>
+              <li><span class="log-tag new">New</span><span>Tool toggles in run settings; per-conversation tool allowlists.</span></li>
+              <li><span class="log-tag fix">Fixed</span><span>Run settings panel is now the single source of truth — no more drift between UI and engine.</span></li>
+            </ul>
+          </div>
+
+          <div class="log-entry reveal">
+            <div class="log-head">
+              <span class="ver">v1.1.0</span>
+              <span class="date">April 18, 2026</span>
+            </div>
+            <h3>Voice &amp; grounding</h3>
+            <ul>
+              <li><span class="log-tag new">New</span><span>AI Voice — text-to-speech playback and speech-to-text dictation, free tier included.</span></li>
+              <li><span class="log-tag new">New</span><span>Grounding with Search toggle for answers backed by live results.</span></li>
+              <li><span class="log-tag imp">Improved</span><span>Persistent memory quality — better recall of project context across chats.</span></li>
+            </ul>
+          </div>
+
+          <div class="log-entry reveal">
+            <div class="log-head">
+              <span class="ver">v1.0.0</span>
+              <span class="date">March 27, 2026</span>
+            </div>
+            <h3>First public release</h3>
+            <ul>
+              <li><span class="log-tag new">New</span><span>Loopable8 for Windows: chat-driven coding assistant with the LO8 model family.</span></li>
+              <li><span class="log-tag new">New</span><span>Run settings: temperature, system instructions, thinking levels, font size.</span></li>
+              <li><span class="log-tag new">New</span><span>Local conversation history, saved context and notes library.</span></li>
+            </ul>
+          </div>
+
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script src="js/layout.js"></script>
+</div>
+</body>
+</html>

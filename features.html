@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Features — Loopable8 AI Coding Assistant</title>
+  <meta name="description" content="Agent mode, inline diff review, MCP tools, git integration, command palette, five thinking levels and full run control. See everything inside Loopable8 — plus what's coming next." />
+  <link rel="canonical" href="https://foxzyduckzy.github.io/features.html" />
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="Loopable8" />
+  <meta property="og:title" content="Features — Loopable8 AI Coding Assistant" />
+  <meta property="og:description" content="Agent mode, inline diffs, MCP tools and full run control — plus the roadmap for AI Chat, AI Studio and the game dev studio." />
+  <meta property="og:url" content="https://foxzyduckzy.github.io/features.html" />
+  <script>
+    (function(){try{var t=localStorage.getItem("lo8_theme");if(!t)t=matchMedia("(prefers-color-scheme: light)").matches?"light":"dark";document.documentElement.setAttribute("data-theme",t);}catch(e){}})();
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='8' fill='%23101013'/><text x='16' y='23' font-family='sans-serif' font-size='19' font-weight='bold' fill='white' text-anchor='middle'>%E2%88%9E</text></svg>" />
+</head>
+<body data-page="features">
+<a class="skip-link" href="#main">Skip to content</a>
+<div class="shell">
+
+  <main id="main">
+    <header class="page-hero">
+      <div class="container">
+        <span class="section-label reveal">// features</span>
+        <h1 class="reveal" data-delay="1">Everything inside the assistant</h1>
+        <p class="section-sub reveal" data-delay="2">
+          Built for people who ship: agent workflows, reviewable edits, real tools
+          and run control that behaves exactly the way you set it.
+        </p>
+      </div>
+    </header>
+
+    <!-- Core features -->
+    <section class="section">
+      <div class="container">
+        <div class="split">
+          <div>
+            <span class="section-label reveal">// agent mode</span>
+            <h2 class="section-title reveal" data-delay="1">Delegate the task, review the diff.</h2>
+            <p class="section-sub reveal" data-delay="2">
+              Agent mode plans multi-file changes, executes them step by step, runs your
+              checks and hands you a summary. Nothing merges without your approval.
+            </p>
+            <ul class="check-list reveal" data-delay="3">
+              <li><span class="check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span><span><strong>Planning first</strong> — see the intended edits and estimated scope before anything runs.</span></li>
+              <li><span class="check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span><span><strong>Cross-file edits</strong> — refactors that touch controllers, services and tests together.</span></li>
+              <li><span class="check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span><span><strong>Self-checks</strong> — the agent runs analysis and tests, then reports honestly.</span></li>
+            </ul>
+          </div>
+          <div class="split-media reveal" data-delay="2">
+            <div class="code-tabs"><span class="active">agent session</span></div>
+            <pre><span class="cm">// task</span>
+<span class="kw">agent</span> <span class="str">"add retry logic to the chat engine"</span>
+
+<span class="cm">// plan (approved)</span>
+1. chat_engine.dart  — wrap stream in bounded retry
+2. backoff.dart      — new: exponential backoff helper
+3. engine_test.dart  — cover StreamDropped path
+
+<span class="cm">// result</span>
+<span class="str">✓ 3 files changed · analysis clean · tests 14/14</span></pre>
+          </div>
+        </div>
+
+        <div class="split">
+          <div class="split-media reveal" data-delay="2">
+            <div class="code-tabs"><span class="active">inline diff</span></div>
+            <pre><span class="cm">chat_engine.dart · hunk 1 of 2</span>
+
+<span class="str">+ for (var attempt = 0; attempt &lt; 3; attempt++) {</span>
+<span class="str">+   try {</span>
+      return await _model.stream(prompt);
+<span class="str">+   } on StreamDropped {</span>
+<span class="str">+     await backoff(attempt);</span>
+<span class="str">+   }</span>
+<span class="str">+ }</span>
+
+<span class="kw">[a]ccept</span>  <span class="kw">[r]eject</span>  <span class="kw">[e]dit</span>  <span class="kw">[n]ext hunk</span></pre>
+          </div>
+          <div>
+            <span class="section-label reveal">// inline diff review</span>
+            <h2 class="section-title reveal" data-delay="1">Your codebase, your call.</h2>
+            <p class="section-sub reveal" data-delay="2">
+              Every AI edit is a reviewable diff. Accept, reject or refine hunk by hunk —
+              with keyboard shortcuts, straight from the editor.
+            </p>
+            <ul class="check-list reveal" data-delay="3">
+              <li><span class="check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span><span><strong>Hunk-level control</strong> — take the good parts, drop the rest.</span></li>
+              <li><span class="check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span><span><strong>Refine in place</strong> — ask for a different approach without losing context.</span></li>
+              <li><span class="check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span><span><strong>Full undo</strong> — every applied change is one keystroke from reverted.</span></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Feature grid -->
+    <section class="section" style="padding-top: 0;">
+      <div class="container">
+        <span class="section-label reveal">// and the rest of the toolbox</span>
+        <h2 class="section-title reveal" data-delay="1">Small details, done properly.</h2>
+        <div class="bento">
+          <div class="bento-card reveal">
+            <div class="bento-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="6" cy="6" r="3"/><circle cx="6" cy="18" r="3"/><path d="M6 9v6M18 9a9 9 0 0 1-9 9"/><circle cx="18" cy="6" r="3"/></svg></div>
+            <h3>Git built in</h3>
+            <p>Stage, commit, branch and review history from the editor — with AI commit messages that actually describe the change.</p>
+          </div>
+          <div class="bento-card reveal" data-delay="1">
+            <div class="bento-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg></div>
+            <h3>MCP marketplace</h3>
+            <p>Browse, install and toggle Model Context Protocol servers — GitHub, databases, search and your own custom tools.</p>
+          </div>
+          <div class="bento-card reveal" data-delay="2">
+            <div class="bento-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="m8 10 2 2-2 2M13 14h3"/></svg></div>
+            <h3>Command palette</h3>
+            <p>Ctrl+Shift+P for files, git, tasks, notifications, logs and settings. Keyboard-first, mouse-optional.</p>
+          </div>
+          <div class="bento-card reveal">
+            <div class="bento-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3a3 3 0 0 0-3 3v1a3 3 0 0 0-3 3v1a3 3 0 0 0 0 6 3 3 0 0 0 3 3 3 3 0 0 0 6 0 3 3 0 0 0 3-3 3 3 0 0 0 0-6v-1a3 3 0 0 0-3-3V6a3 3 0 0 0-3-3Z"/></svg></div>
+            <h3>Thinking levels</h3>
+            <p>Five levels from instant to Max deep reasoning — pick per run, pay attention only when it matters.</p>
+          </div>
+          <div class="bento-card reveal" data-delay="1">
+            <div class="bento-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg></div>
+            <h3>Grounding with Search</h3>
+            <p>Answers backed by live search when you want them — latest docs and APIs, zero stale info.</p>
+          </div>
+          <div class="bento-card reveal" data-delay="2">
+            <div class="bento-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a3 3 0 0 0-3 3v6a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3Z"/><path d="M19 10v1a7 7 0 0 1-14 0v-1M12 18v4M8 22h8"/></svg></div>
+            <h3>AI Voice</h3>
+            <p>Dictate prompts and hear answers read back — hands stay on the keyboard, eyes stay on the code.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Roadmap / coming soon -->
+    <section class="section" id="roadmap" style="background: var(--bg-elevated); border-top: 1px solid var(--border);">
+      <div class="container">
+        <span class="section-label reveal">// roadmap</span>
+        <h2 class="section-title reveal" data-delay="1">What's coming to the platform.</h2>
+        <p class="section-sub reveal" data-delay="2">
+          One account, one design language, one model family — rolling out across
+          the whole creative stack.
+        </p>
+        <div class="eco-grid">
+          <div class="eco-card reveal">
+            <div class="eco-head">
+              <div class="eco-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></div>
+              <span class="badge badge-soon">Coming soon</span>
+            </div>
+            <h3>AI Chat</h3>
+            <p>The standalone studio chat with grounding search, persistent memory, voice and full run settings — for research, writing and everyday questions.</p>
+            <span class="eco-eta">Targeting Q4 2026</span>
+          </div>
+          <div class="eco-card reveal" data-delay="1">
+            <div class="eco-head">
+              <div class="eco-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="3"/><circle cx="9" cy="9" r="2"/><path d="m21 15-3.5-3.5a2 2 0 0 0-2.8 0L6 20"/></svg></div>
+              <span class="badge badge-soon">Coming soon</span>
+            </div>
+            <h3>AI Studio — Image, Video &amp; Voice</h3>
+            <p>Generation with run-control depth: seeds, styles, reference assets and reproducible outputs, treated like builds — not slot machines.</p>
+            <span class="eco-eta">In research</span>
+          </div>
+          <div class="eco-card reveal" data-delay="2">
+            <div class="eco-head">
+              <div class="eco-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 11h4M8 9v4M15 12h.01M18 10h.01"/><path d="M17.32 5H6.68a4 4 0 0 0-3.98 3.6c-.01.06-.15 1.27-.32 2.4-.32 2.12-.6 4.53-.6 5a3 3 0 0 0 5.4 1.8l1.5-2.3h6.64l1.5 2.3A3 3 0 0 0 22.28 16c0-.47-.28-2.88-.6-5-.17-1.13-.31-2.34-.32-2.4A4 4 0 0 0 17.32 5Z"/></svg></div>
+              <span class="badge badge-soon">Coming soon</span>
+            </div>
+            <h3>AI-Native Game Dev Studio</h3>
+            <p>Physics, gameplay loops, shaders and level logic — generated and debugged with engine-aware context for Unity, Unreal, Godot and Flutter games.</p>
+            <span class="eco-eta">Prototype stage</span>
+          </div>
+          <div class="eco-card reveal" data-delay="2">
+            <div class="eco-head">
+              <div class="eco-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="14" rx="2"/><path d="M8 22h8M12 18v4"/></svg></div>
+              <span class="badge badge-soon">Planned</span>
+            </div>
+            <h3>macOS &amp; Linux</h3>
+            <p>The same assistant on every desktop. One Flutter codebase means the ports land fast once Windows is rock solid.</p>
+            <span class="eco-eta">After v1.5 · <a href="download.html" style="text-decoration:underline; text-underline-offset:3px;">get notified</a></span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="section">
+      <div class="container">
+        <div class="cta-box reveal">
+          <h2>Try it on your codebase.</h2>
+          <p>The fastest way to judge an AI assistant is to hand it your ugliest file.</p>
+          <div class="hero-actions">
+            <a href="download.html" class="btn btn-primary btn-lg">Download for Windows</a>
+            <a href="docs.html" class="btn btn-ghost btn-lg">Read the docs</a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script src="js/layout.js"></script>
+</div>
+</body>
+</html>

@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Documentation — Loopable8</title>
+  <meta name="description" content="Install Loopable8, learn the editor, configure run settings and MCP tools, master agent mode and keyboard shortcuts. The complete guide." />
+  <link rel="canonical" href="https://foxzyduckzy.github.io/docs.html" />
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="Loopable8" />
+  <meta property="og:title" content="Documentation — Loopable8" />
+  <meta property="og:description" content="The complete guide to the Loopable8 AI coding assistant." />
+  <meta property="og:url" content="https://foxzyduckzy.github.io/docs.html" />
+  <script>
+    (function(){try{var t=localStorage.getItem("lo8_theme");if(!t)t=matchMedia("(prefers-color-scheme: light)").matches?"light":"dark";document.documentElement.setAttribute("data-theme",t);}catch(e){}})();
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='8' fill='%23101013'/><text x='16' y='23' font-family='sans-serif' font-size='19' font-weight='bold' fill='white' text-anchor='middle'>%E2%88%9E</text></svg>" />
+</head>
+<body data-page="docs">
+<a class="skip-link" href="#main">Skip to content</a>
+<div class="shell">
+
+  <main id="main">
+    <div class="container docs-layout">
+      <!-- Sidebar -->
+      <aside class="docs-side" aria-label="Documentation navigation">
+        <input type="search" class="docs-search" id="docsSearch" placeholder="Search docs…" aria-label="Search documentation" />
+        <nav class="docs-nav" id="docsNav">
+          <h5>Getting started</h5>
+          <a href="#install" class="active">Installation</a>
+          <a href="#quickstart">Quickstart</a>
+          <a href="#interface">The interface</a>
+          <h5>Core concepts</h5>
+          <a href="#models">Models</a>
+          <a href="#run-settings">Run settings</a>
+          <a href="#agent-mode">Agent mode</a>
+          <a href="#diffs">Inline diffs</a>
+          <h5>Tools &amp; data</h5>
+          <a href="#mcp">MCP tools</a>
+          <a href="#memory">Memory &amp; privacy</a>
+          <h5>Reference</h5>
+          <a href="#shortcuts">Keyboard shortcuts</a>
+          <a href="#troubleshooting">Troubleshooting</a>
+        </nav>
+      </aside>
+
+      <!-- Content -->
+      <article class="docs-content">
+        <h1>Documentation</h1>
+        <p class="lead">Everything you need to install Loopable8, understand the engine and get productive in your first hour.</p>
+
+        <section class="doc-section" id="install" data-doc>
+          <h2>Installation</h2>
+          <p>Loopable8 currently ships for <strong>Windows 10 (1903+) and Windows 11</strong>, 64-bit. macOS and Linux builds are planned — see the <a href="download.html" style="text-decoration:underline; text-underline-offset:3px; color:var(--text);">download page</a> to get notified.</p>
+          <ol>
+            <li>Download the installer from the <a href="download.html" style="text-decoration:underline; text-underline-offset:3px; color:var(--text);">download page</a>.</li>
+            <li>Run <code>Loopable8-Setup-1.4.0.exe</code> and follow the wizard.</li>
+            <li>Launch Loopable8 — the editor works immediately; AI features connect on first prompt.</li>
+          </ol>
+          <div class="doc-note">Loopable8 installs per-user and never requires administrator rights.</div>
+        </section>
+
+        <section class="doc-section" id="quickstart" data-doc>
+          <h2>Quickstart</h2>
+          <p>Open a folder with <span class="doc-kbd">Ctrl</span> <span class="doc-kbd">O</span>, then try these three moves:</p>
+          <h3>1. Ask about your code</h3>
+          <pre><code>you&gt; what does chat_engine.dart actually do?</code></pre>
+          <p>The assistant reads the open file and project context before answering.</p>
+          <h3>2. Make an edit</h3>
+          <pre><code>you&gt; add null-safety guards to send()</code></pre>
+          <p>The change arrives as an inline diff — accept it with <span class="doc-kbd">A</span>.</p>
+          <h3>3. Delegate a task</h3>
+          <pre><code>you&gt; /agent make the retry logic configurable from run settings</code></pre>
+          <p>Agent mode plans the change, edits across files, runs analysis and reports back.</p>
+        </section>
+
+        <section class="doc-section" id="interface" data-doc>
+          <h2>The interface</h2>
+          <p>Three panels, one loop:</p>
+          <ul>
+            <li><strong>Explorer</strong> (left) — files, git status, timeline of AI edits.</li>
+            <li><strong>Editor</strong> (center) — tabs, syntax highlighting, inline diffs.</li>
+            <li><strong>AI panel</strong> (right) — conversation, agent progress, run settings.</li>
+          </ul>
+          <p>The status bar shows engine state, analysis results and cursor position. Panels toggle from the command palette or <span class="doc-kbd">Ctrl</span> <span class="doc-kbd">B</span>.</p>
+        </section>
+
+        <section class="doc-section" id="models" data-doc>
+          <h2>Models</h2>
+          <table class="docs-table">
+            <thead><tr><th>Model</th><th>Best for</th><th>Plan</th></tr></thead>
+            <tbody>
+              <tr><td>lo8-flash</td><td>Instant answers, quick lookups, light edits</td><td>Free</td></tr>
+              <tr><td>lo8-auto</td><td>Everyday coding — auto-routes depth per request</td><td>Free</td></tr>
+              <tr><td>lo8-auto-max</td><td>Hard problems, refactors, agent tasks, Max thinking</td><td>Pro</td></tr>
+            </tbody>
+          </table>
+          <p>Switch models from the run settings panel; the conversation and context carry over.</p>
+        </section>
+
+        <section class="doc-section" id="run-settings" data-doc>
+          <h2>Run settings</h2>
+          <p>The right-hand panel is the <strong>source of truth</strong>: whatever it shows is exactly what the engine reads on the next run.</p>
+          <table class="docs-table">
+            <thead><tr><th>Setting</th><th>What it does</th></tr></thead>
+            <tbody>
+              <tr><td>Temperature</td><td>0.0 = deterministic, 2.0 = exploratory. Default 1.0.</td></tr>
+              <tr><td>Thinking level</td><td>Off / Low / Mid / High / Max — how much reasoning happens before the answer.</td></tr>
+              <tr><td>System instructions</td><td>Tone and style rules applied to every run in the workspace.</td></tr>
+              <tr><td>Grounding with Search</td><td>Back answers with live search results.</td></tr>
+              <tr><td>Save Memory</td><td>Let the assistant remember project facts across chats.</td></tr>
+            </tbody>
+          </table>
+          <div class="doc-note">Settings are per-workspace and persist across restarts. Reproducibility rule: same settings + same prompt = same behavior class.</div>
+        </section>
+
+        <section class="doc-section" id="agent-mode" data-doc>
+          <h2>Agent mode</h2>
+          <p>Agent mode turns a task description into a reviewed change:</p>
+          <ol>
+            <li><strong>Plan</strong> — the agent lists intended edits and estimated scope. You approve.</li>
+            <li><strong>Execute</strong> — edits land file by file with live progress in the AI panel.</li>
+            <li><strong>Verify</strong> — the agent runs analysis/tests it can find and reports results honestly.</li>
+            <li><strong>Review</strong> — everything arrives as inline diffs; nothing is final until you accept.</li>
+          </ol>
+          <p>Start it with <code>/agent &lt;task&gt;</code> or the palette command <em>Agent: New Task</em>. Free plans include 25 runs monthly; Pro is unlimited.</p>
+        </section>
+
+        <section class="doc-section" id="diffs" data-doc>
+          <h2>Inline diffs</h2>
+          <p>Every AI edit is a diff you review in place:</p>
+          <table class="docs-table">
+            <thead><tr><th>Key</th><th>Action</th></tr></thead>
+            <tbody>
+              <tr><td>A</td><td>Accept hunk</td></tr>
+              <tr><td>R</td><td>Reject hunk</td></tr>
+              <tr><td>E</td><td>Refine — describe what to change about this hunk</td></tr>
+              <tr><td>N / P</td><td>Next / previous hunk</td></tr>
+              <tr><td>Ctrl+Z</td><td>Revert an accepted change</td></tr>
+            </tbody>
+          </table>
+        </section>
+
+        <section class="doc-section" id="mcp" data-doc>
+          <h2>MCP tools</h2>
+          <p>Loopable8 speaks the <strong>Model Context Protocol</strong>. Install servers from the marketplace (palette → <em>MCP: Marketplace</em>) or add your own:</p>
+          <pre><code>{
+  "servers": {
+    "github": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-github"]
+    }
+  }
+}</code></pre>
+          <p>Connected tools appear in run settings as toggles. The model calls them mid-conversation via function calling; every call is logged in the task panel.</p>
+          <div class="doc-note">Free plans connect up to 3 servers. Pro removes the limit and allows custom local servers.</div>
+        </section>
+
+        <section class="doc-section" id="memory" data-doc>
+          <h2>Memory &amp; privacy</h2>
+          <p>Conversations and memory live <strong>locally on your machine</strong>. Two toggles control everything:</p>
+          <ul>
+            <li><strong>Save Conversations</strong> — keep chat history between sessions.</li>
+            <li><strong>Save Memory</strong> — let the assistant remember durable project facts.</li>
+          </ul>
+          <p><em>Clear Memory</em> wipes stored facts instantly. Uninstalling removes all local data. See the <a href="privacy.html" style="text-decoration:underline; text-underline-offset:3px; color:var(--text);">Privacy Policy</a> for what leaves your machine (prompts to the model API — nothing else).</p>
+        </section>
+
+        <section class="doc-section" id="shortcuts" data-doc>
+          <h2>Keyboard shortcuts</h2>
+          <table class="docs-table">
+            <thead><tr><th>Shortcut</th><th>Action</th></tr></thead>
+            <tbody>
+              <tr><td>Ctrl+Shift+P</td><td>Command palette</td></tr>
+              <tr><td>Ctrl+O</td><td>Open folder</td></tr>
+              <tr><td>Ctrl+P</td><td>Quick-open file</td></tr>
+              <tr><td>Ctrl+L</td><td>Focus AI panel</td></tr>
+              <tr><td>Ctrl+B</td><td>Toggle explorer</td></tr>
+              <tr><td>Ctrl+J</td><td>Toggle logs/tasks</td></tr>
+              <tr><td>Ctrl+Shift+G</td><td>Git panel</td></tr>
+              <tr><td>F2</td><td>Rename symbol/file</td></tr>
+            </tbody>
+          </table>
+        </section>
+
+        <section class="doc-section" id="troubleshooting" data-doc>
+          <h2>Troubleshooting</h2>
+          <h3>The AI panel says "engine offline"</h3>
+          <p>Check your internet connection, then palette → <em>Engine: Reconnect</em>. Corporate proxies: allowlist <code>*.loopable8.com</code>.</p>
+          <h3>Voice input doesn't hear me</h3>
+          <p>Windows Settings → Privacy → Microphone → allow desktop apps. Then re-select your mic in run settings → Voice.</p>
+          <h3>Analysis is slow on a big repo</h3>
+          <p>Add build folders to <code>.lo8ignore</code> (same syntax as <code>.gitignore</code>). The indexer skips them on the next scan.</p>
+          <h3>Something else?</h3>
+          <p>Check the <a href="faq.html" style="text-decoration:underline; text-underline-offset:3px; color:var(--text);">FAQ</a> or <a href="contact.html" style="text-decoration:underline; text-underline-offset:3px; color:var(--text);">contact support</a> — include the log from palette → <em>Logs: Export</em>.</p>
+        </section>
+      </article>
+    </div>
+  </main>
+
+  <script src="js/layout.js"></script>
+  <script>
+    // Docs: search filter + scroll spy
+    (function () {
+      var search = document.getElementById("docsSearch");
+      var sections = Array.prototype.slice.call(document.querySelectorAll("[data-doc]"));
+      var navLinks = Array.prototype.slice.call(document.querySelectorAll("#docsNav a"));
+
+      search.addEventListener("input", function () {
+        var q = search.value.trim().toLowerCase();
+        sections.forEach(function (sec) {
+          var match = !q || sec.textContent.toLowerCase().indexOf(q) !== -1;
+          sec.style.display = match ? "" : "none";
+        });
+        navLinks.forEach(function (a) {
+          var sec = document.querySelector(a.getAttribute("href"));
+          a.style.display = sec && sec.style.display === "none" ? "none" : "";
+        });
+      });
+
+      if ("IntersectionObserver" in window) {
+        var spy = new IntersectionObserver(function (entries) {
+          entries.forEach(function (entry) {
+            if (entry.isIntersecting) {
+              navLinks.forEach(function (a) {
+                a.classList.toggle("active", a.getAttribute("href") === "#" + entry.target.id);
+              });
+            }
+          });
+        }, { rootMargin: "-20% 0px -70% 0px" });
+        sections.forEach(function (sec) { spy.observe(sec); });
+      }
+    })();
+  </script>
+</div>
+</body>
+</html>

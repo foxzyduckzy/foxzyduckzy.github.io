@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Loopable8 — The AI Coding Assistant Built to Ship</title>
+  <meta name="description" content="Loopable8 is an AI coding assistant for Windows with agent mode, inline diffs, MCP tools and the LO8 model family. AI Chat, AI Studio and a game dev studio are coming to the same platform." />
+  <link rel="canonical" href="https://foxzyduckzy.github.io/" />
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="Loopable8" />
+  <meta property="og:title" content="Loopable8 — The AI Coding Assistant Built to Ship" />
+  <meta property="og:description" content="Write, refactor and ship code with the LO8 model family. Free on Windows — macOS and Linux coming soon." />
+  <meta property="og:url" content="https://foxzyduckzy.github.io/" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Loopable8 — The AI Coding Assistant Built to Ship" />
+  <meta name="twitter:description" content="Write, refactor and ship code with the LO8 model family. Free on Windows." />
+  <script>
+    (function(){try{var t=localStorage.getItem("lo8_theme");if(!t)t=matchMedia("(prefers-color-scheme: light)").matches?"light":"dark";document.documentElement.setAttribute("data-theme",t);}catch(e){}})();
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='8' fill='%23101013'/><text x='16' y='23' font-family='sans-serif' font-size='19' font-weight='bold' fill='white' text-anchor='middle'>%E2%88%9E</text></svg>" />
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "Loopable8",
+    "operatingSystem": "Windows",
+    "applicationCategory": "DeveloperApplication",
+    "description": "AI coding assistant with agent mode, inline diffs, MCP tools and the LO8 model family.",
+    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+    "publisher": { "@type": "Organization", "name": "Loopable8 Studio", "url": "https://foxzyduckzy.github.io" }
+  }
+  </script>
+</head>
+<body data-page="home">
+<a class="skip-link" href="#main">Skip to content</a>
+<div class="shell">
+
+  <main id="main">
+    <!-- ================= HERO ================= -->
+    <header class="hero">
+      <div class="hero-bg" aria-hidden="true"></div>
+      <div class="container">
+        <div class="hero-content">
+          <div>
+            <div class="hero-badge reveal">
+              <span class="pill">v1.4</span>
+              Agent mode + MCP tool marketplace are live
+            </div>
+            <h1 class="reveal" data-delay="1">
+              The AI coding assistant built to ship
+            </h1>
+          </div>
+          <div class="hero-aside">
+            <p class="hero-sub reveal" data-delay="2">
+              Loopable8 writes, refactors and debugs beside you — agent mode, inline
+              diffs and the LO8 model family, in an editor that feels like home.
+            </p>
+            <div class="hero-actions reveal" data-delay="3">
+              <a href="download.html" class="btn btn-primary">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12M7 10l5 5 5-5"/><path d="M5 21h14"/></svg>
+                Download for Windows
+              </a>
+              <a href="features.html" class="btn btn-ghost">Explore features</a>
+            </div>
+            <div class="hero-meta reveal" data-delay="3">
+              <span><i class="dot" aria-hidden="true"></i> lo8-auto-max online</span>
+              <span>free to start · no card</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- App mockup — session view replica -->
+        <div class="app-window reveal" data-delay="2" role="img" aria-label="Preview of the Loopable8 app: a session where the agent reads a file, edits code with a live typing animation, runs the tests and reports back">
+          <div class="app-titlebar">
+            <span>File</span><span>Edit</span><span>View</span><span>Help</span>
+            <span class="win-controls"><span>—</span><span>▢</span><span>✕</span></span>
+          </div>
+          <div class="app-body">
+            <!-- Sidebar -->
+            <aside class="mock-side">
+              <div class="side-loop">∞</div>
+              <div class="m-item active"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>New session</div>
+              <div class="m-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>Search</div>
+              <div class="m-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20V4H6.5A2.5 2.5 0 0 0 4 6.5v13Z"/><path d="M4 19.5A2.5 2.5 0 0 0 6.5 22H20v-5"/></svg>Library</div>
+              <div class="m-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 3v5h5M6 3h8l5 5v13a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1Z"/></svg>Notes</div>
+              <div class="m-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 8h10M18 8h2M4 16h2M10 16h10"/><circle cx="16" cy="8" r="2"/><circle cx="8" cy="16" r="2"/></svg>Customize</div>
+              <div class="m-recents">Recents</div>
+              <div class="m-recent"><span class="t">Retry logic for chat engine</span><span class="tag">genesis</span></div>
+              <div class="m-recent"><span class="t">Futuristic HTML dashboard</span><span class="tag">design</span></div>
+              <div class="m-recent"><span class="t">Flutter expense tracker</span><span class="tag">pennywise</span></div>
+              <div class="m-recent"><span class="t">Project structure and flow</span><span class="tag">gitproj</span></div>
+              <div class="m-user">
+                <span class="avatar">M</span>
+                <span class="id"><b>Mrfred54</b><span>● Synced</span></span>
+                <span class="plan">Free</span>
+              </div>
+            </aside>
+
+            <!-- Session -->
+            <div class="mock-main">
+              <div class="m-chat">
+                <div class="m-msg-user">Add retry with backoff to the chat engine, then make sure the tests still pass.</div>
+                <div class="m-tool"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 3v5h5M6 3h8l5 5v13a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1Z"/></svg>Read 1 file<span class="file">chat_engine.dart</span></div>
+                <div class="m-tool"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 3a2.85 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5Z"/></svg>Edit 1 file<span class="file">+9 −2</span></div>
+                <div class="m-tool"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="6 3 20 12 6 21 6 3"/></svg>Run tests<span class="file ok">14/14 passed</span></div>
+                <div class="m-reply">
+                  <p>Wrapped the stream call in a bounded retry with exponential backoff:</p>
+                  <div class="m-code">
+                    <div class="m-code-head">chat_engine.dart<span>dart</span></div>
+                    <pre id="typeCode" aria-label="Dart code being written by the assistant"><span class="type-caret" aria-hidden="true"></span></pre>
+                  </div>
+                  <div class="m-model"><span class="loop">∞</span> LO8-Auto-MAX · 1.4k tok · 12s</div>
+                </div>
+              </div>
+              <div class="m-prompt">
+                <div class="m-prompt-input">Describe a task or ask a question
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a3 3 0 0 0-3 3v6a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3Z"/><path d="M19 10v1a7 7 0 0 1-14 0v-1M12 18v4"/></svg>
+                  <span class="r-chip">r</span>
+                </div>
+                <div class="m-prompt-row">
+                  <span class="p-plus">+</span>
+                  <span class="p-sel"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="14" rx="2"/><path d="M8 22h8M12 18v4"/></svg>Local <span class="car">▾</span></span>
+                  <span class="p-sel"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20h16a1 1 0 0 0 1-1V8a1 1 0 0 0-1-1h-8l-2-3H4a1 1 0 0 0-1 1v14a1 1 0 0 0 1 1Z"/></svg>genesis <span class="car">▾</span></span>
+                  <span class="p-right"><span class="p-auto">Auto</span><span class="p-max">Max</span><span class="p-ring"></span></span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Icon rail -->
+            <aside class="app-rail" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 17 10 11 4 5"/><line x1="12" y1="19" x2="20" y2="19"/></svg>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="6 3 20 12 6 21 6 3"/></svg>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="15" y1="3" x2="15" y2="21"/></svg>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="6" cy="6" r="3"/><circle cx="6" cy="18" r="3"/><path d="M6 9v6M18 9a9 9 0 0 1-9 9"/><circle cx="18" cy="6" r="3"/></svg>
+              <span class="rail-spacer"></span>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/></svg>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></svg>
+            </aside>
+          </div>
+          <div class="app-statusbar">
+            <span class="grp"><span><span class="sb-dot"></span>Idle</span><span>⑂ main</span><span>genesis</span><span>Dart</span></span>
+            <span class="grp"><span>3% · 502 MB</span><span>ctx 0.62%</span><span>UTF-8 · CRLF</span></span>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <!-- ================= PLATFORMS ================= -->
+    <section class="platforms" aria-label="Technology">
+      <div class="container platforms-inner">
+        <span class="platforms-label">Built with &amp; runs on</span>
+        <div class="platform-logos">
+          <span class="p-item">
+            <svg viewBox="0 0 256 317" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path fill="#47C5FB" d="M158 0 0 158l49 48L255 0zM157 145l-85 85 49 50 49-49 85-86z"/><path fill="#00569E" d="m121 280 37 37h97l-85-86z"/><path fill="#00B5F8" d="m72 230 48-48 50 49-49 49z"/></svg>
+            Flutter
+          </span>
+          <span class="p-item">
+            <svg viewBox="0 0 88 88" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="m0 12.402 35.687-4.86.016 34.423-35.67.203zm35.67 33.529.028 34.453L.028 75.48.026 45.7zm4.326-39.025L87.314 0v41.527l-47.318.376zm47.329 39.349-.011 41.34-47.318-6.678-.066-34.739z" fill="#00adef"/></svg>
+            Windows
+          </span>
+          <span class="p-item">
+            <svg viewBox="0 0 256 150" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path fill="#34A853" d="M255.285 143.47c-.084-.524-.164-1.042-.251-1.56a128.119 128.119 0 0 0-12.794-38.288 128.778 128.778 0 0 0-23.45-31.86 129.166 129.166 0 0 0-22.713-18.005c.049-.08.09-.168.14-.25 2.582-4.461 5.172-8.917 7.755-13.38l7.576-13.068c1.818-3.126 3.632-6.26 5.438-9.386a11.776 11.776 0 0 0 .662-10.484 11.668 11.668 0 0 0-4.823-5.536 11.85 11.85 0 0 0-5.004-1.61 11.963 11.963 0 0 0-2.218.018 11.738 11.738 0 0 0-8.968 5.798c-1.814 3.127-3.628 6.26-5.438 9.386l-7.576 13.069c-2.583 4.462-5.173 8.918-7.755 13.38-.282.487-.567.973-.848 1.467-.392-.157-.78-.313-1.172-.462-14.24-5.43-29.688-8.4-45.836-8.4-.442 0-.879 0-1.324.006-14.357.143-28.152 2.64-41.022 7.12a119.434 119.434 0 0 0-4.42 1.642c-.262-.455-.532-.911-.79-1.367-2.583-4.462-5.173-8.918-7.755-13.38L65.123 15.25c-1.818-3.126-3.632-6.259-5.439-9.386A11.736 11.736 0 0 0 48.5.048 11.71 11.71 0 0 0 43.49 1.66a11.716 11.716 0 0 0-4.077 4.063c-.281.474-.532.967-.742 1.473a11.808 11.808 0 0 0-.365 8.188c.259.786.594 1.554 1.023 2.296a3973.32 3973.32 0 0 1 5.439 9.386c2.53 4.357 5.054 8.713 7.58 13.069 2.582 4.462 5.168 8.918 7.75 13.38.02.038.046.075.065.112A129.184 129.184 0 0 0 45.32 64.38a129.693 129.693 0 0 0-22.2 24.015 127.737 127.737 0 0 0-9.34 15.24 128.238 128.238 0 0 0-10.843 28.764 130.743 130.743 0 0 0-1.951 9.524c-.087.518-.167 1.042-.247 1.56A124.978 124.978 0 0 0 0 149.118h256c-.205-1.891-.449-3.77-.734-5.636l.019-.012Z"/><path fill="#202124" d="M194.59 113.712c5.122-3.41 5.867-11.3 1.661-17.62-4.203-6.323-11.763-8.682-16.883-5.273-5.122 3.41-5.868 11.3-1.662 17.621 4.203 6.322 11.764 8.682 16.883 5.272ZM78.518 108.462c4.206-6.321 3.46-14.21-1.662-17.62-5.123-3.41-12.68-1.05-16.886 5.27-4.203 6.323-3.458 14.212 1.662 17.622 5.122 3.41 12.683 1.05 16.886-5.272Z"/></svg>
+            Android
+          </span>
+          <span class="p-item">
+            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M12 2c.7 5.3 4.7 9.3 10 10-5.3.7-9.3 4.7-10 10-.7-5.3-4.7-9.3-10-10 5.3-.7 9.3-4.7 10-10Z" fill="url(#gemGrad)"/><defs><linearGradient id="gemGrad" x1="2" y1="22" x2="22" y2="2"><stop stop-color="#4285F4"/><stop offset="1" stop-color="#9B72CB"/></linearGradient></defs></svg>
+            Gemini Engine
+          </span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= FEATURES PREVIEW ================= -->
+    <section class="section" id="features">
+      <div class="container">
+        <span class="section-label reveal">// the coding assistant</span>
+        <h2 class="section-title reveal" data-delay="1">Serious tooling, friendly surface.</h2>
+        <p class="section-sub reveal" data-delay="2">
+          Everything you expect from a modern AI editor — and the run-control depth
+          you don't get anywhere else.
+        </p>
+
+        <div class="bento">
+          <div class="bento-card wide reveal">
+            <span class="badge badge-live bento-tag">Shipped</span>
+            <div class="bento-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/></svg>
+            </div>
+            <h3>Agent mode</h3>
+            <p>Hand LO8 a task, not a prompt. It plans, edits across files, runs checks and reports back — you approve the diffs.</p>
+            <div class="mini-term">
+              <div><span class="prompt">lo8&gt;</span> agent "add retry logic to the chat engine"</div>
+              <div><span class="dim">plan:</span> 3 edits · 1 test · est. 40s</div>
+              <div><span class="ok">✓ done</span> <span class="dim">— 2 files changed, tests green</span></div>
+            </div>
+          </div>
+
+          <div class="bento-card wide reveal" data-delay="1">
+            <div class="bento-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 3h5v5M8 3H3v5M16 21h5v-5M8 21H3v-5"/><path d="m21 3-7 7M3 3l7 7m4 4 7 7M3 21l7-7"/></svg>
+            </div>
+            <h3>Inline diff review</h3>
+            <p>Every AI edit lands as a reviewable diff — accept, reject or refine hunk by hunk. Your codebase, your call.</p>
+            <div class="mini-term">
+              <div><span class="dim">- </span>return await _model.stream(prompt);</div>
+              <div><span class="ok">+ </span>for (var attempt = 0; attempt &lt; 3; attempt++) {</div>
+              <div><span class="dim">accept</span> · <span class="dim">reject</span> · <span class="prompt">refine…</span></div>
+            </div>
+          </div>
+
+          <div class="bento-card reveal">
+            <div class="bento-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>
+            </div>
+            <h3>MCP tools</h3>
+            <p>Connect real tools over the Model Context Protocol — function calling wired straight into your workflow.</p>
+          </div>
+
+          <div class="bento-card reveal" data-delay="1">
+            <div class="bento-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="m8 10 2 2-2 2M13 14h3"/></svg>
+            </div>
+            <h3>Command palette</h3>
+            <p><span class="doc-kbd">Ctrl</span> <span class="doc-kbd">Shift</span> <span class="doc-kbd">P</span> for everything — files, git, tasks, logs, settings. Keyboard-first by design.</p>
+          </div>
+
+          <div class="bento-card reveal" data-delay="2">
+            <div class="bento-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3a3 3 0 0 0-3 3v1a3 3 0 0 0-3 3v1a3 3 0 0 0 0 6 3 3 0 0 0 3 3 3 3 0 0 0 6 0 3 3 0 0 0 3-3 3 3 0 0 0 0-6v-1a3 3 0 0 0-3-3V6a3 3 0 0 0-3-3Z"/></svg>
+            </div>
+            <h3>Five thinking levels</h3>
+            <p>Slide from instant answers to Max deep reasoning. You decide how hard the model thinks per run.</p>
+          </div>
+        </div>
+
+        <div class="hero-actions reveal" style="margin-top:36px;">
+          <a href="features.html" class="btn btn-ghost">See all features →</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= ECOSYSTEM / COMING SOON ================= -->
+    <section class="section gamedev" id="ecosystem" style="background: var(--bg-elevated); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);">
+      <div class="container">
+        <span class="section-label reveal">// the loopable8 ecosystem</span>
+        <h2 class="section-title reveal" data-delay="1">One platform. A growing studio.</h2>
+        <p class="section-sub reveal" data-delay="2">
+          The coding assistant is just the start. Every upcoming product shares the same
+          account, the same LO8 models and the same design language.
+        </p>
+
+        <div class="eco-grid">
+          <div class="eco-card live reveal">
+            <div class="eco-head">
+              <div class="eco-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m8 8-4 4 4 4M16 8l4 4-4 4M13 5l-2 14"/></svg>
+              </div>
+              <span class="badge badge-live">Available now</span>
+            </div>
+            <h3>AI Coding Assistant</h3>
+            <p>Agent mode, inline diffs, MCP tools, git integration and the LO8 model family — free to start on Windows.</p>
+            <a href="download.html" class="btn btn-primary">Download v1.4</a>
+          </div>
+
+          <div class="eco-card reveal" data-delay="1">
+            <div class="eco-head">
+              <div class="eco-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+              </div>
+              <span class="badge badge-soon">Coming soon</span>
+            </div>
+            <h3>AI Chat</h3>
+            <p>The standalone studio chat — grounding search, persistent memory, voice, and full run settings for everyday work.</p>
+            <span class="eco-eta">Targeting Q4 2026 · <a href="blog.html#post-ecosystem" style="text-decoration:underline; text-underline-offset:3px;">read the roadmap</a></span>
+          </div>
+
+          <div class="eco-card reveal" data-delay="1">
+            <div class="eco-head">
+              <div class="eco-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="3"/><circle cx="9" cy="9" r="2"/><path d="m21 15-3.5-3.5a2 2 0 0 0-2.8 0L6 20"/></svg>
+              </div>
+              <span class="badge badge-soon">Coming soon</span>
+            </div>
+            <h3>AI Studio</h3>
+            <p>Image, video and voice generation with the same run-control depth you get in the editor — prompt to production asset.</p>
+            <span class="eco-eta">In research · join the <a href="#" onclick="document.querySelector('.footer .newsletter-form input').focus(); return false;" style="text-decoration:underline; text-underline-offset:3px;">waitlist</a></span>
+          </div>
+
+          <div class="eco-card reveal" data-delay="2">
+            <div class="eco-head">
+              <div class="eco-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 11h4M8 9v4M15 12h.01M18 10h.01"/><path d="M17.32 5H6.68a4 4 0 0 0-3.98 3.6c-.01.06-.15 1.27-.32 2.4-.32 2.12-.6 4.53-.6 5a3 3 0 0 0 5.4 1.8l1.5-2.3h6.64l1.5 2.3A3 3 0 0 0 22.28 16c0-.47-.28-2.88-.6-5-.17-1.13-.31-2.34-.32-2.4A4 4 0 0 0 17.32 5Z"/></svg>
+              </div>
+              <span class="badge badge-soon">Coming soon</span>
+            </div>
+            <h3>AI-Native Game Dev Studio</h3>
+            <p>From prompt to playable: physics, gameplay loops, shaders and level logic — generated, debugged and iterated in one place.</p>
+            <span class="eco-eta">Prototype stage · C# / C++ / engine-aware</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= DEVELOPERS ================= -->
+    <section class="section" id="developers">
+      <div class="container">
+        <div class="split">
+          <div class="split-media reveal" data-delay="1">
+            <div class="code-tabs">
+              <span class="active">run_settings.dart</span>
+              <span>mcp.json</span>
+            </div>
+            <pre><span class="cm">// The run settings panel is the source of truth</span>
+<span class="kw">final</span> run = <span class="cls">RunSettings</span>(
+  model: <span class="str">'lo8-auto-max'</span>,
+  temperature: <span class="num">1.0</span>,
+  thinkingLevel: <span class="cls">ThinkingLevel</span>.max,
+  tools: [
+    <span class="cls">Tool</span>.groundingSearch,
+    <span class="cls">Tool</span>.memory,
+    <span class="cls">Tool</span>.mcp(<span class="str">'github'</span>),
+  ],
+);
+
+<span class="kw">await</span> loopable8.<span class="fn">agent</span>(
+  task: <span class="str">'make send() resilient to stream drops'</span>,
+  settings: run,
+); <span class="cm">// → planned, diffed, tested</span></pre>
+          </div>
+          <div>
+            <span class="section-label reveal">// for developers</span>
+            <h2 class="section-title reveal" data-delay="1">Looks friendly. Thinks like a compiler.</h2>
+            <p class="section-sub reveal" data-delay="2">
+              Deterministic run settings, system instructions, tool toggles and a memory
+              you fully own. Everything you change in the panel is exactly what the engine reads.
+            </p>
+            <ul class="check-list reveal" data-delay="3">
+              <li>
+                <span class="check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span>
+                <span><strong>Reproducible runs</strong> — same settings, same behavior. No hidden state.</span>
+              </li>
+              <li>
+                <span class="check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span>
+                <span><strong>Privacy first</strong> — conversations and memory save locally; wipe them anytime.</span>
+              </li>
+              <li>
+                <span class="check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span>
+                <span><strong>Keyboard-first</strong> — command palette, chords and shortcuts for every action.</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= CTA ================= -->
+    <section class="section" id="download-cta" style="padding-top: 0;">
+      <div class="container">
+        <div class="cta-box reveal">
+          <h2>Enter the loop.</h2>
+          <p>Download Loopable8 and ship with the LO8 model family today — free on Windows, no card required.</p>
+          <div class="hero-actions">
+            <a href="download.html" class="btn btn-primary btn-lg">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12M7 10l5 5 5-5"/><path d="M5 21h14"/></svg>
+              Download for Windows
+            </a>
+            <a href="pricing.html" class="btn btn-ghost btn-lg">View pricing</a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script src="js/layout.js"></script>
+  <script>
+    // Code-typing animation in the hero mockup: types the Dart snippet
+    // token by token with syntax colors, then loops. Reduced-motion users
+    // get the finished code instantly.
+    (function () {
+      var pre = document.getElementById("typeCode");
+      if (!pre) return;
+      var caret = pre.querySelector(".type-caret");
+
+      var TOKENS = [
+        { c: "cm", t: "// Retry with exponential backoff\n" },
+        { c: "kw", t: "Future" }, { t: "<" }, { c: "cls", t: "Reply" }, { t: "> " },
+        { c: "fn", t: "send" }, { t: "(" }, { c: "cls", t: "Prompt" }, { t: " p) " },
+        { c: "kw", t: "async" }, { t: " {\n" },
+        { t: "  " }, { c: "kw", t: "for" }, { t: " (" }, { c: "kw", t: "var" },
+        { t: " i = " }, { c: "num", t: "0" }, { t: "; i < " }, { c: "num", t: "3" }, { t: "; i++) {\n" },
+        { t: "    " }, { c: "kw", t: "try" }, { t: " {\n" },
+        { t: "      " }, { c: "kw", t: "return await" }, { t: " _model." }, { c: "fn", t: "stream" }, { t: "(p);\n" },
+        { t: "    } " }, { c: "kw", t: "on" }, { t: " " }, { c: "cls", t: "StreamDropped" }, { t: " {\n" },
+        { t: "      " }, { c: "kw", t: "await" }, { t: " " }, { c: "fn", t: "backoff" }, { t: "(i);\n" },
+        { t: "    }\n" },
+        { t: "  }\n" },
+        { t: "  " }, { c: "kw", t: "throw" }, { t: " " }, { c: "cls", t: "EngineUnavailable" }, { t: "();\n" },
+        { t: "}" }
+      ];
+
+      function renderAll() {
+        TOKENS.forEach(function (tok) {
+          var span = document.createElement("span");
+          if (tok.c) span.className = tok.c;
+          span.textContent = tok.t;
+          pre.insertBefore(span, caret);
+        });
+      }
+
+      var reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      if (reduced) {
+        renderAll();
+        caret.remove();
+        return;
+      }
+
+      var CHAR_MS = 22;          // average typing speed per character
+      var ti = 0, ci = 0, current = null, timer = null, lastTick = null;
+
+      function clearCode() {
+        while (pre.firstChild && pre.firstChild !== caret) pre.removeChild(pre.firstChild);
+        ti = 0; ci = 0; current = null; lastTick = null;
+      }
+
+      function emitChar() {
+        var tok = TOKENS[ti];
+        if (!current) {
+          current = document.createElement("span");
+          if (tok.c) current.className = tok.c;
+          pre.insertBefore(current, caret);
+        }
+        ci++;
+        current.textContent = tok.t.slice(0, ci);
+        if (ci >= tok.t.length) { ti++; ci = 0; current = null; }
+      }
+
+      // Time-based pacing: types the right number of characters for the
+      // elapsed time, so throttled/background tabs catch up instead of crawling.
+      function step() {
+        if (ti >= TOKENS.length) {
+          timer = setTimeout(function () { clearCode(); timer = setTimeout(step, 400); }, 2800);
+          return;
+        }
+        var now = performance.now();
+        var elapsed = lastTick === null ? CHAR_MS : now - lastTick;
+        lastTick = now;
+        var budget = Math.max(1, Math.min(80, Math.round(elapsed / CHAR_MS)));
+        while (budget-- > 0 && ti < TOKENS.length) emitChar();
+        timer = setTimeout(step, CHAR_MS + Math.random() * 20);
+      }
+
+      if ("IntersectionObserver" in window) {
+        var io = new IntersectionObserver(function (entries) {
+          if (entries[0].isIntersecting) {
+            io.disconnect();
+            timer = setTimeout(step, 600);
+          }
+        }, { threshold: 0.25 });
+        io.observe(pre);
+      } else {
+        timer = setTimeout(step, 600);
+      }
+    })();
+  </script>
+</div>
+</body>
+</html>

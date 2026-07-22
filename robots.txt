@@ -1,0 +1,7 @@
+User-agent: *
+Allow: /
+Disallow: /dashboard.html
+Disallow: /signin.html
+Disallow: /signup.html
+
+Sitemap: https://foxzyduckzy.github.io/sitemap.xml
