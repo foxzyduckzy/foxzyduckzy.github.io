@@ -23,11 +23,16 @@ $Lnk     = Join-Path $Menu "$AppName.lnk"
 function Say($t) { Write-Host $t }
 
 # -- Uninstall --------------------------------------------------------
+# Per-user Add/Remove Programs entry, so Windows lists it under
+# Settings > Apps like any normal application.
+$RegKey = 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Uninstall\Loopable8'
+
 if ($Uninstall) {
   Get-Process -Name $AppName -ErrorAction SilentlyContinue | Stop-Process -Force
   Start-Sleep -Milliseconds 500
-  if (Test-Path $Lnk)  { Remove-Item $Lnk -Force }
-  if (Test-Path $Dest) { Remove-Item $Dest -Recurse -Force }
+  if (Test-Path $Lnk)    { Remove-Item $Lnk -Force }
+  if (Test-Path $RegKey) { Remove-Item $RegKey -Recurse -Force }
+  if (Test-Path $Dest)   { Remove-Item $Dest -Recurse -Force }
   Say "$AppName removed. Your settings in %APPDATA%\$AppName were kept."
   return
 }
@@ -89,6 +94,25 @@ $s.TargetPath       = $exe
 $s.WorkingDirectory = $Dest
 $s.Description      = 'Loopable8 - the AI coding workspace'
 $s.Save()
+
+# -- Register in Settings > Apps --------------------------------------
+# Without this the app installs and runs but never appears in the Windows
+# apps list, so there is no obvious way to uninstall it.
+$ver = ($rel.tag_name -replace '^v', '')
+$size = [math]::Round(((Get-ChildItem $Dest -Recurse -File | Measure-Object Length -Sum).Sum / 1KB))
+New-Item -Path $RegKey -Force | Out-Null
+Set-ItemProperty $RegKey DisplayName     $AppName
+Set-ItemProperty $RegKey DisplayVersion  $ver
+Set-ItemProperty $RegKey Publisher       'Loopable8 Studio'
+Set-ItemProperty $RegKey DisplayIcon     $exe
+Set-ItemProperty $RegKey InstallLocation $Dest
+Set-ItemProperty $RegKey EstimatedSize   $size -Type DWord
+Set-ItemProperty $RegKey NoModify        1 -Type DWord
+Set-ItemProperty $RegKey NoRepair        1 -Type DWord
+Set-ItemProperty $RegKey URLInfoAbout    'https://foxzyduckzy.github.io'
+Set-ItemProperty $RegKey UninstallString `
+  ("powershell -NoProfile -ExecutionPolicy Bypass -Command " +
+   "`"irm https://foxzyduckzy.github.io/install.ps1 | iex`" -Uninstall")
 
 Write-Host ''
 Say "Installed to $Dest"
