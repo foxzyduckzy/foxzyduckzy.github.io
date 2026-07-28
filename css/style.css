@@ -511,7 +511,8 @@ html[data-theme="light"] .theme-toggle .moon { display: none; }
 }
 .app-body {
   display: grid;
-  grid-template-columns: 190px 1fr 38px;
+  /* Third column is the expanded right panel, not the old icon strip. */
+  grid-template-columns: 190px 1fr 168px;
   min-height: 470px;
 }
 
@@ -564,6 +565,15 @@ html[data-theme="light"] .theme-toggle .moon { display: none; }
   font-size: 9.5px;
   color: #5d5d65;
   flex-shrink: 0;
+}
+/* Pin marker on a pinned session. */
+.m-recent .pin {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: #5b7cfa;
+  margin-left: 6px;
+  flex: none;
 }
 .m-user {
   margin-top: auto;
@@ -751,6 +761,26 @@ html[data-theme="light"] .theme-toggle .moon { display: none; }
 .p-right { margin-left: auto; display: inline-flex; align-items: center; gap: 12px; }
 .p-auto { font-size: 11.5px; color: #7d7d85; }
 .p-max { font-size: 11.5px; font-weight: 600; color: #ededf0; }
+/* Model chip, LoopDrive and the Manual/Auto approval switch. */
+.p-model { font-size: 11.5px; color: #b4b4bb; }
+.p-drive { font-size: 11.5px; color: #ededf0; font-weight: 500; }
+.p-toggle {
+  width: 24px;
+  height: 14px;
+  border-radius: 999px;
+  background: #2f2f36;
+  display: inline-flex;
+  align-items: center;
+  padding: 2px;
+  flex: none;
+}
+.p-knob {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: #e8e8e8;
+}
+.p-mode { font-size: 11.5px; color: #b4b4bb; }
 .p-ring {
   width: 13px; height: 13px;
   border-radius: 50%;
@@ -758,16 +788,54 @@ html[data-theme="light"] .theme-toggle .moon { display: none; }
 }
 
 /* Right icon rail */
+/* Right panel — mirrors the app: an icon strip, then labelled Tools,
+   Code Stream and Quick actions. */
 .app-rail {
   border-left: 1px solid #1d1d21;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  padding: 14px 0;
-  gap: 15px;
+  padding: 10px 8px 12px;
+  gap: 2px;
+  min-width: 0;
 }
-.app-rail svg { width: 14px; height: 14px; color: #6d6d75; }
+.rail-top {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 2px 4px 10px;
+}
+.app-rail svg { width: 14px; height: 14px; color: #6d6d75; flex: none; }
 .rail-spacer { flex: 1; }
+.rail-label {
+  font-size: 10px;
+  letter-spacing: 0.08em;
+  color: #5a5a62;
+  margin: 12px 6px 5px;
+}
+.rail-row {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  padding: 6px;
+  border-radius: 7px;
+  font-size: 11.5px;
+  color: #b4b4bb;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.rail-stream {
+  flex: 1;
+  min-height: 60px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 10px 8px;
+  text-align: center;
+}
+.rail-stream span { font-size: 10.5px; line-height: 1.45; color: #5a5a62; }
 
 /* Status bar */
 .app-statusbar {
