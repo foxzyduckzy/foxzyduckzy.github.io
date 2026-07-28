@@ -685,7 +685,10 @@ html[data-theme="light"] .theme-toggle .moon { display: none; }
   line-height: 1.7;
   color: #d4d4da;
   overflow-x: auto;
-  min-height: 178px; /* reserve final height so typing never shifts layout */
+  /* Reserve the height of the FINISHED snippet, measured — not estimated.
+     It was 178px against a snippet that ends at 228px, so the block grew by
+     50px while typing and shoved the rest of the page down on every loop. */
+  min-height: 228px;
   margin: 0;
 }
 .m-code .kw { color: #8ab4f8; }

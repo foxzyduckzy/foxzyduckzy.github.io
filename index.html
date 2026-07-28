@@ -88,9 +88,6 @@
               <div class="m-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20V4H6.5A2.5 2.5 0 0 0 4 6.5v13Z"/><path d="M4 19.5A2.5 2.5 0 0 0 6.5 22H20v-5"/></svg>Library</div>
               <div class="m-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 3v5h5M6 3h8l5 5v13a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1Z"/></svg>Notes</div>
               <div class="m-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 8h10M18 8h2M4 16h2M10 16h10"/><circle cx="16" cy="8" r="2"/><circle cx="8" cy="16" r="2"/></svg>Customize</div>
-              <div class="m-recents">Pinned</div>
-              <div class="m-recent"><span class="t">Airbnb booking landing page</span><span class="tag">joei</span><span class="pin"></span></div>
-              <div class="m-recent"><span class="t">Car rental landing page</span><span class="tag">ccs</span><span class="pin"></span></div>
               <div class="m-recents">Recents</div>
               <div class="m-recent"><span class="t">Retry logic for chat engine</span><span class="tag">genesis</span></div>
               <div class="m-recent"><span class="t">Futuristic HTML dashboard</span><span class="tag">design</span></div>
@@ -410,6 +407,9 @@
       if (!pre) return;
       var caret = pre.querySelector(".type-caret");
 
+      // Kept deliberately short: the block reserves the height of the FINISHED
+      // snippet, so a longer one would either overflow that reservation and
+      // push the page down as it types, or force a taller empty box.
       var TOKENS = [
         { c: "cm", t: "// Retry with exponential backoff\n" },
         { c: "kw", t: "Future" }, { t: "<" }, { c: "cls", t: "Reply" }, { t: "> " },
@@ -423,7 +423,6 @@
         { t: "      " }, { c: "kw", t: "await" }, { t: " " }, { c: "fn", t: "backoff" }, { t: "(i);\n" },
         { t: "    }\n" },
         { t: "  }\n" },
-        { t: "  " }, { c: "kw", t: "throw" }, { t: " " }, { c: "cls", t: "EngineUnavailable" }, { t: "();\n" },
         { t: "}" }
       ];
 
