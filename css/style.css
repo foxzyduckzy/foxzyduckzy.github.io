@@ -300,7 +300,20 @@ button { font-family: inherit; }
   flex-shrink: 0;
 }
 /* Premium silver ∞ mark with a recurring light sweep */
+/* The mark is the app's own icon: a thin STROKED infinity, not the bold "8"
+   text glyph that used to stand in for it (it read small and heavy, and no
+   font renders it like the product does). Stroke geometry means the gradient
+   below no longer applies -- currentColor drives it instead. */
 .logo-mark {
+  width: 26px;
+  height: 26px;
+  flex: none;
+  color: #dcdce2;
+  transform: translateY(-1px);
+}
+.nav-logo:hover .logo-mark { color: #fff; }
+
+.logo-mark-legacy {
   display: inline-block;
   font-family: var(--font-body);
   font-weight: 700;
@@ -525,11 +538,11 @@ html[data-theme="light"] .theme-toggle .moon { display: none; }
   min-height: 0;
 }
 .side-loop {
-  font-size: 19px;
-  font-weight: 700;
+  width: 18px;
+  height: 18px;
   color: #ededf0;
   margin: 2px 8px 12px;
-  line-height: 1;
+  flex: none;
 }
 .m-item {
   display: flex;
@@ -702,7 +715,7 @@ html[data-theme="light"] .theme-toggle .moon { display: none; }
   color: #63636b;
   margin-top: 8px;
 }
-.m-model .loop { font-size: 13px; font-weight: 700; color: #9a9aa2; font-family: var(--font-body); }
+.m-model .loop { width: 12px; height: 12px; color: #9a9aa2; flex: none; }
 
 /* Prompt box */
 .m-prompt {
@@ -2042,3 +2055,92 @@ html[data-theme="light"] .theme-toggle .moon { display: none; }
 .auth-divider::before, .auth-divider::after {
   content: ""; flex: 1; height: 1px; background: var(--border);
 }
+
+/* ---------- Terminal install card (download page) ---------- */
+.term-dl { grid-column: span 2; }
+.term-steps {
+  list-style: none;
+  counter-reset: term;
+  margin: 4px 0 0;
+  padding: 0;
+  display: grid;
+  gap: 16px;
+}
+.term-steps li {
+  counter-increment: term;
+  display: grid;
+  grid-template-columns: 26px 1fr;
+  gap: 12px;
+  align-items: start;
+}
+.term-steps li::before {
+  content: counter(term);
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text);
+  border: 1px solid var(--border);
+}
+.term-step-t {
+  grid-column: 2;
+  font-weight: 600;
+  font-size: 14px;
+  color: var(--text);
+}
+.term-step-d {
+  grid-column: 2;
+  font-size: 13px;
+  line-height: 1.6;
+  color: var(--muted);
+}
+.term-steps li > .term-cmd { grid-column: 2; }
+.term-cmd {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 8px;
+  padding: 10px 10px 10px 14px;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  background: var(--code-bg, rgba(0, 0, 0, 0.25));
+  overflow-x: auto;
+}
+.term-cmd code {
+  font-family: var(--font-mono);
+  font-size: 12.5px;
+  color: var(--text);
+  white-space: nowrap;
+}
+.term-copy {
+  margin-left: auto;
+  flex: none;
+  padding: 5px 12px;
+  border-radius: 999px;
+  border: 1px solid var(--border);
+  background: transparent;
+  color: var(--muted);
+  font-size: 11.5px;
+  font-weight: 600;
+  cursor: pointer;
+}
+.term-copy:hover { color: var(--text); border-color: var(--strong-border, var(--border)); }
+.term-note { margin: 18px 0 0; font-size: 13px; color: var(--muted); }
+.term-inline {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  padding: 1px 5px;
+  border-radius: 5px;
+  border: 1px solid var(--border);
+}
+.term-steps kbd {
+  font-family: var(--font-mono);
+  font-size: 11.5px;
+  padding: 1px 6px;
+  border-radius: 5px;
+  border: 1px solid var(--border);
+}
+@media (max-width: 1024px) { .term-dl { grid-column: span 1; } }

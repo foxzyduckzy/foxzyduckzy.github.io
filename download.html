@@ -18,7 +18,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="css/style.css" />
-  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='8' fill='%23101013'/><text x='16' y='23' font-family='sans-serif' font-size='19' font-weight='bold' fill='white' text-anchor='middle'>%E2%88%9E</text></svg>" />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><rect width='24' height='24' rx='6' fill='%23101013'/><path d='M12 12c-2-2.67-4-4-6-4a4 4 0 1 0 0 8c2 0 4-1.33 6-4Zm0 0c2 2.67 4 4 6 4a4 4 0 0 0 0-8c-2 0-4 1.33-6 4Z' fill='none' stroke='white' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'/></svg>" />
 </head>
 <body data-page="download">
 <a class="skip-link" href="#main">Skip to content</a>
@@ -47,16 +47,55 @@
             <div>
               <h3>Windows <span class="badge badge-live" style="margin-left:6px;">Available</span></h3>
               <div class="dl-meta" id="winMeta">
-                <span>v1.4.0 · released 2026-07-10</span>
-                <span>x64 installer · 84.2 MB · Windows 10/11</span>
+                <span>v1.0.0</span>
+                <span>x64 · Windows 10/11 · no admin needed</span>
               </div>
             </div>
             <p>Full experience: agent mode, inline diffs, MCP marketplace, git panel, voice.</p>
-            <button class="btn btn-primary" id="winDownload">
+            <a class="btn btn-primary" id="winDownload"
+               href="https://github.com/foxzyduckzy/loopable8-releases/releases/latest"
+               rel="noopener">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12M7 10l5 5 5-5"/><path d="M5 21h14"/></svg>
-              Download .exe
-            </button>
+              Download .zip
+            </a>
             <p class="newsletter-msg" id="winMsg" style="margin:0;"></p>
+          </div>
+
+          <!-- Install from the terminal -->
+          <div class="dl-card term-dl reveal" data-delay="1">
+            <div class="os-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="4" width="20" height="16" rx="2"/><polyline points="6 9 9 12 6 15"/><line x1="12" y1="15" x2="17" y2="15"/></svg>
+            </div>
+            <div>
+              <h3>Install from the terminal <span class="badge badge-live" style="margin-left:6px;">One line</span></h3>
+              <div class="dl-meta"><span>PowerShell · Windows 10/11</span></div>
+            </div>
+            <p>Downloads the latest build, checks its SHA-256, installs it for
+               your user and adds a Start Menu shortcut.</p>
+
+            <ol class="term-steps">
+              <li>
+                <span class="term-step-t">Open PowerShell</span>
+                <span class="term-step-d">Press <kbd>Win</kbd> + <kbd>X</kbd>, then choose <b>Terminal</b> or <b>Windows PowerShell</b>. Admin is not required.</span>
+              </li>
+              <li>
+                <span class="term-step-t">Run the installer</span>
+                <div class="term-cmd">
+                  <code id="cmdInstall">irm https://foxzyduckzy.github.io/install.ps1 | iex</code>
+                  <button class="term-copy" type="button" data-copy="cmdInstall" aria-label="Copy install command">Copy</button>
+                </div>
+              </li>
+              <li>
+                <span class="term-step-t">Launch it</span>
+                <span class="term-step-d">Open <b>Loopable8</b> from the Start Menu — or run <code class="term-inline">&amp; "$env:LOCALAPPDATA\Programs\Loopable8\Loopable8.exe"</code></span>
+              </li>
+            </ol>
+
+            <p class="term-note">To remove it later:</p>
+            <div class="term-cmd">
+              <code id="cmdRemove">irm https://foxzyduckzy.github.io/install.ps1 | iex -Uninstall</code>
+              <button class="term-copy" type="button" data-copy="cmdRemove" aria-label="Copy uninstall command">Copy</button>
+            </div>
           </div>
 
           <!-- macOS -->
@@ -161,8 +200,8 @@
           msgEl.className = "newsletter-msg ok";
         }
       }
-      var winBtn = document.getElementById("winDownload");
-      if (winBtn) winBtn.addEventListener("click", function () { demoDownload(document.getElementById("winMsg")); });
+      // The Windows button is a real link to the GitHub release now, so it
+      // no longer runs the demo-download stub.
       if (list) list.addEventListener("click", function (e) {
         var b = e.target.closest("[data-dl]");
         if (b) { b.textContent = "Soon!"; setTimeout(function(){ b.textContent = "Download"; }, 1500); }

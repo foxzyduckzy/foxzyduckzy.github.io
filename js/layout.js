@@ -78,7 +78,7 @@
   navEl.innerHTML =
     '<div class="container nav-inner">' +
       '<a href="index.html" class="nav-logo" aria-label="Loopable8 home">' +
-        '<span class="logo-mark" aria-hidden="true">∞</span>Loopable8</a>' +
+        '<svg class="logo-mark" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 12c-2-2.67-4-4-6-4a4 4 0 1 0 0 8c2 0 4-1.33 6-4Zm0 0c2 2.67 4 4 6 4a4 4 0 0 0 0-8c-2 0-4 1.33-6 4Z"/></svg>Loopable8</a>' +
       '<ul class="nav-links" id="navLinks">' + linksHtml + "</ul>" +
       '<div class="nav-cta">' +
         '<button class="theme-toggle" id="themeToggle" aria-label="Toggle dark or light theme">' +
@@ -103,7 +103,7 @@
     '<div class="container">' +
       '<div class="footer-grid">' +
         '<div class="footer-brand">' +
-          '<a href="index.html" class="nav-logo"><span class="logo-mark" aria-hidden="true">∞</span>Loopable8</a>' +
+          '<a href="index.html" class="nav-logo"><svg class="logo-mark" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 12c-2-2.67-4-4-6-4a4 4 0 1 0 0 8c2 0 4-1.33 6-4Zm0 0c2 2.67 4 4 6 4a4 4 0 0 0 0-8c-2 0-4 1.33-6 4Z"/></svg>Loopable8</a>' +
           "<p>The AI coding assistant built to ship — with an expanding studio for chat, media generation and game development.</p>" +
           '<div class="socials" aria-label="Social links">' +
             '<a href="https://github.com/loopable8" aria-label="GitHub" rel="noopener" target="_blank"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 .5C5.65.5.5 5.65.5 12c0 5.08 3.29 9.39 7.86 10.91.58.11.79-.25.79-.55v-2.17c-3.2.7-3.87-1.36-3.87-1.36-.52-1.33-1.28-1.68-1.28-1.68-1.04-.71.08-.7.08-.7 1.15.08 1.76 1.19 1.76 1.19 1.03 1.75 2.69 1.25 3.34.95.11-.74.4-1.25.73-1.54-2.55-.29-5.23-1.28-5.23-5.68 0-1.26.45-2.28 1.19-3.09-.12-.29-.52-1.46.11-3.05 0 0 .97-.31 3.18 1.18a11.1 11.1 0 0 1 5.79 0c2.2-1.49 3.17-1.18 3.17-1.18.63 1.59.23 2.76.12 3.05.74.81 1.18 1.83 1.18 3.09 0 4.41-2.69 5.38-5.25 5.67.41.35.78 1.05.78 2.12v3.14c0 .3.2.66.8.55A11.51 11.51 0 0 0 23.5 12C23.5 5.65 18.35.5 12 .5Z"/></svg></a>' +
@@ -268,3 +268,57 @@
   }
   LO8.escapeHtml = escapeHtml;
 })();
+
+/* Copy-to-clipboard for the terminal install commands.
+   The async Clipboard API is denied outright in some contexts (permission
+   policy, non-secure origins), and a silent rejection would leave the button
+   doing nothing at all -- so every failure falls back, and the last resort
+   selects the text so the user can still press Ctrl+C. */
+document.addEventListener("click", function (e) {
+  var btn = e.target.closest && e.target.closest(".term-copy");
+  if (!btn) return;
+  var el = document.getElementById(btn.getAttribute("data-copy"));
+  if (!el) return;
+
+  var flash = function (label) {
+    var old = btn.getAttribute("data-label") || btn.textContent;
+    btn.setAttribute("data-label", old);
+    btn.textContent = label;
+    setTimeout(function () { btn.textContent = old; }, 1600);
+  };
+
+  var selectText = function () {
+    var r = document.createRange();
+    r.selectNodeContents(el);
+    var sel = window.getSelection();
+    sel.removeAllRanges();
+    sel.addRange(r);
+  };
+
+  var legacyCopy = function () {
+    try {
+      selectText();
+      var ok = document.execCommand("copy");
+      window.getSelection().removeAllRanges();
+      return ok;
+    } catch (err) { return false; }
+  };
+
+  var done = function () { flash("Copied"); };
+  var failed = function () {
+    // Nothing could write to the clipboard: leave the command selected and
+    // say so, rather than pretending the click did something.
+    selectText();
+    flash("Press Ctrl+C");
+  };
+
+  if (navigator.clipboard && navigator.clipboard.writeText) {
+    navigator.clipboard.writeText(el.textContent).then(done, function () {
+      if (legacyCopy()) { done(); } else { failed(); }
+    });
+  } else if (legacyCopy()) {
+    done();
+  } else {
+    failed();
+  }
+});
