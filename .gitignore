@@ -1,0 +1,3 @@
+# Where deploy.ps1 -Placeholder parks the real index.html while the
+# coming-soon page is live. It must never be published.
+.index.real.html
