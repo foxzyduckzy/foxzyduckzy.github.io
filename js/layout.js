@@ -37,13 +37,10 @@
       return raw ? JSON.parse(raw) : null;
     } catch (e) { return null; }
   };
+  // Only builds that actually exist. This list drives the dashboard and the
+  // download history, so an invented entry becomes a download nobody can get.
   LO8.releases = [
-    { ver: "1.4.0", date: "2026-07-10", size: "84.2 MB", note: "Agent mode, inline diff review, MCP tool marketplace", latest: true },
-    { ver: "1.3.2", date: "2026-06-21", size: "82.9 MB", note: "Fix: memory leak in long sessions; faster cold start" },
-    { ver: "1.3.0", date: "2026-06-02", size: "82.4 MB", note: "Command palette, git panel, task & log views" },
-    { ver: "1.2.0", date: "2026-05-11", size: "79.8 MB", note: "MCP integration with Gemini function calling" },
-    { ver: "1.1.0", date: "2026-04-18", size: "77.1 MB", note: "AI Voice (TTS/STT), grounding search toggle" },
-    { ver: "1.0.0", date: "2026-03-27", size: "75.5 MB", note: "First public release for Windows" }
+    { ver: "1.0.0", date: "2026-07-24", size: "19.1 MB", note: "First public release for Windows", latest: true }
   ];
 
   /* ---------- Nav ---------- */

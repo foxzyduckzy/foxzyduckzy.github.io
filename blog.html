@@ -46,7 +46,7 @@
             </div>
             <div>
               <div class="post-meta"><span class="post-tag">Release</span><span>July 10, 2026 · 4 min read</span></div>
-              <h2 style="margin: 12px 0;">v1.4: Agent mode is here</h2>
+              <h2 style="margin: 12px 0;">Agent mode: delegate the task, not the prompt</h2>
               <p>Delegate whole tasks, not prompts. How agent mode plans, edits, verifies and reports — and why nothing merges without your approval.</p>
               <span class="post-more" style="margin-top:14px;">Read the post</span>
             </div>
@@ -62,7 +62,7 @@
           <a class="post-card reveal" data-delay="1" href="#post-mcp">
             <div class="post-meta"><span class="post-tag">Engineering</span><span>June 5, 2026</span></div>
             <h3>How we wired MCP into a Flutter app</h3>
-            <p>A real JSON-RPC client, Gemini function calling and the tool marketplace — the architecture behind v1.2's biggest feature.</p>
+            <p>A real JSON-RPC client, Gemini function calling and the tool marketplace — the architecture behind the MCP integration.</p>
             <span class="post-more">Read</span>
           </a>
 
@@ -77,14 +77,14 @@
         <!-- Full articles -->
         <article class="article" id="post-agent-mode">
           <div class="post-meta"><span class="post-tag">Release</span><span>July 10, 2026 · Loopable8 team</span></div>
-          <h2>v1.4: Agent mode is here</h2>
+          <h2>Agent mode: delegate the task, not the prompt</h2>
           <p>Until now, working with Loopable8 meant a conversation: you ask, it answers, you apply. That loop is great for questions — and too slow for tasks. Agent mode closes the gap.</p>
           <h3>Task in, reviewed change out</h3>
           <p>Type <code style="font-family:var(--font-mono); font-size:0.9em;">/agent make send() resilient to stream drops</code> and the agent produces a plan first: which files it will touch, what it expects to change, roughly how long it will take. Nothing runs until you approve the plan.</p>
           <p>Execution happens file by file with live progress. When it's done, the agent runs whatever checks it can find — analyzer, tests — and reports the result honestly, including failures. Every edit lands as an inline diff. Your codebase, your call.</p>
           <h3>Limits that respect your attention</h3>
           <p>Agent runs are bounded: three retries, explicit scopes, and a hard rule that destructive operations (deletes, force-pushes) always stop for confirmation. AI that surprises you is AI you stop trusting.</p>
-          <p>Every plan includes a weekly credit allowance; paid plans give you more. <a href="download.html" style="text-decoration:underline; text-underline-offset:3px; color:var(--text);">Update to v1.4</a> and try it on your ugliest file.</p>
+          <p>Every plan includes a weekly credit allowance; paid plans give you more. <a href="download.html" style="text-decoration:underline; text-underline-offset:3px; color:var(--text);">Install the preview</a> and try it on your ugliest file.</p>
         </article>
 
         <article class="article" id="post-ecosystem">
@@ -94,7 +94,7 @@
           <h3>Shipped: the AI Coding Assistant</h3>
           <p>Our only completed product today, and the foundation everything else builds on. It gets the majority of our engineering time and a release every few weeks.</p>
           <h3>Next: AI Chat (targeting Q4 2026)</h3>
-          <p>The original Loopable8 experience, rebuilt on the v1.4 engine: grounding search, persistent memory, voice, full run settings. If you liked the studio-style chat, this is that — sharper.</p>
+          <p>The original Loopable8 experience, rebuilt on the same engine: grounding search, persistent memory, voice, full run settings. If you liked the studio-style chat, this is that — sharper.</p>
           <h3>In research: AI Studio</h3>
           <p>Image, video and voice generation with run-control depth: seeds, styles, reference assets, reproducible outputs. We treat generations like builds, not slot machines. No date yet — it ships when that bar is met.</p>
           <h3>Prototype: the AI-native Game Dev Studio</h3>
@@ -105,13 +105,13 @@
         <article class="article" id="post-mcp">
           <div class="post-meta"><span class="post-tag">Engineering</span><span>June 5, 2026 · Loopable8 team</span></div>
           <h2>How we wired MCP into a Flutter app</h2>
-          <p>v1.2 shipped a real Model Context Protocol client — not a wrapper around a wrapper. A few notes for anyone building the same thing.</p>
+          <p>Loopable8 ships a real Model Context Protocol client — not a wrapper around a wrapper. A few notes for anyone building the same thing.</p>
           <h3>JSON-RPC without the ceremony</h3>
           <p>MCP is JSON-RPC 2.0 over stdio or HTTP. Our client is a few hundred lines of Dart: spawn the server process, negotiate capabilities, list tools, forward calls. The hard part isn't the protocol — it's lifecycle. Servers crash, hang and leak; we supervise every process and restart with backoff.</p>
           <h3>Function calling as the bridge</h3>
           <p>Tool schemas from MCP become Gemini function declarations almost 1:1. When the model emits a function call, we route it to the right server, await the result, and stream it back into the conversation. Every call is logged in the task panel — silent tool use is how trust dies.</p>
           <h3>What we'd do differently</h3>
-          <p>Start with the marketplace UI sooner. Config-file-only tools meant only power users touched MCP in v1.2; the v1.4 marketplace tripled adoption in a week.</p>
+          <p>Start with the marketplace UI sooner. Config-file-only tools keep MCP in the hands of power users; a browsable marketplace is what makes it approachable.</p>
         </article>
 
         <article class="article" id="post-ide-pivot">

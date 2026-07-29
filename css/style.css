@@ -2098,7 +2098,7 @@ html[data-theme="light"] .theme-toggle .moon { display: none; }
   grid-column: 2;
   font-size: 13px;
   line-height: 1.6;
-  color: var(--muted);
+  color: var(--text-muted);
 }
 .term-steps li > .term-cmd { grid-column: 2; }
 .term-cmd {
@@ -2125,13 +2125,13 @@ html[data-theme="light"] .theme-toggle .moon { display: none; }
   border-radius: 999px;
   border: 1px solid var(--border);
   background: transparent;
-  color: var(--muted);
+  color: var(--text-muted);
   font-size: 11.5px;
   font-weight: 600;
   cursor: pointer;
 }
 .term-copy:hover { color: var(--text); border-color: var(--strong-border, var(--border)); }
-.term-note { margin: 18px 0 0; font-size: 13px; color: var(--muted); }
+.term-note { margin: 18px 0 0; font-size: 13px; color: var(--text-muted); }
 .term-inline {
   font-family: var(--font-mono);
   font-size: 12px;
@@ -2147,3 +2147,13 @@ html[data-theme="light"] .theme-toggle .moon { display: none; }
   border: 1px solid var(--border);
 }
 @media (max-width: 1024px) { .term-dl { grid-column: span 1; } }
+
+/* Footnote under a changelog entry — quieter than the entry itself.
+   Uses --text-muted; --muted does not exist in this stylesheet, so it
+   silently inherited body colour and read as ordinary copy. */
+.log-note {
+  margin: 14px 0 0;
+  font-size: 13px;
+  line-height: 1.6;
+  color: var(--text-muted);
+}
