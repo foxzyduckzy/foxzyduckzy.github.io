@@ -56,10 +56,14 @@
         <section class="doc-section" id="install" data-doc>
           <h2>Installation</h2>
           <p>Loopable8 currently ships for <strong>Windows 10 (1903+) and Windows 11</strong>, 64-bit. macOS and Linux builds are planned — see the <a href="download.html" style="text-decoration:underline; text-underline-offset:3px; color:var(--text);">download page</a> to get notified.</p>
+          <p>The quickest way is one line in PowerShell — it fetches the latest
+             build, verifies its checksum and adds a Start Menu entry:</p>
+          <pre><code>irm https://foxzyduckzy.github.io/install.ps1 | iex</code></pre>
+          <p>Prefer to do it by hand? Grab the archive instead:</p>
           <ol>
-            <li>Download the installer from the <a href="download.html" style="text-decoration:underline; text-underline-offset:3px; color:var(--text);">download page</a>.</li>
-            <li>Run <code>Loopable8-Setup-1.4.0.exe</code> and follow the wizard.</li>
-            <li>Launch Loopable8 — the editor works immediately; AI features connect on first prompt.</li>
+            <li>Download the <code>.zip</code> from the <a href="download.html" style="text-decoration:underline; text-underline-offset:3px; color:var(--text);">download page</a>.</li>
+            <li>Extract it anywhere — for example <code>%LOCALAPPDATA%\Programs\Loopable8</code>.</li>
+            <li>Run <code>Loopable8.exe</code>. The editor works immediately; AI features connect on first prompt.</li>
           </ol>
           <div class="doc-note">Loopable8 installs per-user and never requires administrator rights.</div>
         </section>
