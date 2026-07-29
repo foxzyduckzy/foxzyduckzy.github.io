@@ -130,16 +130,29 @@ git push origin HEAD
 Say '  pushed to GitHub Pages'
 
 # -- Verify it is really serving --------------------------------------
+# Fetch through curl.exe, NOT Invoke-WebRequest. Invoke-WebRequest goes via
+# the WinINET/IE proxy stack, which times out against GitHub Pages on this
+# machine even while the site answers 200 — so the check reported a perfectly
+# good deploy as a failure. curl.exe ships with Windows 10 1803+ and connects
+# directly; Invoke-WebRequest stays as the fallback where it is missing.
+function Get-Status([string]$url) {
+  if (Get-Command curl.exe -ErrorAction SilentlyContinue) {
+    $code = & curl.exe -s -o NUL -w '%{http_code}' --max-time 20 $url 2>$null
+    if ($LASTEXITCODE -eq 0 -and $code) { return [int]$code }
+    return 0
+  }
+  try {
+    return [int](Invoke-WebRequest -Uri $url -Method Head -TimeoutSec 20 -UseBasicParsing).StatusCode
+  } catch { return 0 }
+}
+
 # Pages rebuilds asynchronously, so poll rather than declaring victory.
 Step 'Verifying the live site'
 $deadline = (Get-Date).AddMinutes(3)
 $ok = $false
 while ((Get-Date) -lt $deadline) {
   Start-Sleep -Seconds 10
-  try {
-    $code = (Invoke-WebRequest -Uri $Site -Method Head -TimeoutSec 15 -UseBasicParsing).StatusCode
-    if ($code -eq 200) { $ok = $true; break }
-  } catch { }
+  if ((Get-Status $Site) -eq 200) { $ok = $true; break }
   Say '  waiting for Pages to rebuild...'
 }
 
@@ -151,9 +164,7 @@ if (-not $ok) {
 
 $bad = @()
 foreach ($p in $Pages) {
-  try {
-    $c = (Invoke-WebRequest -Uri "$Site$p" -Method Head -TimeoutSec 15 -UseBasicParsing).StatusCode
-  } catch { $c = 'ERR' }
+  $c = Get-Status "$Site$p"
   $label = if ($p) { $p } else { '/' }
   Say ("  {0,-16} {1}" -f $label, $c)
   if ($c -ne 200) { $bad += $label }
