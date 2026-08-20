@@ -1,0 +1,652 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Quotation</title>
+
+    <!--
+      A .dc.html artifact.
+
+      Three rules make the format work:
+
+      1. It renders correctly on its own, opened straight from disk with no host.
+         An artifact that needs the app to look right is not a deliverable.
+      2. It declares its own controls. The host does not know what a quotation is
+         — it reads the block below and builds the props bar from it. Adding a
+         control is editing this file, never editing the app.
+      3. It owns its own arithmetic. The host sends intent ("add a line", "set
+         VAT"); what that does to a total is the document's business.
+    -->
+    <script type="application/dc-props+json">
+      {
+        "taxMode": {
+          "type": "select",
+          "label": "taxMode",
+          "default": "No tax",
+          "options": ["No tax", "VAT 12%", "Withholding 2%"]
+        },
+        "showConforme": {
+          "type": "boolean",
+          "label": "showConforme",
+          "default": true
+        },
+        "currency": {
+          "type": "select",
+          "label": "currency",
+          "default": "PHP",
+          "options": ["PHP", "USD"]
+        },
+        "accentTitle": {
+          "type": "text",
+          "label": "accentTitle",
+          "default": "QUOTATION"
+        }
+      }
+    </script>
+
+    <style>
+      :root {
+        --ink: #1a1a1a;
+        --ink-soft: #55555c;
+        --ink-faint: #8a8a92;
+        --rule: #e2e2e6;
+        --accent: #1d6b4f;
+        --paper: #ffffff;
+      }
+
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+
+      body {
+        background: var(--paper);
+        color: var(--ink);
+        font-family: Inter, system-ui, -apple-system, sans-serif;
+        font-size: 13px;
+        line-height: 1.55;
+        -webkit-font-smoothing: antialiased;
+      }
+
+      .page {
+        width: 794px;           /* A4 at 96dpi */
+        min-height: 1123px;
+        margin: 0 auto;
+        padding: 56px 60px;
+        display: flex;
+        flex-direction: column;
+      }
+
+      header { display: flex; justify-content: space-between; align-items: flex-start; gap: 32px; }
+      .who h1 { font-size: 21px; font-weight: 600; letter-spacing: -0.015em; }
+      .trade { margin-top: 2px; color: var(--accent); font-size: 12px; font-weight: 500; }
+      .addr { margin-top: 14px; color: var(--ink-soft); font-size: 12px; }
+
+      .doc-title {
+        font-size: 27px;
+        font-weight: 400;
+        letter-spacing: 0.09em;
+        color: var(--accent);
+        text-align: right;
+        white-space: nowrap;
+      }
+
+      .meta { margin-top: 18px; font-size: 12px; }
+      .meta dl { display: grid; grid-template-columns: auto auto; gap: 4px 20px; justify-content: end; }
+      .meta dt { color: var(--ink-soft); text-align: right; }
+      .meta dd { font-weight: 500; text-align: right; font-variant-numeric: tabular-nums; }
+
+      .divider { height: 1px; background: var(--rule); margin: 30px 0 24px; }
+
+      .eyebrow {
+        font-size: 9.5px;
+        font-weight: 600;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        color: var(--ink-faint);
+        margin-bottom: 7px;
+      }
+
+      .project-name { font-size: 14.5px; font-weight: 600; letter-spacing: -0.01em; }
+      .project-note { margin-top: 3px; color: var(--ink-soft); font-size: 12px; }
+      .project-note:empty { display: none; }
+
+      table { width: 100%; border-collapse: collapse; margin-top: 26px; }
+      thead th {
+        padding-bottom: 8px;
+        border-bottom: 1px solid var(--rule);
+        font-size: 9.5px;
+        font-weight: 600;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        color: var(--ink-faint);
+        text-align: left;
+      }
+      thead th.num, tbody td.num { text-align: right; font-variant-numeric: tabular-nums; }
+      tbody td { padding: 15px 0; border-bottom: 1px solid var(--rule); vertical-align: top; }
+      tbody .item { font-weight: 600; font-size: 13px; }
+      tbody .desc { margin-top: 3px; color: var(--ink-soft); font-size: 11.5px; }
+      tbody .desc:empty { display: none; }
+
+      /* A line the agent just added, so an edit is visible without hunting. */
+      tbody tr.just-added { animation: flash 1.4s ease-out; }
+      @keyframes flash {
+        from { background: rgba(29, 107, 79, 0.14); }
+        to { background: transparent; }
+      }
+
+      .totals { margin-top: 22px; margin-left: auto; width: 300px; }
+      .totals .line { display: flex; justify-content: space-between; padding: 7px 0; }
+      .totals .line span:last-child { font-variant-numeric: tabular-nums; }
+      .totals .tax { color: var(--ink-soft); font-size: 12px; }
+      .totals .grand {
+        margin-top: 8px;
+        padding-top: 13px;
+        border-top: 1px solid var(--rule);
+        align-items: baseline;
+      }
+      .totals .grand .k {
+        font-size: 9.5px;
+        font-weight: 600;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        color: var(--ink-faint);
+      }
+      .totals .grand .v { font-size: 21px; font-weight: 600; letter-spacing: -0.02em; }
+      .in-words { margin-top: 5px; text-align: right; color: var(--ink-faint); font-size: 11px; font-style: italic; }
+
+      .terms { margin-top: 40px; }
+      .terms p { color: var(--ink-soft); font-size: 11.5px; max-width: 60ch; }
+
+      .conforme { margin-top: auto; padding-top: 56px; display: flex; gap: 60px; }
+      .sign { flex: 1; }
+      .sign .rule { height: 1px; background: var(--ink); opacity: 0.35; }
+      .sign .role {
+        margin-top: 7px;
+        font-size: 9.5px;
+        font-weight: 600;
+        letter-spacing: 0.11em;
+        text-transform: uppercase;
+        color: var(--ink-faint);
+      }
+
+      /* ── Prop-driven state ──
+         Props arrive as data-* attributes on <html>, so every control is a CSS
+         selector first and script only where arithmetic is unavoidable. */
+      html:not([data-show-conforme='true']) .conforme { display: none; }
+      html[data-tax-mode='No tax'] .tax { display: none; }
+
+      /* ── Edit mode ──
+         Editable regions have to be findable before they are clicked, or the
+         user hunts for what the mode changed. A dotted outline on hover reads as
+         "this is a field" without turning the page into a form. */
+      html[data-editing='true'] [data-editable] {
+        outline: 1px dashed rgba(29, 107, 79, 0.42);
+        outline-offset: 3px;
+        border-radius: 2px;
+        cursor: text;
+      }
+      html[data-editing='true'] [data-editable]:hover {
+        outline-style: solid;
+        background: rgba(29, 107, 79, 0.05);
+      }
+      html[data-editing='true'] [data-editable]:focus {
+        outline: 2px solid var(--accent);
+        background: rgba(29, 107, 79, 0.07);
+      }
+      html[data-editing='true'] [data-editable]:empty::before {
+        content: attr(data-placeholder);
+        color: var(--ink-faint);
+      }
+      /* An empty note collapses when not editing; in edit mode it has to be
+         clickable or it can never be filled back in. */
+      html[data-editing='true'] .project-note:empty,
+      html[data-editing='true'] tbody .desc:empty { display: block; min-height: 1.2em; }
+
+      @media (prefers-reduced-motion: reduce) {
+        tbody tr.just-added { animation: none; }
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="page">
+      <header>
+        <div class="who">
+          <h1>Loopable8 Studio</h1>
+          <p class="trade">Motion Graphics · LED Background Visuals</p>
+          <p class="addr">
+            Sample Street, Barangay Sample<br />
+            Puerto Princesa City, Palawan, 5300<br />
+            studio@example.com
+          </p>
+        </div>
+        <div>
+          <p class="doc-title" data-prop="accentTitle">QUOTATION</p>
+          <div class="meta">
+            <dl>
+              <dt>Quotation No.</dt><dd>Q-2026-001</dd>
+              <dt>Date</dt><dd>17 August 2026</dd>
+              <dt>Valid until</dt><dd>16 September 2026</dd>
+            </dl>
+          </div>
+        </div>
+      </header>
+
+      <div class="divider"></div>
+
+      <p class="eyebrow">Project</p>
+      <p class="project-name" data-field="projectName" data-editable data-placeholder="Project name">
+        LED Background Visuals — Motion Graphics
+      </p>
+      <p class="project-note" data-field="projectNote" data-editable data-placeholder="A short note">
+        Produced by a team of 3 artists
+      </p>
+
+      <table>
+        <thead>
+          <tr>
+            <th>Description</th>
+            <th class="num">Qty</th>
+            <th class="num">Unit price</th>
+            <th class="num">Amount</th>
+          </tr>
+        </thead>
+        <tbody data-lines>
+          <tr data-line data-unit="15000" data-qty="1">
+            <td>
+              <p class="item" data-editable data-placeholder="Description">LED Background Visual — motion designer</p>
+              <p class="desc" data-editable data-placeholder="Detail">Concept, design and animation of the LED backdrop visual.</p>
+            </td>
+            <td class="num" data-cell="qty">1</td>
+            <td class="num" data-cell="unit"></td>
+            <td class="num" data-cell="amount"></td>
+          </tr>
+          <tr data-line data-unit="8353.95" data-qty="1">
+            <td>
+              <p class="item" data-editable data-placeholder="Description">3D and effects work</p>
+              <p class="desc" data-editable data-placeholder="Detail">Blender 3D, After Effects compositing, particle simulation, Photoshop.</p>
+            </td>
+            <td class="num" data-cell="qty">1</td>
+            <td class="num" data-cell="unit"></td>
+            <td class="num" data-cell="amount"></td>
+          </tr>
+          <tr data-line data-unit="6646.05" data-qty="1">
+            <td>
+              <p class="item" data-editable data-placeholder="Description">AI tools and stock assets</p>
+              <p class="desc" data-editable data-placeholder="Detail">Generation subscription and credits, plus licensed stock assets.</p>
+            </td>
+            <td class="num" data-cell="qty">1</td>
+            <td class="num" data-cell="unit"></td>
+            <td class="num" data-cell="amount"></td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="totals">
+        <div class="line">
+          <span>Subtotal</span>
+          <span data-subtotal></span>
+        </div>
+        <div class="line tax">
+          <span data-tax-label>Tax</span>
+          <span data-tax-amount></span>
+        </div>
+        <div class="line grand">
+          <span class="k">Total</span>
+          <span class="v" data-total></span>
+        </div>
+        <p class="in-words" data-in-words></p>
+      </div>
+
+      <div class="terms">
+        <p class="eyebrow">Terms</p>
+        <p data-field="terms" data-editable data-placeholder="Payment terms">
+          Full payment upon completion and delivery of the video. Valid for 30 days
+          from the date above. Additional scenes or work outside this scope will be
+          quoted separately.
+        </p>
+      </div>
+
+      <div class="conforme">
+        <div class="sign">
+          <div class="rule"></div>
+          <p class="role">Prepared by</p>
+        </div>
+        <div class="sign">
+          <div class="rule"></div>
+          <p class="role">Conforme</p>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      /**
+       * The artifact's own runtime.
+       *
+       * Three jobs: apply props, apply patches, and report its height. The host
+       * never reaches inside — it posts and listens. That boundary is what lets
+       * an artifact be any HTML at all.
+       *
+       * The subtotal is DERIVED from the line rows, not stored. It used to be a
+       * constant, which was fine while the lines were fixed — the moment the
+       * agent could add a line, a stored subtotal became a number that disagreed
+       * with the table above it.
+       */
+      (function () {
+        var RATES = { 'No tax': 0, 'VAT 12%': 0.12, 'Withholding 2%': -0.02 };
+        var SYMBOL = { PHP: '₱', USD: '$' };
+        var RATE_TO_USD = 1 / 58;
+
+        var ONES = ['zero','one','two','three','four','five','six','seven','eight','nine','ten',
+          'eleven','twelve','thirteen','fourteen','fifteen','sixteen','seventeen','eighteen','nineteen'];
+        var TENS = ['','','twenty','thirty','forty','fifty','sixty','seventy','eighty','ninety'];
+
+        var props = {};
+
+        function kebab(s) {
+          return s.replace(/([a-z0-9])([A-Z])/g, '$1-$2').toLowerCase();
+        }
+
+        function lines() {
+          return Array.prototype.slice.call(document.querySelectorAll('tbody[data-lines] tr[data-line]'));
+        }
+
+        function lineAmount(tr) {
+          return parseFloat(tr.getAttribute('data-unit') || '0') * parseFloat(tr.getAttribute('data-qty') || '1');
+        }
+
+        function subtotal() {
+          return lines().reduce(function (sum, tr) { return sum + lineAmount(tr); }, 0);
+        }
+
+        function money(n, currency) {
+          var v = currency === 'USD' ? n * RATE_TO_USD : n;
+          return (
+            SYMBOL[currency] +
+            v.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })
+          );
+        }
+
+        /** Under a thousand is enough for the words line; past that it says the figure. */
+        function words(n) {
+          n = Math.round(n);
+          if (n < 20) return ONES[n];
+          if (n < 100) return TENS[Math.floor(n / 10)] + (n % 10 ? '-' + ONES[n % 10] : '');
+          if (n < 1000) return ONES[Math.floor(n / 100)] + ' hundred' + (n % 100 ? ' ' + words(n % 100) : '');
+          if (n < 1000000) {
+            return words(Math.floor(n / 1000)) + ' thousand' + (n % 1000 ? ' ' + words(n % 1000) : '');
+          }
+          return null;
+        }
+
+        function render() {
+          var currency = props.currency || 'PHP';
+          var mode = props.taxMode || 'No tax';
+          var rate = RATES[mode] || 0;
+          var sub = subtotal();
+          var tax = sub * rate;
+          var total = sub + tax;
+
+          lines().forEach(function (tr) {
+            var qty = tr.querySelector('[data-cell="qty"]');
+            var unit = tr.querySelector('[data-cell="unit"]');
+            var amount = tr.querySelector('[data-cell="amount"]');
+            if (qty) qty.textContent = tr.getAttribute('data-qty') || '1';
+            if (unit) unit.textContent = money(parseFloat(tr.getAttribute('data-unit') || '0'), currency);
+            if (amount) amount.textContent = money(lineAmount(tr), currency);
+          });
+
+          var subEl = document.querySelector('[data-subtotal]');
+          if (subEl) subEl.textContent = money(sub, currency);
+
+          var label = document.querySelector('[data-tax-label]');
+          var amountEl = document.querySelector('[data-tax-amount]');
+          if (label) label.textContent = mode;
+          if (amountEl) amountEl.textContent = (tax < 0 ? '−' : '') + money(Math.abs(tax), currency);
+
+          var totalEl = document.querySelector('[data-total]');
+          if (totalEl) totalEl.textContent = money(total, currency);
+
+          var wordsEl = document.querySelector('[data-in-words]');
+          if (wordsEl) {
+            var w = currency === 'PHP' && Number.isInteger(total) ? words(total) : null;
+            wordsEl.textContent = w
+              ? w.charAt(0).toUpperCase() + w.slice(1) + ' pesos'
+              : money(total, currency);
+          }
+
+          var title = document.querySelector('[data-prop="accentTitle"]');
+          if (title && typeof props.accentTitle === 'string') title.textContent = props.accentTitle;
+
+          report();
+        }
+
+        function applyProps(next) {
+          Object.keys(next).forEach(function (k) {
+            props[k] = next[k];
+            document.documentElement.setAttribute('data-' + kebab(k), String(next[k]));
+          });
+          render();
+        }
+
+        function addLine(op) {
+          var tbody = document.querySelector('tbody[data-lines]');
+          if (!tbody) return;
+          var tr = document.createElement('tr');
+          tr.setAttribute('data-line', '');
+          tr.setAttribute('data-unit', String(op.unit));
+          tr.setAttribute('data-qty', String(op.qty == null ? 1 : op.qty));
+          tr.className = 'just-added';
+
+          var td = document.createElement('td');
+          var item = document.createElement('p');
+          item.className = 'item';
+          item.textContent = op.item;
+          var desc = document.createElement('p');
+          desc.className = 'desc';
+          desc.textContent = op.desc || '';
+          td.appendChild(item);
+          td.appendChild(desc);
+          tr.appendChild(td);
+
+          ['qty', 'unit', 'amount'].forEach(function (cell) {
+            var c = document.createElement('td');
+            c.className = 'num';
+            c.setAttribute('data-cell', cell);
+            tr.appendChild(c);
+          });
+
+          tbody.appendChild(tr);
+        }
+
+        function removeLine(match) {
+          var needle = String(match).toLowerCase();
+          lines().forEach(function (tr) {
+            var item = tr.querySelector('.item');
+            if (item && item.textContent.toLowerCase().indexOf(needle) !== -1) tr.remove();
+          });
+        }
+
+        function applyPatch(ops) {
+          (ops || []).forEach(function (op) {
+            if (op.op === 'setProp') {
+              props[op.key] = op.value;
+              document.documentElement.setAttribute('data-' + kebab(op.key), String(op.value));
+            } else if (op.op === 'setField') {
+              var el = document.querySelector('[data-field="' + op.field + '"]');
+              if (el) {
+                el.textContent = op.value;
+                if (committed.has(el)) committed.set(el, op.value);
+              }
+            } else if (op.op === 'setLineText') {
+              var row = lines()[op.index];
+              if (row) {
+                var target = row.querySelector('.' + (op.part === 'desc' ? 'desc' : 'item'));
+                if (target) {
+                  target.textContent = op.value;
+                  // Keep the edit baseline in step, or replaying an op would look
+                  // like an unsaved change the next time the field blurs.
+                  if (committed.has(target)) committed.set(target, op.value);
+                }
+              }
+            } else if (op.op === 'setLineAmount') {
+              var r = lines()[op.index];
+              if (r) r.setAttribute('data-unit', String(op.unit));
+            } else if (op.op === 'addLine') {
+              addLine(op);
+            } else if (op.op === 'removeLine') {
+              removeLine(op.match);
+            }
+          });
+          render();
+        }
+
+        // ── Edit mode ──────────────────────────────────────────────────────
+        //
+        // The artifact makes its own regions editable; the host only says when.
+        // Committing on blur rather than on every keystroke, because one op per
+        // character would bury the version history in noise and make Rewind
+        // useless — a field edit is one change, not forty.
+
+        var editing = false;
+
+        function editableNodes() {
+          return Array.prototype.slice.call(document.querySelectorAll('[data-editable]'));
+        }
+
+        /** Where a node sits in the model, so the host can describe the edit. */
+        function locate(el) {
+          if (el.hasAttribute('data-field')) {
+            return { kind: 'field', field: el.getAttribute('data-field') };
+          }
+          var row = el.closest('tr[data-line]');
+          if (row) {
+            return {
+              kind: 'line',
+              index: lines().indexOf(row),
+              part: el.classList.contains('desc') ? 'desc' : 'item',
+            };
+          }
+          return null;
+        }
+
+        /**
+         * The committed text of every editable region.
+         *
+         * Snapshotted when edit mode opens rather than read on focus. Keying the
+         * "before" value to a focus event means any path into a field that does
+         * not fire one — programmatic focus, a frame that never had focus to
+         * begin with — leaves nothing to compare against, and the blur handler
+         * discards the edit. Silently dropping what someone typed is the worst
+         * available outcome, so the baseline is taken up front and never depends
+         * on an event arriving.
+         */
+        var committed = new Map();
+
+        function snapshot() {
+          committed.clear();
+          editableNodes().forEach(function (el) {
+            committed.set(el, el.textContent.replace(/\s+/g, ' ').trim());
+          });
+        }
+
+        function setEditing(on) {
+          editing = !!on;
+          document.documentElement.setAttribute('data-editing', String(editing));
+          if (editing) snapshot();
+          editableNodes().forEach(function (el) {
+            if (editing) {
+              el.setAttribute('contenteditable', 'plaintext-only');
+              el.setAttribute('spellcheck', 'false');
+            } else {
+              el.removeAttribute('contenteditable');
+            }
+          });
+        }
+
+        function commitEdit(el) {
+          var after = el.textContent.replace(/\s+/g, ' ').trim();
+          var before = committed.has(el) ? committed.get(el) : null;
+          if (before === after) return;
+          committed.set(el, after);
+          el.textContent = after;
+          var where = locate(el);
+          if (where) parent.postMessage({ type: 'dc:edited', where: where, value: after }, '*');
+          report();
+        }
+
+        document.addEventListener(
+          'blur',
+          function (e) {
+            if (!editing) return;
+            var el = e.target.closest && e.target.closest('[data-editable]');
+            if (el) commitEdit(el);
+          },
+          true,
+        );
+
+        document.addEventListener('keydown', function (e) {
+          if (!editing) return;
+          var el = e.target.closest && e.target.closest('[data-editable]');
+          if (!el) return;
+          // Enter commits rather than inserting a break: these are single-value
+          // fields, and a stray newline in a project title is not a feature.
+          if (e.key === 'Enter') {
+            e.preventDefault();
+            el.blur();
+          }
+          if (e.key === 'Escape') {
+            e.preventDefault();
+            // Revert to the last committed text, then blur — which now sees no
+            // difference and commits nothing.
+            if (committed.has(el)) el.textContent = committed.get(el);
+            el.blur();
+          }
+        });
+
+        function report() {
+          var page = document.querySelector('.page');
+          parent.postMessage(
+            {
+              type: 'dc:size',
+              width: page ? page.offsetWidth : document.body.scrollWidth,
+              height: page ? page.offsetHeight : document.body.scrollHeight,
+            },
+            '*',
+          );
+        }
+
+        window.addEventListener('message', function (e) {
+          if (!e.data) return;
+          // A ping, answered with the same announcement sent at startup.
+          //
+          // The unsolicited announcement alone is not enough: the host renders
+          // this frame on the server, so the document can finish loading — and
+          // announce — before the host has hydrated and attached its listener.
+          // Answering a ping makes readiness something the host can ask about
+          // instead of something it has to be present to overhear.
+          if (e.data.type === 'dc:hello') parent.postMessage({ type: 'dc:ready' }, '*');
+          if (e.data.type === 'dc:props') applyProps(e.data.props || {});
+          if (e.data.type === 'dc:patch') applyPatch(e.data.ops);
+          if (e.data.type === 'dc:edit') setEditing(e.data.editing);
+          if (e.data.type === 'dc:print') window.print();
+        });
+
+        // Standalone: read the declared defaults so the file is correct on its own.
+        var block = document.querySelector('script[type="application/dc-props+json"]');
+        var defaults = {};
+        if (block) {
+          try {
+            var schema = JSON.parse(block.textContent);
+            Object.keys(schema).forEach(function (k) { defaults[k] = schema[k].default; });
+          } catch (err) {
+            /* a malformed block must not blank the document */
+          }
+        }
+        applyProps(defaults);
+
+        window.addEventListener('load', report);
+        parent.postMessage({ type: 'dc:ready' }, '*');
+      })();
+    </script>
+  </body>
+</html>

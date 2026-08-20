@@ -52,6 +52,9 @@
     // Pricing is hidden pre-launch: nothing can be purchased until the
     // payment provider is live, so a price list only raises a question
     // we cannot answer yet. Restore this line when checkout works.
+    // Absolute, not relative: the app lives in its own directory, so
+    // "design/" resolves differently depending on which page the nav is on.
+    { href: "/design/", key: "design", label: "Design" },
     { href: "docs.html", key: "docs", label: "Docs" },
     { href: "blog.html", key: "blog", label: "Blog" },
     { href: "changelog.html", key: "changelog", label: "Changelog" }
