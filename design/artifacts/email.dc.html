@@ -1,0 +1,434 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>HTML email</title>
+
+    <!--
+      A .dc.html artifact. Generated from artifacts/email.mjs — edit that,
+      then run `npm run artifacts`.
+
+      Three rules make the format work:
+        1. It renders correctly on its own, from disk, with no host.
+        2. It declares its own controls; the host builds the props bar from them.
+        3. It owns its own arithmetic and layout logic.
+    -->
+    <script type="application/dc-props+json">
+    {
+          "accent": {
+                "type": "select",
+                "label": "accent",
+                "default": "Indigo",
+                "options": [
+                      "Indigo",
+                      "Forest",
+                      "Oxide",
+                      "Ink"
+                ]
+          },
+          "width": {
+                "type": "select",
+                "label": "width",
+                "default": "600",
+                "options": [
+                      "520",
+                      "600",
+                      "680"
+                ]
+          },
+          "showButton": {
+                "type": "boolean",
+                "label": "showButton",
+                "default": true
+          },
+          "buttonLabel": {
+                "type": "text",
+                "label": "buttonLabel",
+                "default": "Download for Windows"
+          },
+          "preheader": {
+                "type": "text",
+                "label": "preheader",
+                "default": "Agent mode is live."
+          }
+    }
+    </script>
+
+    <style>
+      :root {
+        --ink: #17171a;
+        --ink-soft: #55555c;
+        --ink-faint: #8a8a92;
+        --rule: #e2e2e6;
+        --paper: #ffffff;
+
+        --accent: #4a5fbf;
+        --mail-bg: #f1f1f3;
+        }
+
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+
+      body {
+        background: var(--paper);
+        color: var(--ink);
+        font-family: Inter, system-ui, -apple-system, sans-serif;
+        line-height: 1.55;
+        -webkit-font-smoothing: antialiased;
+      }
+
+      .page {
+        width: 794px;
+        min-height: 1123px;
+        margin: 0 auto;
+        padding: 56px 60px;
+        display: flex;
+        flex-direction: column;
+      }
+
+      /* Editable regions have to be findable before they are clicked, or the
+         reader hunts for what the mode changed. */
+      html[data-editing='true'] [data-editable] {
+        outline: 1px dashed color-mix(in srgb, var(--accent) 45%, transparent);
+        outline-offset: 3px;
+        border-radius: 2px;
+        cursor: text;
+      }
+      html[data-editing='true'] [data-editable]:hover { outline-style: solid; }
+      html[data-editing='true'] [data-editable]:focus {
+        outline: 2px solid var(--accent);
+        background: color-mix(in srgb, var(--accent) 7%, transparent);
+      }
+      html[data-editing='true'] [data-editable]:empty::before {
+        content: attr(data-placeholder);
+        color: var(--ink-faint);
+      }
+
+      @media print {
+        .page { width: auto; min-height: 0; padding: 0; }
+      }
+
+      html[data-accent='Forest'] { --accent: #1d6b4f; }
+      html[data-accent='Oxide']  { --accent: #9a4a24; }
+      html[data-accent='Ink']    { --accent: #17171a; }
+
+      /* An email is not a page — it is a table on a grey field, because that is
+         what every mail client renders. The A4 page around it is the preview. */
+      .page { background: var(--mail-bg); padding: 40px 20px; align-items: center; }
+
+      .mail {
+        width: 600px;
+        max-width: 100%;
+        background: #ffffff;
+        border-radius: 10px;
+        overflow: hidden;
+        border: 1px solid var(--rule);
+      }
+      html[data-width='520'] .mail { width: 520px; }
+      html[data-width='680'] .mail { width: 680px; }
+
+      .pre {
+        color: var(--ink-faint);
+        font-size: 11px;
+        text-align: center;
+        margin-bottom: 14px;
+      }
+
+      .bar { height: 4px; background: var(--accent); }
+
+      .mail-body { padding: 36px 40px 40px; font-size: 14px; }
+
+      .brand {
+        display: flex;
+        align-items: center;
+        gap: 9px;
+        color: var(--accent);
+        font-weight: 700;
+        font-size: 15px;
+        letter-spacing: -0.01em;
+        margin-bottom: 26px;
+      }
+      .brand span { display: inline-block; width: 22px; height: 12px; border: 2px solid currentColor; border-radius: 999px; }
+
+      h1 { font-size: 24px; font-weight: 700; letter-spacing: -0.02em; line-height: 1.25; }
+      .lede { margin-top: 12px; color: var(--ink-soft); }
+
+      .cta { margin: 28px 0; }
+      html:not([data-show-button='true']) .cta { display: none; }
+      .cta a {
+        display: inline-block;
+        padding: 12px 22px;
+        background: var(--accent);
+        color: #ffffff;
+        border-radius: 8px;
+        font-weight: 600;
+        font-size: 14px;
+        text-decoration: none;
+      }
+
+      .points { list-style: none; margin: 26px 0; border-top: 1px solid var(--rule); }
+      .points li { padding: 14px 0; border-bottom: 1px solid var(--rule); color: var(--ink-soft); font-size: 13.5px; }
+      .points strong { display: block; color: var(--ink); font-size: 14px; margin-bottom: 2px; }
+
+      .sign { margin-top: 26px; color: var(--ink-soft); font-size: 13.5px; }
+
+      .foot {
+        padding: 22px 40px 30px;
+        border-top: 1px solid var(--rule);
+        color: var(--ink-faint);
+        font-size: 11.5px;
+        text-align: center;
+      }
+      .foot a { color: var(--ink-faint); }
+  
+    </style>
+  </head>
+
+  <body>
+    <div class="page">
+      <p class="pre" data-prop="preheader">Agent mode is live.</p>
+
+      <div class="mail">
+        <div class="bar"></div>
+        <div class="mail-body">
+          <p class="brand"><span></span>Loopable8</p>
+
+          <h1 data-field="projectName" data-editable>Agent mode is live</h1>
+          <p class="lede" data-field="projectNote" data-editable>
+            It reads your files, writes the change, runs the tests and tells you what
+            happened. One prompt in, a working app out.
+          </p>
+
+          <p class="cta"><a href="#" data-prop="buttonLabel">Download for Windows</a></p>
+
+          <ul class="points">
+            <li>
+              <strong data-editable>Agent mode</strong>
+              <span data-editable>Multi-step work with a real Stop button and a readable timeline.</span>
+            </li>
+            <li>
+              <strong data-editable>Inline diffs</strong>
+              <span data-editable>Every file change is reviewed before it lands.</span>
+            </li>
+            <li>
+              <strong data-editable>Rewind</strong>
+              <span data-editable>One click back to any earlier state of the work.</span>
+            </li>
+          </ul>
+
+          <p class="sign" data-field="terms" data-editable>
+            Reply to this email if anything breaks — it reaches a person.
+          </p>
+        </div>
+
+        <div class="foot">
+          Loopable8 · Puerto Princesa City, Palawan<br />
+          <a href="#">Unsubscribe</a> · <a href="#">Preferences</a>
+        </div>
+      </div>
+    </div>
+    <script>
+      /**
+       * The shared .dc.html runtime.
+       *
+       * Every artifact needs the same five things: apply props, apply patches, be
+       * editable, restore an exported state, and answer the host's readiness ping.
+       * Writing that six times would mean six chances for one of them to drift — and
+       * the drift would be invisible, because each artifact only fails on its own page.
+       *
+       * It is inlined into each file rather than linked, because rule one of the
+       * format is that an artifact renders on its own from disk with no host and no
+       * network. A shared <script src> would break exactly that.
+       *
+       * An artifact that needs more — the quotation derives totals from its lines —
+       * defines `window.DC_HOOKS = { render, patch }` before this runs.
+       */
+      (function () {
+        var props = {};
+        var editing = false;
+        var committed = new Map();
+        var hooks = window.DC_HOOKS || {};
+      
+        function kebab(s) {
+          return s.replace(/([a-z0-9])([A-Z])/g, '$1-$2').toLowerCase();
+        }
+      
+        function editableNodes() {
+          return Array.prototype.slice.call(document.querySelectorAll('[data-editable]'));
+        }
+      
+        function render() {
+          // Any element bound to a prop shows that prop's value.
+          document.querySelectorAll('[data-prop]').forEach(function (el) {
+            var key = el.getAttribute('data-prop');
+            if (typeof props[key] === 'string') el.textContent = props[key];
+          });
+          if (hooks.render) hooks.render(props);
+          report();
+        }
+      
+        function applyProps(next) {
+          Object.keys(next).forEach(function (k) {
+            props[k] = next[k];
+            document.documentElement.setAttribute('data-' + kebab(k), String(next[k]));
+          });
+          render();
+        }
+      
+        function setCommitted(el, value) {
+          if (committed.has(el)) committed.set(el, value);
+        }
+      
+        function applyPatch(ops) {
+          (ops || []).forEach(function (op) {
+            if (op.op === 'setProp') {
+              props[op.key] = op.value;
+              document.documentElement.setAttribute('data-' + kebab(op.key), String(op.value));
+            } else if (op.op === 'setField') {
+              var el = document.querySelector('[data-field="' + op.field + '"]');
+              if (el) {
+                el.textContent = op.value;
+                setCommitted(el, op.value);
+              }
+            } else if (hooks.patch) {
+              hooks.patch(op, { setCommitted: setCommitted });
+            }
+          });
+          render();
+        }
+      
+        // ── Edit mode ──
+        //
+        // The baseline is taken when edit mode opens, not on focus. Keying it to a
+        // focus event means any path into a field that does not fire one leaves
+        // nothing to compare against, and the blur handler discards what was typed.
+      
+        function snapshot() {
+          committed.clear();
+          editableNodes().forEach(function (el) {
+            committed.set(el, el.textContent.replace(/\s+/g, ' ').trim());
+          });
+        }
+      
+        function setEditing(on) {
+          editing = !!on;
+          document.documentElement.setAttribute('data-editing', String(editing));
+          if (editing) snapshot();
+          editableNodes().forEach(function (el) {
+            if (editing) {
+              el.setAttribute('contenteditable', 'plaintext-only');
+              el.setAttribute('spellcheck', 'false');
+            } else {
+              el.removeAttribute('contenteditable');
+            }
+          });
+        }
+      
+        function locate(el) {
+          if (el.hasAttribute('data-field')) {
+            return { kind: 'field', field: el.getAttribute('data-field') };
+          }
+          var row = el.closest('[data-line]');
+          if (row) {
+            var rows = Array.prototype.slice.call(document.querySelectorAll('[data-line]'));
+            return {
+              kind: 'line',
+              index: rows.indexOf(row),
+              part: el.classList.contains('desc') ? 'desc' : 'item',
+            };
+          }
+          return null;
+        }
+      
+        document.addEventListener(
+          'blur',
+          function (e) {
+            if (!editing) return;
+            var el = e.target.closest && e.target.closest('[data-editable]');
+            if (!el) return;
+            var after = el.textContent.replace(/\s+/g, ' ').trim();
+            if (committed.get(el) === after) return;
+            committed.set(el, after);
+            el.textContent = after;
+            var where = locate(el);
+            if (where) parent.postMessage({ type: 'dc:edited', where: where, value: after }, '*');
+            report();
+          },
+          true,
+        );
+      
+        document.addEventListener('keydown', function (e) {
+          if (!editing) return;
+          var el = e.target.closest && e.target.closest('[data-editable]');
+          if (!el) return;
+          // Enter commits: these are single-value fields, and a stray newline in a
+          // project title is not a feature.
+          if (e.key === 'Enter') {
+            e.preventDefault();
+            el.blur();
+          }
+          if (e.key === 'Escape') {
+            e.preventDefault();
+            if (committed.has(el)) el.textContent = committed.get(el);
+            el.blur();
+          }
+        });
+      
+        function report() {
+          var page = document.querySelector('.page');
+          parent.postMessage(
+            {
+              type: 'dc:size',
+              width: page ? page.offsetWidth : document.body.scrollWidth,
+              height: page ? page.offsetHeight : document.body.scrollHeight,
+            },
+            '*',
+          );
+        }
+      
+        window.addEventListener('message', function (e) {
+          if (!e.data) return;
+          // A ping, answered with the same announcement sent at startup. The host
+          // renders this frame on the server, so the document can finish loading —
+          // and announce — before the host has attached its listener.
+          if (e.data.type === 'dc:hello') parent.postMessage({ type: 'dc:ready' }, '*');
+          if (e.data.type === 'dc:props') applyProps(e.data.props || {});
+          if (e.data.type === 'dc:patch') applyPatch(e.data.ops);
+          if (e.data.type === 'dc:edit') setEditing(e.data.editing);
+          if (e.data.type === 'dc:print') window.print();
+        });
+      
+        // Declared defaults, so the file is correct opened on its own.
+        var block = document.querySelector('script[type="application/dc-props+json"]');
+        var defaults = {};
+        if (block) {
+          try {
+            var schema = JSON.parse(block.textContent);
+            Object.keys(schema).forEach(function (k) {
+              defaults[k] = schema[k].default;
+            });
+          } catch (err) {
+            /* a malformed block must not blank the document */
+          }
+        }
+        applyProps(defaults);
+      
+        // An exported copy carries the state it was exported in. It sits in <head>,
+        // so it is already parsed by the time this runs at the end of <body>.
+        var saved = document.querySelector('script[type="application/dc-state+json"]');
+        if (saved) {
+          try {
+            var restored = JSON.parse(saved.textContent);
+            if (restored.props) applyProps(restored.props);
+            if (restored.ops && restored.ops.length) applyPatch(restored.ops);
+          } catch (err) {
+            /* a corrupt block leaves the document at its defaults, not blank */
+          }
+        }
+      
+        window.addEventListener('load', report);
+        parent.postMessage({ type: 'dc:ready' }, '*');
+      })();
+    </script>
+  </body>
+</html>

@@ -1,0 +1,447 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Colour + type pairing</title>
+
+    <!--
+      A .dc.html artifact. Generated from artifacts/specimen.mjs — edit that,
+      then run `npm run artifacts`.
+
+      Three rules make the format work:
+        1. It renders correctly on its own, from disk, with no host.
+        2. It declares its own controls; the host builds the props bar from them.
+        3. It owns its own arithmetic and layout logic.
+    -->
+    <script type="application/dc-props+json">
+    {
+          "pairing": {
+                "type": "select",
+                "label": "pairing",
+                "default": "Inter + JetBrains Mono",
+                "options": [
+                      "Inter + JetBrains Mono",
+                      "Georgia + Inter",
+                      "Inter only",
+                      "Georgia + JetBrains Mono"
+                ]
+          },
+          "palette": {
+                "type": "select",
+                "label": "palette",
+                "default": "Warm blue",
+                "options": [
+                      "Warm blue",
+                      "Forest",
+                      "Oxide",
+                      "Monochrome"
+                ]
+          },
+          "showRamp": {
+                "type": "boolean",
+                "label": "showRamp",
+                "default": true
+          },
+          "scaleName": {
+                "type": "text",
+                "label": "scaleName",
+                "default": "Loopable8"
+          }
+    }
+    </script>
+
+    <style>
+      :root {
+        --ink: #17171a;
+        --ink-soft: #55555c;
+        --ink-faint: #8a8a92;
+        --rule: #e2e2e6;
+        --paper: #ffffff;
+
+        --accent: #4a5fbf;
+        --display: Inter, system-ui, sans-serif;
+        --body: Inter, system-ui, sans-serif;
+        --mono: 'JetBrains Mono', ui-monospace, monospace;
+        }
+
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+
+      body {
+        background: var(--paper);
+        color: var(--ink);
+        font-family: Inter, system-ui, -apple-system, sans-serif;
+        line-height: 1.55;
+        -webkit-font-smoothing: antialiased;
+      }
+
+      .page {
+        width: 794px;
+        min-height: 1123px;
+        margin: 0 auto;
+        padding: 56px 60px;
+        display: flex;
+        flex-direction: column;
+      }
+
+      /* Editable regions have to be findable before they are clicked, or the
+         reader hunts for what the mode changed. */
+      html[data-editing='true'] [data-editable] {
+        outline: 1px dashed color-mix(in srgb, var(--accent) 45%, transparent);
+        outline-offset: 3px;
+        border-radius: 2px;
+        cursor: text;
+      }
+      html[data-editing='true'] [data-editable]:hover { outline-style: solid; }
+      html[data-editing='true'] [data-editable]:focus {
+        outline: 2px solid var(--accent);
+        background: color-mix(in srgb, var(--accent) 7%, transparent);
+      }
+      html[data-editing='true'] [data-editable]:empty::before {
+        content: attr(data-placeholder);
+        color: var(--ink-faint);
+      }
+
+      @media print {
+        .page { width: auto; min-height: 0; padding: 0; }
+      }
+
+      html[data-palette='Forest']     { --accent: #1d6b4f; }
+      html[data-palette='Oxide']      { --accent: #9a4a24; }
+      html[data-palette='Monochrome'] { --accent: #17171a; }
+
+      /* The pairing prop swaps the faces. A specimen whose fonts could not change
+         would be a picture of a specimen. */
+      html[data-pairing='Georgia + Inter'] { --display: Georgia, 'Times New Roman', serif; --body: Inter, system-ui, sans-serif; }
+      html[data-pairing='Inter only'] { --mono: Inter, system-ui, sans-serif; }
+      html[data-pairing='Georgia + JetBrains Mono'] { --display: Georgia, 'Times New Roman', serif; }
+
+      .page { font-size: 12.5px; font-family: var(--body); }
+
+      .eyebrow {
+        font-size: 9.5px;
+        font-weight: 700;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        color: var(--accent);
+      }
+      h1 {
+        margin-top: 6px;
+        font-family: var(--display);
+        font-size: 46px;
+        font-weight: 700;
+        letter-spacing: -0.035em;
+        line-height: 1;
+      }
+      .sub { margin-top: 10px; color: var(--ink-soft); font-size: 14px; max-width: 52ch; }
+      .rule { height: 2px; background: var(--accent); margin: 26px 0; }
+
+      h2 {
+        font-size: 9.5px;
+        font-weight: 700;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        color: var(--ink-faint);
+        padding-bottom: 5px;
+        border-bottom: 1px solid var(--rule);
+        margin-bottom: 14px;
+      }
+      section { margin-bottom: 30px; }
+
+      .scale > div { display: flex; align-items: baseline; gap: 16px; padding: 7px 0; border-bottom: 1px solid var(--rule); }
+      .scale code { flex: none; width: 72px; font-family: var(--mono); font-size: 10px; color: var(--ink-faint); }
+      .scale p { font-family: var(--display); letter-spacing: -0.02em; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+
+      .ramp { display: flex; gap: 0; border-radius: 6px; overflow: hidden; }
+      html:not([data-show-ramp='true']) .ramp-block { display: none; }
+      .ramp span { flex: 1; height: 54px; }
+      .ramp-labels { display: flex; margin-top: 5px; }
+      .ramp-labels span { flex: 1; font-family: var(--mono); font-size: 9px; color: var(--ink-faint); text-align: center; }
+
+      .pair { display: grid; grid-template-columns: 1.4fr 1fr; gap: 26px; }
+      .pair h3 { font-family: var(--display); font-size: 19px; letter-spacing: -0.02em; margin-bottom: 7px; }
+      .pair p { color: var(--ink-soft); }
+      .pair pre {
+        font-family: var(--mono);
+        font-size: 11px;
+        background: #f7f7f9;
+        border-radius: 6px;
+        padding: 12px 14px;
+        color: var(--ink-soft);
+        white-space: pre-wrap;
+      }
+
+      .glyphs { font-family: var(--display); font-size: 25px; letter-spacing: 0.02em; color: var(--ink-soft); line-height: 1.6; word-break: break-all; }
+  
+    </style>
+  </head>
+
+  <body>
+    <div class="page">
+      <p class="eyebrow" data-prop="scaleName">Loopable8</p>
+      <h1 data-field="projectName" data-editable>Two faces, one accent</h1>
+      <p class="sub" data-field="projectNote" data-editable>
+        The neutral ramp does the layout work. One colour marks primary action and key
+        data, and nothing else is allowed to be a colour.
+      </p>
+      <div class="rule"></div>
+
+      <section class="ramp-block">
+        <h2>Neutral ramp</h2>
+        <div class="ramp">
+          <span style="background:#0e0e0e"></span>
+          <span style="background:#141414"></span>
+          <span style="background:#161616"></span>
+          <span style="background:#181818"></span>
+          <span style="background:#1e1e1e"></span>
+          <span style="background:#222222"></span>
+          <span style="background:#2a2a2a"></span>
+          <span style="background:var(--accent)"></span>
+        </div>
+        <div class="ramp-labels">
+          <span>frame</span><span>panel</span><span>surface</span><span>bg</span>
+          <span>card</span><span>hover</span><span>selected</span><span>accent</span>
+        </div>
+      </section>
+
+      <section>
+        <h2>Type scale</h2>
+        <div class="scale">
+          <div><code>display</code><p style="font-size:42px;font-weight:700" data-editable>Built to ship</p></div>
+          <div><code>section</code><p style="font-size:20px;font-weight:600" data-editable>Chrome recedes, work advances</p></div>
+          <div><code>lead</code><p style="font-size:17px;font-weight:500" data-editable>One prompt in, a working app out</p></div>
+          <div><code>body</code><p style="font-size:14.5px" data-editable>Hierarchy is carried by colour, not size</p></div>
+          <div><code>meta</code><p style="font-size:11.5px" data-editable>Labels are not prose</p></div>
+        </div>
+      </section>
+
+      <section>
+        <h2>In use</h2>
+        <div class="pair">
+          <div>
+            <h3 data-editable>Tokens or nothing</h3>
+            <p data-field="terms" data-editable>
+              No private copy of a palette value anywhere — not in a widget, not in a
+              WebView's HTML, not in a marketing site's stylesheet. Four hard-coded
+              hexes once left a seam down the middle of the app.
+            </p>
+          </div>
+          <pre data-editable>--bg: #181818;
+--panel: #141414;
+--primary: #7B8FDE;
+
+font: var(--text-body)
+      var(--font-ui);</pre>
+        </div>
+      </section>
+
+      <section>
+        <h2>Glyphs</h2>
+        <p class="glyphs" data-editable>AaBbCcDdEeFfGgHhIiJjKkLlMmNnOoPpQqRrSsTtUuVvWwXxYyZz 0123456789 ₱$€ &amp;@#%</p>
+      </section>
+    </div>
+    <script>
+      /**
+       * The shared .dc.html runtime.
+       *
+       * Every artifact needs the same five things: apply props, apply patches, be
+       * editable, restore an exported state, and answer the host's readiness ping.
+       * Writing that six times would mean six chances for one of them to drift — and
+       * the drift would be invisible, because each artifact only fails on its own page.
+       *
+       * It is inlined into each file rather than linked, because rule one of the
+       * format is that an artifact renders on its own from disk with no host and no
+       * network. A shared <script src> would break exactly that.
+       *
+       * An artifact that needs more — the quotation derives totals from its lines —
+       * defines `window.DC_HOOKS = { render, patch }` before this runs.
+       */
+      (function () {
+        var props = {};
+        var editing = false;
+        var committed = new Map();
+        var hooks = window.DC_HOOKS || {};
+      
+        function kebab(s) {
+          return s.replace(/([a-z0-9])([A-Z])/g, '$1-$2').toLowerCase();
+        }
+      
+        function editableNodes() {
+          return Array.prototype.slice.call(document.querySelectorAll('[data-editable]'));
+        }
+      
+        function render() {
+          // Any element bound to a prop shows that prop's value.
+          document.querySelectorAll('[data-prop]').forEach(function (el) {
+            var key = el.getAttribute('data-prop');
+            if (typeof props[key] === 'string') el.textContent = props[key];
+          });
+          if (hooks.render) hooks.render(props);
+          report();
+        }
+      
+        function applyProps(next) {
+          Object.keys(next).forEach(function (k) {
+            props[k] = next[k];
+            document.documentElement.setAttribute('data-' + kebab(k), String(next[k]));
+          });
+          render();
+        }
+      
+        function setCommitted(el, value) {
+          if (committed.has(el)) committed.set(el, value);
+        }
+      
+        function applyPatch(ops) {
+          (ops || []).forEach(function (op) {
+            if (op.op === 'setProp') {
+              props[op.key] = op.value;
+              document.documentElement.setAttribute('data-' + kebab(op.key), String(op.value));
+            } else if (op.op === 'setField') {
+              var el = document.querySelector('[data-field="' + op.field + '"]');
+              if (el) {
+                el.textContent = op.value;
+                setCommitted(el, op.value);
+              }
+            } else if (hooks.patch) {
+              hooks.patch(op, { setCommitted: setCommitted });
+            }
+          });
+          render();
+        }
+      
+        // ── Edit mode ──
+        //
+        // The baseline is taken when edit mode opens, not on focus. Keying it to a
+        // focus event means any path into a field that does not fire one leaves
+        // nothing to compare against, and the blur handler discards what was typed.
+      
+        function snapshot() {
+          committed.clear();
+          editableNodes().forEach(function (el) {
+            committed.set(el, el.textContent.replace(/\s+/g, ' ').trim());
+          });
+        }
+      
+        function setEditing(on) {
+          editing = !!on;
+          document.documentElement.setAttribute('data-editing', String(editing));
+          if (editing) snapshot();
+          editableNodes().forEach(function (el) {
+            if (editing) {
+              el.setAttribute('contenteditable', 'plaintext-only');
+              el.setAttribute('spellcheck', 'false');
+            } else {
+              el.removeAttribute('contenteditable');
+            }
+          });
+        }
+      
+        function locate(el) {
+          if (el.hasAttribute('data-field')) {
+            return { kind: 'field', field: el.getAttribute('data-field') };
+          }
+          var row = el.closest('[data-line]');
+          if (row) {
+            var rows = Array.prototype.slice.call(document.querySelectorAll('[data-line]'));
+            return {
+              kind: 'line',
+              index: rows.indexOf(row),
+              part: el.classList.contains('desc') ? 'desc' : 'item',
+            };
+          }
+          return null;
+        }
+      
+        document.addEventListener(
+          'blur',
+          function (e) {
+            if (!editing) return;
+            var el = e.target.closest && e.target.closest('[data-editable]');
+            if (!el) return;
+            var after = el.textContent.replace(/\s+/g, ' ').trim();
+            if (committed.get(el) === after) return;
+            committed.set(el, after);
+            el.textContent = after;
+            var where = locate(el);
+            if (where) parent.postMessage({ type: 'dc:edited', where: where, value: after }, '*');
+            report();
+          },
+          true,
+        );
+      
+        document.addEventListener('keydown', function (e) {
+          if (!editing) return;
+          var el = e.target.closest && e.target.closest('[data-editable]');
+          if (!el) return;
+          // Enter commits: these are single-value fields, and a stray newline in a
+          // project title is not a feature.
+          if (e.key === 'Enter') {
+            e.preventDefault();
+            el.blur();
+          }
+          if (e.key === 'Escape') {
+            e.preventDefault();
+            if (committed.has(el)) el.textContent = committed.get(el);
+            el.blur();
+          }
+        });
+      
+        function report() {
+          var page = document.querySelector('.page');
+          parent.postMessage(
+            {
+              type: 'dc:size',
+              width: page ? page.offsetWidth : document.body.scrollWidth,
+              height: page ? page.offsetHeight : document.body.scrollHeight,
+            },
+            '*',
+          );
+        }
+      
+        window.addEventListener('message', function (e) {
+          if (!e.data) return;
+          // A ping, answered with the same announcement sent at startup. The host
+          // renders this frame on the server, so the document can finish loading —
+          // and announce — before the host has attached its listener.
+          if (e.data.type === 'dc:hello') parent.postMessage({ type: 'dc:ready' }, '*');
+          if (e.data.type === 'dc:props') applyProps(e.data.props || {});
+          if (e.data.type === 'dc:patch') applyPatch(e.data.ops);
+          if (e.data.type === 'dc:edit') setEditing(e.data.editing);
+          if (e.data.type === 'dc:print') window.print();
+        });
+      
+        // Declared defaults, so the file is correct opened on its own.
+        var block = document.querySelector('script[type="application/dc-props+json"]');
+        var defaults = {};
+        if (block) {
+          try {
+            var schema = JSON.parse(block.textContent);
+            Object.keys(schema).forEach(function (k) {
+              defaults[k] = schema[k].default;
+            });
+          } catch (err) {
+            /* a malformed block must not blank the document */
+          }
+        }
+        applyProps(defaults);
+      
+        // An exported copy carries the state it was exported in. It sits in <head>,
+        // so it is already parsed by the time this runs at the end of <body>.
+        var saved = document.querySelector('script[type="application/dc-state+json"]');
+        if (saved) {
+          try {
+            var restored = JSON.parse(saved.textContent);
+            if (restored.props) applyProps(restored.props);
+            if (restored.ops && restored.ops.length) applyPatch(restored.ops);
+          } catch (err) {
+            /* a corrupt block leaves the document at its defaults, not blank */
+          }
+        }
+      
+        window.addEventListener('load', report);
+        parent.postMessage({ type: 'dc:ready' }, '*');
+      })();
+    </script>
+  </body>
+</html>

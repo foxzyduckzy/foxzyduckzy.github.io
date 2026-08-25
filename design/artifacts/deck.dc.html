@@ -1,0 +1,416 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Presentation</title>
+
+    <!--
+      A .dc.html artifact. Generated from artifacts/deck.mjs — edit that,
+      then run `npm run artifacts`.
+
+      Three rules make the format work:
+        1. It renders correctly on its own, from disk, with no host.
+        2. It declares its own controls; the host builds the props bar from them.
+        3. It owns its own arithmetic and layout logic.
+    -->
+    <script type="application/dc-props+json">
+    {
+          "accent": {
+                "type": "select",
+                "label": "accent",
+                "default": "Indigo",
+                "options": [
+                      "Indigo",
+                      "Forest",
+                      "Oxide",
+                      "Ink"
+                ]
+          },
+          "ratio": {
+                "type": "select",
+                "label": "ratio",
+                "default": "16:9",
+                "options": [
+                      "16:9",
+                      "4:3"
+                ]
+          },
+          "showNumbers": {
+                "type": "boolean",
+                "label": "showNumbers",
+                "default": true
+          },
+          "deckTitle": {
+                "type": "text",
+                "label": "deckTitle",
+                "default": "Budget proposal 2026"
+          }
+    }
+    </script>
+
+    <style>
+      :root {
+        --ink: #17171a;
+        --ink-soft: #55555c;
+        --ink-faint: #8a8a92;
+        --rule: #e2e2e6;
+        --paper: #ffffff;
+
+        --accent: #4a5fbf;
+        --slide-bg: #17171a;
+        }
+
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+
+      body {
+        background: var(--paper);
+        color: var(--ink);
+        font-family: Inter, system-ui, -apple-system, sans-serif;
+        line-height: 1.55;
+        -webkit-font-smoothing: antialiased;
+      }
+
+      .page {
+        width: 794px;
+        min-height: 1123px;
+        margin: 0 auto;
+        padding: 56px 60px;
+        display: flex;
+        flex-direction: column;
+      }
+
+      /* Editable regions have to be findable before they are clicked, or the
+         reader hunts for what the mode changed. */
+      html[data-editing='true'] [data-editable] {
+        outline: 1px dashed color-mix(in srgb, var(--accent) 45%, transparent);
+        outline-offset: 3px;
+        border-radius: 2px;
+        cursor: text;
+      }
+      html[data-editing='true'] [data-editable]:hover { outline-style: solid; }
+      html[data-editing='true'] [data-editable]:focus {
+        outline: 2px solid var(--accent);
+        background: color-mix(in srgb, var(--accent) 7%, transparent);
+      }
+      html[data-editing='true'] [data-editable]:empty::before {
+        content: attr(data-placeholder);
+        color: var(--ink-faint);
+      }
+
+      @media print {
+        .page { width: auto; min-height: 0; padding: 0; }
+      }
+
+      html[data-accent='Forest'] { --accent: #1d6b4f; }
+      html[data-accent='Oxide']  { --accent: #9a4a24; }
+      html[data-accent='Ink']    { --accent: #3f5473; }
+
+      /* Slides on a page, not a page of prose: the artifact is a deck, and it
+         prints as one slide per block. */
+      .page { background: #ececef; padding: 34px; gap: 24px; font-size: 12.5px; }
+
+      .slide {
+        position: relative;
+        width: 100%;
+        aspect-ratio: 16 / 9;
+        background: var(--slide-bg);
+        color: #f2f2f4;
+        border-radius: 10px;
+        padding: 42px 46px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        overflow: hidden;
+      }
+      html[data-ratio='4:3'] .slide { aspect-ratio: 4 / 3; }
+
+      .slide::before {
+        content: '';
+        position: absolute;
+        inset: 0 auto 0 0;
+        width: 4px;
+        background: var(--accent);
+      }
+
+      .kicker {
+        font-size: 9.5px;
+        font-weight: 700;
+        letter-spacing: 0.16em;
+        text-transform: uppercase;
+        color: var(--accent);
+        margin-bottom: 12px;
+      }
+      .slide h1 { font-size: 34px; font-weight: 700; letter-spacing: -0.03em; line-height: 1.08; }
+      .slide h2 { font-size: 24px; font-weight: 600; letter-spacing: -0.02em; margin-bottom: 14px; }
+      .slide p { color: #b8b8bd; max-width: 54ch; font-size: 14px; }
+
+      .cols { display: grid; grid-template-columns: 1fr 1fr; gap: 28px; }
+      .stat b { display: block; font-size: 40px; font-weight: 700; letter-spacing: -0.03em; font-variant-numeric: tabular-nums; }
+      .stat span { color: #9a9aa0; font-size: 12.5px; }
+
+      .rows { border-top: 1px solid #33333a; }
+      .rows div { display: flex; justify-content: space-between; padding: 9px 0; border-bottom: 1px solid #33333a; font-size: 13.5px; }
+      .rows span:last-child { font-variant-numeric: tabular-nums; color: #f2f2f4; }
+      .rows span:first-child { color: #b8b8bd; }
+
+      .n {
+        position: absolute;
+        right: 20px;
+        bottom: 16px;
+        color: #6a6a72;
+        font-size: 10.5px;
+        font-variant-numeric: tabular-nums;
+      }
+      html:not([data-show-numbers='true']) .n { display: none; }
+  
+    </style>
+  </head>
+
+  <body>
+    <div class="page">
+      <div class="slide">
+        <p class="kicker" data-prop="deckTitle">Budget proposal 2026</p>
+        <h1 data-field="projectName" data-editable>What it costs to ship Loopable8</h1>
+        <p style="margin-top:14px" data-field="projectNote" data-editable>
+          Twelve months of runway, broken down by what it buys.
+        </p>
+        <span class="n">01</span>
+      </div>
+
+      <div class="slide">
+        <h2 data-editable>Where the money goes</h2>
+        <div class="cols">
+          <div class="stat"><b data-editable>58%</b><span data-editable>Engineering and design</span></div>
+          <div class="stat"><b data-editable>21%</b><span data-editable>Model and infrastructure</span></div>
+          <div class="stat"><b data-editable>13%</b><span data-editable>Go to market</span></div>
+          <div class="stat"><b data-editable>8%</b><span data-editable>Operations</span></div>
+        </div>
+        <span class="n">02</span>
+      </div>
+
+      <div class="slide">
+        <h2 data-editable>The line items</h2>
+        <div class="rows">
+          <div><span data-editable>Engineering</span><span data-editable>₱2,400,000</span></div>
+          <div><span data-editable>Model serving</span><span data-editable>₱870,000</span></div>
+          <div><span data-editable>Design and brand</span><span data-editable>₱540,000</span></div>
+          <div><span data-editable>Launch</span><span data-editable>₱330,000</span></div>
+        </div>
+        <span class="n">03</span>
+      </div>
+
+      <div class="slide">
+        <h2 data-editable>What we are asking for</h2>
+        <p data-field="terms" data-editable>
+          Approval to spend against the schedule above, reviewed quarterly. Anything
+          outside it comes back to this table before it is committed.
+        </p>
+        <span class="n">04</span>
+      </div>
+    </div>
+    <script>
+      /**
+       * The shared .dc.html runtime.
+       *
+       * Every artifact needs the same five things: apply props, apply patches, be
+       * editable, restore an exported state, and answer the host's readiness ping.
+       * Writing that six times would mean six chances for one of them to drift — and
+       * the drift would be invisible, because each artifact only fails on its own page.
+       *
+       * It is inlined into each file rather than linked, because rule one of the
+       * format is that an artifact renders on its own from disk with no host and no
+       * network. A shared <script src> would break exactly that.
+       *
+       * An artifact that needs more — the quotation derives totals from its lines —
+       * defines `window.DC_HOOKS = { render, patch }` before this runs.
+       */
+      (function () {
+        var props = {};
+        var editing = false;
+        var committed = new Map();
+        var hooks = window.DC_HOOKS || {};
+      
+        function kebab(s) {
+          return s.replace(/([a-z0-9])([A-Z])/g, '$1-$2').toLowerCase();
+        }
+      
+        function editableNodes() {
+          return Array.prototype.slice.call(document.querySelectorAll('[data-editable]'));
+        }
+      
+        function render() {
+          // Any element bound to a prop shows that prop's value.
+          document.querySelectorAll('[data-prop]').forEach(function (el) {
+            var key = el.getAttribute('data-prop');
+            if (typeof props[key] === 'string') el.textContent = props[key];
+          });
+          if (hooks.render) hooks.render(props);
+          report();
+        }
+      
+        function applyProps(next) {
+          Object.keys(next).forEach(function (k) {
+            props[k] = next[k];
+            document.documentElement.setAttribute('data-' + kebab(k), String(next[k]));
+          });
+          render();
+        }
+      
+        function setCommitted(el, value) {
+          if (committed.has(el)) committed.set(el, value);
+        }
+      
+        function applyPatch(ops) {
+          (ops || []).forEach(function (op) {
+            if (op.op === 'setProp') {
+              props[op.key] = op.value;
+              document.documentElement.setAttribute('data-' + kebab(op.key), String(op.value));
+            } else if (op.op === 'setField') {
+              var el = document.querySelector('[data-field="' + op.field + '"]');
+              if (el) {
+                el.textContent = op.value;
+                setCommitted(el, op.value);
+              }
+            } else if (hooks.patch) {
+              hooks.patch(op, { setCommitted: setCommitted });
+            }
+          });
+          render();
+        }
+      
+        // ── Edit mode ──
+        //
+        // The baseline is taken when edit mode opens, not on focus. Keying it to a
+        // focus event means any path into a field that does not fire one leaves
+        // nothing to compare against, and the blur handler discards what was typed.
+      
+        function snapshot() {
+          committed.clear();
+          editableNodes().forEach(function (el) {
+            committed.set(el, el.textContent.replace(/\s+/g, ' ').trim());
+          });
+        }
+      
+        function setEditing(on) {
+          editing = !!on;
+          document.documentElement.setAttribute('data-editing', String(editing));
+          if (editing) snapshot();
+          editableNodes().forEach(function (el) {
+            if (editing) {
+              el.setAttribute('contenteditable', 'plaintext-only');
+              el.setAttribute('spellcheck', 'false');
+            } else {
+              el.removeAttribute('contenteditable');
+            }
+          });
+        }
+      
+        function locate(el) {
+          if (el.hasAttribute('data-field')) {
+            return { kind: 'field', field: el.getAttribute('data-field') };
+          }
+          var row = el.closest('[data-line]');
+          if (row) {
+            var rows = Array.prototype.slice.call(document.querySelectorAll('[data-line]'));
+            return {
+              kind: 'line',
+              index: rows.indexOf(row),
+              part: el.classList.contains('desc') ? 'desc' : 'item',
+            };
+          }
+          return null;
+        }
+      
+        document.addEventListener(
+          'blur',
+          function (e) {
+            if (!editing) return;
+            var el = e.target.closest && e.target.closest('[data-editable]');
+            if (!el) return;
+            var after = el.textContent.replace(/\s+/g, ' ').trim();
+            if (committed.get(el) === after) return;
+            committed.set(el, after);
+            el.textContent = after;
+            var where = locate(el);
+            if (where) parent.postMessage({ type: 'dc:edited', where: where, value: after }, '*');
+            report();
+          },
+          true,
+        );
+      
+        document.addEventListener('keydown', function (e) {
+          if (!editing) return;
+          var el = e.target.closest && e.target.closest('[data-editable]');
+          if (!el) return;
+          // Enter commits: these are single-value fields, and a stray newline in a
+          // project title is not a feature.
+          if (e.key === 'Enter') {
+            e.preventDefault();
+            el.blur();
+          }
+          if (e.key === 'Escape') {
+            e.preventDefault();
+            if (committed.has(el)) el.textContent = committed.get(el);
+            el.blur();
+          }
+        });
+      
+        function report() {
+          var page = document.querySelector('.page');
+          parent.postMessage(
+            {
+              type: 'dc:size',
+              width: page ? page.offsetWidth : document.body.scrollWidth,
+              height: page ? page.offsetHeight : document.body.scrollHeight,
+            },
+            '*',
+          );
+        }
+      
+        window.addEventListener('message', function (e) {
+          if (!e.data) return;
+          // A ping, answered with the same announcement sent at startup. The host
+          // renders this frame on the server, so the document can finish loading —
+          // and announce — before the host has attached its listener.
+          if (e.data.type === 'dc:hello') parent.postMessage({ type: 'dc:ready' }, '*');
+          if (e.data.type === 'dc:props') applyProps(e.data.props || {});
+          if (e.data.type === 'dc:patch') applyPatch(e.data.ops);
+          if (e.data.type === 'dc:edit') setEditing(e.data.editing);
+          if (e.data.type === 'dc:print') window.print();
+        });
+      
+        // Declared defaults, so the file is correct opened on its own.
+        var block = document.querySelector('script[type="application/dc-props+json"]');
+        var defaults = {};
+        if (block) {
+          try {
+            var schema = JSON.parse(block.textContent);
+            Object.keys(schema).forEach(function (k) {
+              defaults[k] = schema[k].default;
+            });
+          } catch (err) {
+            /* a malformed block must not blank the document */
+          }
+        }
+        applyProps(defaults);
+      
+        // An exported copy carries the state it was exported in. It sits in <head>,
+        // so it is already parsed by the time this runs at the end of <body>.
+        var saved = document.querySelector('script[type="application/dc-state+json"]');
+        if (saved) {
+          try {
+            var restored = JSON.parse(saved.textContent);
+            if (restored.props) applyProps(restored.props);
+            if (restored.ops && restored.ops.length) applyPatch(restored.ops);
+          } catch (err) {
+            /* a corrupt block leaves the document at its defaults, not blank */
+          }
+        }
+      
+        window.addEventListener('load', report);
+        parent.postMessage({ type: 'dc:ready' }, '*');
+      })();
+    </script>
+  </body>
+</html>
