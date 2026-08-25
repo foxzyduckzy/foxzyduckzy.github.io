@@ -644,6 +644,20 @@
         }
         applyProps(defaults);
 
+        // An exported copy carries the state it was exported in. Reading it here
+        // means the downloaded file opens standalone showing exactly what the
+        // canvas showed — and the host never has to send anything.
+        var saved = document.querySelector('script[type="application/dc-state+json"]');
+        if (saved) {
+          try {
+            var restored = JSON.parse(saved.textContent);
+            if (restored.props) applyProps(restored.props);
+            if (restored.ops && restored.ops.length) applyPatch(restored.ops);
+          } catch (err) {
+            /* a corrupt block must leave the document at its defaults, not blank */
+          }
+        }
+
         window.addEventListener('load', report);
         parent.postMessage({ type: 'dc:ready' }, '*');
       })();

@@ -1,0 +1,400 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Résumé</title>
+
+    <!--
+      A second .dc.html artifact, and the reason the format was worth building.
+
+      Nothing in the app knows what a résumé is. It declares different props from
+      the quotation, so the props bar renders different controls, and the agent is
+      told about those props and no others. Adding a document type is writing this
+      file — the host did not change.
+    -->
+    <script type="application/dc-props+json">
+      {
+        "accent": {
+          "type": "select",
+          "label": "accent",
+          "default": "Ink",
+          "options": ["Ink", "Forest", "Oxide", "Slate"]
+        },
+        "showPhoto": { "type": "boolean", "label": "showPhoto", "default": false },
+        "columns": {
+          "type": "select",
+          "label": "columns",
+          "default": "Two",
+          "options": ["One", "Two"]
+        },
+        "headline": { "type": "text", "label": "headline", "default": "Motion Designer" }
+      }
+    </script>
+
+    <style>
+      :root {
+        --ink: #17171a;
+        --ink-soft: #55555c;
+        --ink-faint: #8a8a92;
+        --rule: #e2e2e6;
+        --accent: #17171a;
+        --paper: #ffffff;
+      }
+
+      html[data-accent='Forest'] { --accent: #1d6b4f; }
+      html[data-accent='Oxide']  { --accent: #9a4a24; }
+      html[data-accent='Slate']  { --accent: #3f5473; }
+
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+
+      body {
+        background: var(--paper);
+        color: var(--ink);
+        font-family: Inter, system-ui, -apple-system, sans-serif;
+        font-size: 12.5px;
+        line-height: 1.55;
+        -webkit-font-smoothing: antialiased;
+      }
+
+      .page {
+        width: 794px;
+        min-height: 1123px;
+        margin: 0 auto;
+        padding: 56px 60px;
+      }
+
+      header { display: flex; align-items: flex-start; gap: 24px; }
+      .photo {
+        display: none;
+        width: 76px;
+        height: 76px;
+        flex: none;
+        border-radius: 50%;
+        background: var(--rule);
+        border: 2px solid var(--accent);
+      }
+      html[data-show-photo='true'] .photo { display: block; }
+
+      h1 { font-size: 27px; font-weight: 700; letter-spacing: -0.025em; }
+      .headline {
+        margin-top: 2px;
+        color: var(--accent);
+        font-size: 13.5px;
+        font-weight: 600;
+        letter-spacing: 0.01em;
+      }
+      .contact { margin-top: 10px; color: var(--ink-soft); font-size: 11.5px; }
+      .contact span + span::before { content: ' · '; color: var(--ink-faint); }
+
+      .divider { height: 2px; background: var(--accent); margin: 22px 0 24px; }
+
+      .cols { display: grid; grid-template-columns: minmax(0, 1fr); gap: 0 40px; }
+      html[data-columns='Two'] .cols { grid-template-columns: minmax(0, 1.6fr) minmax(0, 1fr); }
+
+      section { margin-bottom: 24px; break-inside: avoid; }
+      h2 {
+        font-size: 9.5px;
+        font-weight: 700;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        color: var(--accent);
+        padding-bottom: 5px;
+        border-bottom: 1px solid var(--rule);
+        margin-bottom: 11px;
+      }
+
+      .role { margin-bottom: 14px; }
+      .role-head { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; }
+      .role-title { font-weight: 600; font-size: 13px; }
+      .role-when {
+        color: var(--ink-faint);
+        font-size: 11px;
+        font-variant-numeric: tabular-nums;
+        white-space: nowrap;
+      }
+      .role-org { color: var(--accent); font-size: 11.5px; font-weight: 500; }
+      .role-body { margin-top: 4px; color: var(--ink-soft); font-size: 11.5px; }
+
+      ul { list-style: none; }
+      .skills li {
+        display: inline-block;
+        margin: 0 5px 5px 0;
+        padding: 3px 9px;
+        border: 1px solid var(--rule);
+        border-radius: 999px;
+        color: var(--ink-soft);
+        font-size: 11px;
+      }
+      .plain li { margin-bottom: 6px; color: var(--ink-soft); font-size: 11.5px; }
+      .plain li strong { color: var(--ink); font-weight: 600; display: block; }
+
+      html[data-editing='true'] [data-editable] {
+        outline: 1px dashed color-mix(in srgb, var(--accent) 45%, transparent);
+        outline-offset: 3px;
+        border-radius: 2px;
+        cursor: text;
+      }
+      html[data-editing='true'] [data-editable]:hover { outline-style: solid; }
+      html[data-editing='true'] [data-editable]:focus {
+        outline: 2px solid var(--accent);
+        background: color-mix(in srgb, var(--accent) 7%, transparent);
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="page">
+      <header>
+        <div class="photo" aria-hidden="true"></div>
+        <div>
+          <h1 data-field="projectName" data-editable>Fredrick A. Gonzales</h1>
+          <p class="headline" data-prop="headline">Motion Designer</p>
+          <p class="contact">
+            <span data-editable>Puerto Princesa City, Palawan</span>
+            <span data-editable>studio@example.com</span>
+            <span data-editable>loopable8.com</span>
+          </p>
+        </div>
+      </header>
+
+      <div class="divider"></div>
+
+      <div class="cols">
+        <div>
+          <section>
+            <h2>Profile</h2>
+            <p class="role-body" data-field="projectNote" data-editable>
+              Motion designer working on LED backdrop visuals, title sequences and
+              short-form campaign work. Comfortable owning a piece end to end, from
+              boards through to the final grade.
+            </p>
+          </section>
+
+          <section>
+            <h2>Experience</h2>
+            <div class="role">
+              <div class="role-head">
+                <span class="role-title" data-editable>Lead Motion Designer</span>
+                <span class="role-when" data-editable>2024 — now</span>
+              </div>
+              <p class="role-org" data-editable>Loopable8 Studio</p>
+              <p class="role-body" data-editable>
+                LED background visuals for live events. Built the studio's reusable
+                template system, which cut turnaround on a standard backdrop roughly
+                in half.
+              </p>
+            </div>
+            <div class="role">
+              <div class="role-head">
+                <span class="role-title" data-editable>Motion Designer</span>
+                <span class="role-when" data-editable>2022 — 2024</span>
+              </div>
+              <p class="role-org" data-editable>Freelance</p>
+              <p class="role-body" data-editable>
+                Campaign and social work for local brands. 3D, compositing and grade.
+              </p>
+            </div>
+          </section>
+        </div>
+
+        <div>
+          <section>
+            <h2>Skills</h2>
+            <ul class="skills">
+              <li data-editable>After Effects</li>
+              <li data-editable>Blender</li>
+              <li data-editable>Cinema 4D</li>
+              <li data-editable>Photoshop</li>
+              <li data-editable>Premiere</li>
+              <li data-editable>DaVinci Resolve</li>
+            </ul>
+          </section>
+
+          <section>
+            <h2>Selected work</h2>
+            <ul class="plain">
+              <li>
+                <strong data-editable>PALSCOM — neon title</strong>
+                <span data-editable>Type animation and grade for the launch reel.</span>
+              </li>
+              <li>
+                <strong data-editable>LED backdrop series</strong>
+                <span data-editable>Six looping visuals for a 12m stage wall.</span>
+              </li>
+            </ul>
+          </section>
+
+          <section>
+            <h2>Education</h2>
+            <ul class="plain">
+              <li>
+                <strong data-editable>BS Information Technology</strong>
+                <span data-editable>Palawan State University</span>
+              </li>
+            </ul>
+          </section>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      /**
+       * The same runtime contract as the quotation, minus the arithmetic.
+       *
+       * A résumé has no totals to derive, so this handles props, field edits and
+       * the readiness handshake and nothing else — which is the point of the
+       * format: an artifact implements only what it actually has.
+       */
+      (function () {
+        var props = {};
+        var editing = false;
+        var committed = new Map();
+
+        function kebab(s) {
+          return s.replace(/([a-z0-9])([A-Z])/g, '$1-$2').toLowerCase();
+        }
+
+        function editableNodes() {
+          return Array.prototype.slice.call(document.querySelectorAll('[data-editable]'));
+        }
+
+        function render() {
+          var headline = document.querySelector('[data-prop="headline"]');
+          if (headline && typeof props.headline === 'string') headline.textContent = props.headline;
+          report();
+        }
+
+        function applyProps(next) {
+          Object.keys(next).forEach(function (k) {
+            props[k] = next[k];
+            document.documentElement.setAttribute('data-' + kebab(k), String(next[k]));
+          });
+          render();
+        }
+
+        function applyPatch(ops) {
+          (ops || []).forEach(function (op) {
+            if (op.op === 'setProp') {
+              props[op.key] = op.value;
+              document.documentElement.setAttribute('data-' + kebab(op.key), String(op.value));
+            } else if (op.op === 'setField') {
+              var el = document.querySelector('[data-field="' + op.field + '"]');
+              if (el) {
+                el.textContent = op.value;
+                if (committed.has(el)) committed.set(el, op.value);
+              }
+            }
+          });
+          render();
+        }
+
+        function snapshot() {
+          committed.clear();
+          editableNodes().forEach(function (el) {
+            committed.set(el, el.textContent.replace(/\s+/g, ' ').trim());
+          });
+        }
+
+        function setEditing(on) {
+          editing = !!on;
+          document.documentElement.setAttribute('data-editing', String(editing));
+          if (editing) snapshot();
+          editableNodes().forEach(function (el) {
+            if (editing) {
+              el.setAttribute('contenteditable', 'plaintext-only');
+              el.setAttribute('spellcheck', 'false');
+            } else {
+              el.removeAttribute('contenteditable');
+            }
+          });
+        }
+
+        document.addEventListener(
+          'blur',
+          function (e) {
+            if (!editing) return;
+            var el = e.target.closest && e.target.closest('[data-editable]');
+            if (!el) return;
+            var after = el.textContent.replace(/\s+/g, ' ').trim();
+            if (committed.get(el) === after) return;
+            committed.set(el, after);
+            el.textContent = after;
+            if (el.hasAttribute('data-field')) {
+              parent.postMessage(
+                { type: 'dc:edited', where: { kind: 'field', field: el.getAttribute('data-field') }, value: after },
+                '*',
+              );
+            }
+            report();
+          },
+          true,
+        );
+
+        document.addEventListener('keydown', function (e) {
+          if (!editing) return;
+          var el = e.target.closest && e.target.closest('[data-editable]');
+          if (!el) return;
+          if (e.key === 'Enter') {
+            e.preventDefault();
+            el.blur();
+          }
+          if (e.key === 'Escape') {
+            e.preventDefault();
+            if (committed.has(el)) el.textContent = committed.get(el);
+            el.blur();
+          }
+        });
+
+        function report() {
+          var page = document.querySelector('.page');
+          parent.postMessage(
+            {
+              type: 'dc:size',
+              width: page ? page.offsetWidth : document.body.scrollWidth,
+              height: page ? page.offsetHeight : document.body.scrollHeight,
+            },
+            '*',
+          );
+        }
+
+        window.addEventListener('message', function (e) {
+          if (!e.data) return;
+          if (e.data.type === 'dc:hello') parent.postMessage({ type: 'dc:ready' }, '*');
+          if (e.data.type === 'dc:props') applyProps(e.data.props || {});
+          if (e.data.type === 'dc:patch') applyPatch(e.data.ops);
+          if (e.data.type === 'dc:edit') setEditing(e.data.editing);
+          if (e.data.type === 'dc:print') window.print();
+        });
+
+        var block = document.querySelector('script[type="application/dc-props+json"]');
+        var defaults = {};
+        if (block) {
+          try {
+            var schema = JSON.parse(block.textContent);
+            Object.keys(schema).forEach(function (k) { defaults[k] = schema[k].default; });
+          } catch (err) {
+            /* a malformed block must not blank the document */
+          }
+        }
+        applyProps(defaults);
+
+        // An exported copy carries the state it was exported in. Reading it here
+        // means the downloaded file opens standalone showing exactly what the
+        // canvas showed — and the host never has to send anything.
+        var saved = document.querySelector('script[type="application/dc-state+json"]');
+        if (saved) {
+          try {
+            var restored = JSON.parse(saved.textContent);
+            if (restored.props) applyProps(restored.props);
+            if (restored.ops && restored.ops.length) applyPatch(restored.ops);
+          } catch (err) {
+            /* a corrupt block must leave the document at its defaults, not blank */
+          }
+        }
+        window.addEventListener('load', report);
+        parent.postMessage({ type: 'dc:ready' }, '*');
+      })();
+    </script>
+  </body>
+</html>
