@@ -1,0 +1,167 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Fourth Law</title>
+<!-- Made with Loopable Studio. Every style is inline; this file needs nothing else. -->
+<style>
+  :root { color-scheme: light; }
+  body {
+    margin: 0;
+    padding: 32px 16px;
+    background: #f4f4f5;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 24px;
+    -webkit-font-smoothing: antialiased;
+  }
+  .page { box-shadow: 0 1px 3px rgba(0,0,0,.12); box-sizing: border-box; }
+
+/* Ground. One at a time, drawn behind the content and never over it. */
+[data-texture] { position: relative; }
+[data-texture]::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  border-radius: inherit;
+  z-index: 0;
+}
+[data-texture] > * { position: relative; z-index: 1; }
+
+[data-texture='grid']::before {
+  background-image:
+    linear-gradient(to right, rgba(128,128,128,0.10) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(128,128,128,0.10) 1px, transparent 1px);
+  background-size: 32px 32px;
+  -webkit-mask-image: radial-gradient(ellipse at 50% 0%, #000 35%, transparent 78%);
+  mask-image: radial-gradient(ellipse at 50% 0%, #000 35%, transparent 78%);
+}
+[data-texture='dots']::before {
+  background-image: radial-gradient(rgba(128,128,128,0.16) 1px, transparent 1px);
+  background-size: 20px 20px;
+  -webkit-mask-image: radial-gradient(ellipse at 50% 0%, #000 40%, transparent 80%);
+  mask-image: radial-gradient(ellipse at 50% 0%, #000 40%, transparent 80%);
+}
+[data-texture='noise']::before {
+  background-image:
+    radial-gradient(rgba(128,128,128,0.13) 0.6px, transparent 0.6px),
+    radial-gradient(rgba(128,128,128,0.09) 0.6px, transparent 0.6px);
+  background-size: 7px 7px, 11px 11px;
+  background-position: 0 0, 3px 5px;
+  opacity: 0.7;
+}
+/* A halo takes its colour from the page, so a deck in any accent lights
+   correctly without this file knowing what the accent is. */
+[data-texture='halo']::before {
+  background: radial-gradient(60% 42% at 50% 0%, var(--lo8-halo, rgba(128,128,128,0.14)), transparent 72%);
+}
+
+/* Grain, which is the one ground that goes over the content rather than under
+   it. Everything printed has it and nothing rendered does, and its absence is
+   most of why a page can look computed. Turbulence rather than an image, so it
+   costs nothing to carry and never repeats visibly. */
+[data-texture='grain']::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 2;
+  opacity: 0.055;
+  mix-blend-mode: multiply;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+/* Arrival. Once, in reading order, and never on anything that may be printed. */
+@keyframes lo8-fade { from { opacity: 0; } to { opacity: 1; } }
+@keyframes lo8-rise { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: none; } }
+@keyframes lo8-scale { from { opacity: 0; transform: scale(0.96); } to { opacity: 1; transform: none; } }
+
+/* One curve, and it is not the default one.
+   An arrival wants almost all of its speed at the start and a long quiet
+   settle: that is what makes a block look like it was placed rather than
+   dropped. A plain ease-out is too gentle at the start to read as decisive and
+   a symmetrical ease reads as mechanical. This is the far end of
+   ease-out, and the reason every modern tool has converged on something close
+   to it.
+
+   Duration follows distance. A block that travels fourteen pixels takes longer
+   than one that only fades, because a fast long move is the thing that looks
+   cheap. */
+@media (prefers-reduced-motion: no-preference) {
+  [data-enter='fade'] { animation: lo8-fade 400ms cubic-bezier(0.16, 1, 0.3, 1) both; }
+  [data-enter='rise'] { animation: lo8-rise 560ms cubic-bezier(0.16, 1, 0.3, 1) both; }
+  [data-enter='scale'] { animation: lo8-scale 480ms cubic-bezier(0.16, 1, 0.3, 1) both; }
+}
+
+/* Response. A pointer answer is not decoration, it is the block saying it is
+   the kind of thing that can be used. Printing never sees any of it. */
+@media (hover: hover) {
+  /* A different curve on purpose: a pointer response is a reply and wants to
+     start immediately and stop cleanly, where an arrival wants to settle. */
+  [data-hover] {
+    transition:
+      transform 170ms cubic-bezier(0.2, 0, 0, 1),
+      box-shadow 170ms cubic-bezier(0.2, 0, 0, 1),
+      filter 170ms cubic-bezier(0.2, 0, 0, 1);
+  }
+  [data-hover='lift']:hover { transform: translateY(-2px); }
+  [data-hover='glow']:hover { filter: brightness(1.04); }
+  [data-hover='tint']:hover { filter: saturate(1.12); }
+}
+
+/* Narrow.
+
+   Every size in a document is inline, because an exported file has to work
+   with no stylesheet at all, and an inline size cannot be overridden by a
+   media query. So the document carries one multiplier instead and these rules
+   move it: the whole page scales together rather than eight rules fighting
+   eight inline values.
+
+   Two multipliers, not one. Type may only shrink so far before it stops being
+   readable, but a margin can give way completely: on a 390px phone a 64px
+   margin is a third of the screen spent on nothing. */
+@media (max-width: 900px) {
+  [data-surface] { --lo8-fit: 0.94; --lo8-pad: 0.7; }
+
+  /* Columns stack. Spanning 1 to -1 is the full width of the explicit grid,
+     which is exact: leaving an inline span of four in place against a single
+     column grid would make the browser invent three implicit columns for it. */
+  .cnode-row { grid-template-columns: 1fr !important; }
+  .cnode-row > * { grid-column: 1 / -1 !important; }
+}
+
+@media (max-width: 560px) {
+  [data-surface] { --lo8-fit: 0.86; --lo8-pad: 0.42; }
+}
+
+@media print {
+  [data-enter], [data-hover] { animation: none !important; transition: none !important; }
+  [data-texture]::before { display: none; }
+}
+
+  /* Printing is how this becomes a PDF, so the screen framing has to go: no
+     grey field behind the paper, no shadow, and one page per sheet. */
+  @media print {
+    body { padding: 0; gap: 0; background: #fff; display: block; }
+    .page {
+      box-shadow: none;
+      border-radius: 0;
+      width: 100%;
+      break-after: page;
+      page-break-after: always;
+    }
+    .page:last-child { break-after: auto; page-break-after: auto; }
+  }
+</style>
+</head>
+<body>
+<article class="page" data-surface="poster" data-texture="grain" style="background:#0b0908;color:#efe4de;font-family:Inter, &quot;Segoe UI&quot;, system-ui, -apple-system, sans-serif;font-size:24px;border-radius:8px;--lo8-halo:#b0202a2e;width:900px;max-width:100%;aspect-ratio:900/1273;overflow:hidden;position:relative;padding:calc(56px * var(--lo8-fit, 1) * var(--lo8-pad, 1))"><div class="cnode" data-node="id1" data-type="image" style="margin-bottom:calc(22px * var(--lo8-fit, 1));width:1012px;max-width:100%;min-height:999px;position:absolute;left:-56px;top:330px"><svg width="0" height="0" style="position:absolute" aria-hidden="true"><filter id="duo-id1" color-interpolation-filters="sRGB"><feColorMatrix type="matrix" values="0.2126 0.7152 0.0722 0 0 0.2126 0.7152 0.0722 0 0 0.2126 0.7152 0.0722 0 0 0 0 0 1 0"></feColorMatrix><feComponentTransfer><feFuncR type="table" tableValues="0.20392156862745098 0.9411764705882353"></feFuncR><feFuncG type="table" tableValues="0.03529411764705882 0.9176470588235294"></feFuncG><feFuncB type="table" tableValues="0.047058823529411764 0.9176470588235294"></feFuncB></feComponentTransfer></filter></svg><img src="data:image/svg+xml;utf8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20900%201000%22%3E%0A%20%20%20%20%3Cdefs%3E%0A%20%20%20%20%20%20%3CradialGradient%20id%3D%22k%22%20cx%3D%2246%25%22%20cy%3D%2226%25%22%20r%3D%2258%25%22%3E%3Cstop%20offset%3D%220%22%20stop-color%3D%22%23f6f1e8%22%2F%3E%3Cstop%20offset%3D%220.5%22%20stop-color%3D%22%238d8578%22%2F%3E%3Cstop%20offset%3D%221%22%20stop-color%3D%22%23141110%22%2F%3E%3C%2FradialGradient%3E%0A%20%20%20%20%20%20%3ClinearGradient%20id%3D%22c%22%20x1%3D%220%22%20y1%3D%220%22%20x2%3D%220.3%22%20y2%3D%221%22%3E%3Cstop%20offset%3D%220%22%20stop-color%3D%22%23d8d0c1%22%2F%3E%3Cstop%20offset%3D%221%22%20stop-color%3D%22%23221d19%22%2F%3E%3C%2FlinearGradient%3E%0A%20%20%20%20%20%20%3Cfilter%20id%3D%22t%22%3E%3CfeTurbulence%20type%3D%22fractalNoise%22%20baseFrequency%3D%221.1%22%20numOctaves%3D%224%22%2F%3E%3CfeColorMatrix%20type%3D%22saturate%22%20values%3D%220%22%2F%3E%3C%2Ffilter%3E%0A%20%20%20%20%3C%2Fdefs%3E%0A%20%20%20%20%3Crect%20width%3D%22900%22%20height%3D%221000%22%20fill%3D%22%230b0a09%22%2F%3E%0A%20%20%20%20%3Cellipse%20cx%3D%22450%22%20cy%3D%22900%22%20rx%3D%22330%22%20ry%3D%22380%22%20fill%3D%22url(%23c)%22%2F%3E%0A%20%20%20%20%3Cellipse%20cx%3D%22440%22%20cy%3D%22440%22%20rx%3D%22176%22%20ry%3D%22222%22%20fill%3D%22url(%23k)%22%2F%3E%0A%20%20%20%20%3Cellipse%20cx%3D%22378%22%20cy%3D%22424%22%20rx%3D%2220%22%20ry%3D%2211%22%20fill%3D%22%23100d0c%22%20opacity%3D%220.8%22%2F%3E%0A%20%20%20%20%3Cellipse%20cx%3D%22500%22%20cy%3D%22424%22%20rx%3D%2220%22%20ry%3D%2211%22%20fill%3D%22%23100d0c%22%20opacity%3D%220.8%22%2F%3E%0A%20%20%20%20%3Cpath%20d%3D%22M392%20520%20q48%2030%2096%200%22%20stroke%3D%22%23100d0c%22%20stroke-width%3D%229%22%20fill%3D%22none%22%20opacity%3D%220.65%22%2F%3E%0A%20%20%20%20%3Cg%20opacity%3D%220.5%22%20fill%3D%22%230e0c0b%22%3E%3Cellipse%20cx%3D%22190%22%20cy%3D%22250%22%20rx%3D%2234%22%20ry%3D%2216%22%20transform%3D%22rotate(-20%20190%20250)%22%2F%3E%3Cellipse%20cx%3D%22710%22%20cy%3D%22180%22%20rx%3D%2230%22%20ry%3D%2214%22%20transform%3D%22rotate(24%20710%20180)%22%2F%3E%3Cellipse%20cx%3D%22770%22%20cy%3D%22380%22%20rx%3D%2226%22%20ry%3D%2212%22%20transform%3D%22rotate(-12%20770%20380)%22%2F%3E%3C%2Fg%3E%0A%20%20%20%20%3Crect%20width%3D%22900%22%20height%3D%221000%22%20filter%3D%22url(%23t)%22%20opacity%3D%220.18%22%2F%3E%0A%20%20%3C%2Fsvg%3E" alt="A figure, lit from the left" draggable="false" style="display:block;width:100%;aspect-ratio:1.5;filter:url(#duo-id1);object-fit:cover;object-position:50% 50%"/></div><div class="cnode" data-node="id2" data-type="shape" style="margin-bottom:calc(22px * var(--lo8-fit, 1));background:#0b0908;width:1012px;max-width:100%;min-height:442px;opacity:0.9;position:absolute;left:-56px;top:-56px"></div><div class="cnode" data-node="id3" data-type="heading" style="margin-bottom:calc(22px * var(--lo8-fit, 1));font-size:calc(160px * var(--lo8-fit, 1));letter-spacing:-0.02em;position:absolute;left:-6px;top:26px"><div style="font-family:&quot;Iowan Old Style&quot;, &quot;Palatino Linotype&quot;, Palatino, &quot;Book Antiqua&quot;, Georgia, serif;font-size:calc(160px * var(--lo8-fit, 1));font-weight:700;letter-spacing:-0.02em;color:#efe4de;line-height:1.2" contentEditable="false">THE FOURTH LAW</div></div><div class="cnode" data-node="id4" data-type="shape" style="margin-bottom:calc(22px * var(--lo8-fit, 1));width:1012px;max-width:100%;position:absolute;left:-56px;top:132px;height:1px;min-height:1px;background:#3d2d2c;border:none"></div><div class="cnode" data-node="id5" data-type="text" style="margin-bottom:calc(22px * var(--lo8-fit, 1));font-size:calc(14px * var(--lo8-fit, 1));color:#8f7d78;letter-spacing:0.24em;position:absolute;left:0;top:150px"><div style="color:#8f7d78;font-size:calc(14px * var(--lo8-fit, 1));white-space:pre-line;letter-spacing:0.24em" contentEditable="false">NEOWIZ GAMES</div></div><div class="cnode" data-node="id6" data-type="text" style="margin-bottom:calc(22px * var(--lo8-fit, 1));font-size:calc(14px * var(--lo8-fit, 1));color:#8f7d78;letter-spacing:0.24em;position:absolute;left:540px;top:150px"><div style="color:#8f7d78;font-size:calc(14px * var(--lo8-fit, 1));white-space:pre-line;letter-spacing:0.24em" contentEditable="false">ROUNDS STUDIO</div></div><div class="cnode" data-node="id7" data-type="shape" style="margin-bottom:calc(22px * var(--lo8-fit, 1));width:1012px;max-width:100%;position:absolute;left:-56px;top:186px;height:1px;min-height:1px;background:#3d2d2c;border:none"></div><div class="cnode" data-node="id8" data-type="text" style="margin-bottom:calc(22px * var(--lo8-fit, 1));font-size:calc(14px * var(--lo8-fit, 1));color:#8f7d78;line-height:2;letter-spacing:0.08em;position:absolute;left:0;top:206px"><div style="color:#8f7d78;font-size:calc(14px * var(--lo8-fit, 1));white-space:pre-line;line-height:2;letter-spacing:0.08em" contentEditable="false">2023
+SEPTEMBER 19
+SOULSLIKE (SINGLE)</div></div><div class="cnode" data-node="id9" data-type="text" style="margin-bottom:calc(22px * var(--lo8-fit, 1));font-size:calc(14px * var(--lo8-fit, 1));color:#8f7d78;line-height:2;letter-spacing:0.08em;position:absolute;left:560px;top:206px"><div style="color:#8f7d78;font-size:calc(14px * var(--lo8-fit, 1));white-space:pre-line;line-height:2;letter-spacing:0.08em" contentEditable="false">DIRECTOR
+CHOI JI-WON
+SOUTH KOREA</div></div><div class="cnode" data-node="id10" data-type="shape" style="margin-bottom:calc(22px * var(--lo8-fit, 1));background:#b0202a;width:116px;max-width:100%;opacity:0.9;mix-blend-mode:screen;position:absolute;left:392px;top:232px;aspect-ratio:1;border-radius:50%"></div><div class="cnode" data-node="id11" data-type="text" style="margin-bottom:calc(22px * var(--lo8-fit, 1));font-size:calc(14px * var(--lo8-fit, 1));color:#8f7d78;letter-spacing:0.24em;position:absolute;left:0;top:1112px"><div style="color:#8f7d78;font-size:calc(14px * var(--lo8-fit, 1));white-space:pre-line;letter-spacing:0.24em" contentEditable="false">GRAND COVENANT’S FOURTH LAW</div></div><div class="cnode" data-node="id12" data-type="text" style="margin-bottom:calc(22px * var(--lo8-fit, 1));font-size:calc(14px * var(--lo8-fit, 1));color:#c7b3ad;letter-spacing:0.24em;position:absolute;left:0;top:1152px"><div style="color:#c7b3ad;font-size:calc(14px * var(--lo8-fit, 1));white-space:pre-line;letter-spacing:0.24em" contentEditable="false">A PUPPET CANNOT LIE</div></div></article>
+</body>
+</html>
