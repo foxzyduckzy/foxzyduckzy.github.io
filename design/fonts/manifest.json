@@ -1,0 +1,42 @@
+[
+  {
+    "family": "Inter",
+    "role": "ui",
+    "licence": "OFL-1.1",
+    "file": "inter.woff2",
+    "weight": "100 900",
+    "bytes": 48256
+  },
+  {
+    "family": "Playfair Display",
+    "role": "display",
+    "licence": "OFL-1.1",
+    "file": "playfair-display.woff2",
+    "weight": "400 900",
+    "bytes": 38404
+  },
+  {
+    "family": "Archivo",
+    "role": "grotesque",
+    "licence": "OFL-1.1",
+    "file": "archivo.woff2",
+    "weight": "100 900",
+    "bytes": 34928
+  },
+  {
+    "family": "EB Garamond",
+    "role": "oldstyle",
+    "licence": "OFL-1.1",
+    "file": "eb-garamond.woff2",
+    "weight": "400 800",
+    "bytes": 44336
+  },
+  {
+    "family": "JetBrains Mono",
+    "role": "mono",
+    "licence": "OFL-1.1",
+    "file": "jetbrains-mono.woff2",
+    "weight": "100 800",
+    "bytes": 40404
+  }
+]
