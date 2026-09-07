@@ -1,42 +1,281 @@
 [
   {
     "family": "Inter",
-    "role": "ui",
+    "category": "sans",
+    "note": "the interface grotesque: neutral, tight, excellent small",
     "licence": "OFL-1.1",
     "file": "inter.woff2",
     "weight": "100 900",
     "bytes": 48256
   },
   {
-    "family": "Playfair Display",
-    "role": "display",
+    "family": "DM Sans",
+    "category": "sans",
+    "note": "low contrast geometric, friendly without being soft",
     "licence": "OFL-1.1",
-    "file": "playfair-display.woff2",
-    "weight": "400 900",
-    "bytes": 38404
+    "file": "dm-sans.woff2",
+    "weight": "100 900",
+    "bytes": 36932
+  },
+  {
+    "family": "Manrope",
+    "category": "sans",
+    "note": "semi-condensed, modern, good at a headline",
+    "licence": "OFL-1.1",
+    "file": "manrope.woff2",
+    "weight": "200 800",
+    "bytes": 24836
+  },
+  {
+    "family": "Work Sans",
+    "category": "sans",
+    "note": "drawn for screens, wide apertures, very legible small",
+    "licence": "OFL-1.1",
+    "file": "work-sans.woff2",
+    "weight": "100 900",
+    "bytes": 50316
+  },
+  {
+    "family": "Figtree",
+    "category": "sans",
+    "note": "geometric with a warm lower case",
+    "licence": "OFL-1.1",
+    "file": "figtree.woff2",
+    "weight": "300 900",
+    "bytes": 20156
+  },
+  {
+    "family": "Outfit",
+    "category": "sans",
+    "note": "geometric and even, a poster sans at weight",
+    "licence": "OFL-1.1",
+    "file": "outfit.woff2",
+    "weight": "100 900",
+    "bytes": 32292
+  },
+  {
+    "family": "Space Grotesk",
+    "category": "sans",
+    "note": "technical, slightly odd, reads as engineering",
+    "licence": "OFL-1.1",
+    "file": "space-grotesk.woff2",
+    "weight": "400 700",
+    "bytes": 22288
   },
   {
     "family": "Archivo",
-    "role": "grotesque",
+    "category": "sans",
+    "note": "a real grotesque: wider and warmer than Inter at size",
     "licence": "OFL-1.1",
     "file": "archivo.woff2",
     "weight": "100 900",
     "bytes": 34928
   },
   {
+    "family": "Source Sans 3",
+    "category": "sans",
+    "note": "humanist, calm, the least software-sounding sans here",
+    "licence": "OFL-1.1",
+    "file": "source-sans-3.woff2",
+    "weight": "200 900",
+    "bytes": 28740
+  },
+  {
+    "family": "Nunito Sans",
+    "category": "sans",
+    "note": "rounded terminals, gentle, good for something friendly",
+    "licence": "OFL-1.1",
+    "file": "nunito-sans.woff2",
+    "weight": "200 900",
+    "bytes": 31076
+  },
+  {
+    "family": "Oswald",
+    "category": "condensed",
+    "note": "condensed gothic, the classic notice face",
+    "licence": "OFL-1.1",
+    "file": "oswald.woff2",
+    "weight": "400 700",
+    "bytes": 21472
+  },
+  {
+    "family": "Bebas Neue",
+    "category": "condensed",
+    "note": "capitals only, tall and tight, a poster in one word",
+    "licence": "OFL-1.1",
+    "file": "bebas-neue.woff2",
+    "weight": "400",
+    "bytes": 13768
+  },
+  {
+    "family": "Anton",
+    "category": "condensed",
+    "note": "very heavy condensed, made to be enormous",
+    "licence": "OFL-1.1",
+    "file": "anton.woff2",
+    "weight": "400",
+    "bytes": 18612
+  },
+  {
+    "family": "Archivo Narrow",
+    "category": "condensed",
+    "note": "a narrow grotesque that still sets text",
+    "licence": "OFL-1.1",
+    "file": "archivo-narrow.woff2",
+    "weight": "400 700",
+    "bytes": 18692
+  },
+  {
     "family": "EB Garamond",
-    "role": "oldstyle",
+    "category": "serif",
+    "note": "old style, the classic book face",
     "licence": "OFL-1.1",
     "file": "eb-garamond.woff2",
     "weight": "400 800",
     "bytes": 44336
   },
   {
+    "family": "Source Serif 4",
+    "category": "serif",
+    "note": "transitional, drawn to pair with a sans",
+    "licence": "OFL-1.1",
+    "file": "source-serif-4.woff2",
+    "weight": "200 900",
+    "bytes": 50824
+  },
+  {
+    "family": "Lora",
+    "category": "serif",
+    "note": "contemporary, brushed curves, warm at reading size",
+    "licence": "OFL-1.1",
+    "file": "lora.woff2",
+    "weight": "400 700",
+    "bytes": 37788
+  },
+  {
+    "family": "Crimson Pro",
+    "category": "serif",
+    "note": "old style for long text, quiet and even",
+    "licence": "OFL-1.1",
+    "file": "crimson-pro.woff2",
+    "weight": "200 900",
+    "bytes": 48200
+  },
+  {
+    "family": "Newsreader",
+    "category": "serif",
+    "note": "an editorial face: it wants a column of text",
+    "licence": "OFL-1.1",
+    "file": "newsreader.woff2",
+    "weight": "200 800",
+    "bytes": 58084
+  },
+  {
+    "family": "Libre Baskerville",
+    "category": "serif",
+    "note": "wide and open, drawn for screens",
+    "licence": "OFL-1.1",
+    "file": "libre-baskerville.woff2",
+    "weight": "400 700",
+    "bytes": 33872
+  },
+  {
+    "family": "Playfair Display",
+    "category": "display",
+    "note": "high contrast, fine serifs, the detail is the point",
+    "licence": "OFL-1.1",
+    "file": "playfair-display.woff2",
+    "weight": "400 900",
+    "bytes": 38404
+  },
+  {
+    "family": "Bodoni Moda",
+    "category": "display",
+    "note": "a true didone: hairline serifs, fashion and editorial",
+    "licence": "OFL-1.1",
+    "file": "bodoni-moda.woff2",
+    "weight": "400 900",
+    "bytes": 25884
+  },
+  {
+    "family": "DM Serif Display",
+    "category": "display",
+    "note": "sturdy high contrast, holds up small for a display face",
+    "licence": "OFL-1.1",
+    "file": "dm-serif-display.woff2",
+    "weight": "400",
+    "bytes": 24744
+  },
+  {
+    "family": "Instrument Serif",
+    "category": "display",
+    "note": "modern editorial, tight and confident",
+    "licence": "OFL-1.1",
+    "file": "instrument-serif.woff2",
+    "weight": "400",
+    "bytes": 21032
+  },
+  {
+    "family": "Abril Fatface",
+    "category": "display",
+    "note": "a fat didone, heavy enough to be the whole composition",
+    "licence": "OFL-1.1",
+    "file": "abril-fatface.woff2",
+    "weight": "400",
+    "bytes": 13156
+  },
+  {
+    "family": "Fraunces",
+    "category": "display",
+    "note": "soft and characterful, an old style with opinions",
+    "licence": "OFL-1.1",
+    "file": "fraunces.woff2",
+    "weight": "100 900",
+    "bytes": 36620
+  },
+  {
+    "family": "Roboto Slab",
+    "category": "slab",
+    "note": "even slabs, neutral, works as a heading face",
+    "licence": "OFL-1.1",
+    "file": "roboto-slab.woff2",
+    "weight": "100 900",
+    "bytes": 34236
+  },
+  {
+    "family": "Zilla Slab",
+    "category": "slab",
+    "note": "slightly mechanical, good for something technical",
+    "licence": "OFL-1.1",
+    "file": "zilla-slab.woff2",
+    "weight": "400",
+    "bytes": 26468
+  },
+  {
     "family": "JetBrains Mono",
-    "role": "mono",
+    "category": "mono",
+    "note": "tall x-height, drawn for reading code for hours",
     "licence": "OFL-1.1",
     "file": "jetbrains-mono.woff2",
     "weight": "100 800",
     "bytes": 40404
+  },
+  {
+    "family": "IBM Plex Mono",
+    "category": "mono",
+    "note": "the most typographic of the monos",
+    "licence": "OFL-1.1",
+    "file": "ibm-plex-mono.woff2",
+    "weight": "400",
+    "bytes": 14708
+  },
+  {
+    "family": "Space Mono",
+    "category": "mono",
+    "note": "quirky and wide, a mono with a voice",
+    "licence": "OFL-1.1",
+    "file": "space-mono.woff2",
+    "weight": "400",
+    "bytes": 16520
   }
 ]

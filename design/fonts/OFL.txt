@@ -5,10 +5,36 @@ The licence permits, and this app relies on, two things in particular:
 the fonts may be redistributed with this software, and they may be
 embedded in a document which is then passed on to somebody else.
 
-  Inter — OFL-1.1
-  Playfair Display — OFL-1.1
-  Archivo — OFL-1.1
-  EB Garamond — OFL-1.1
-  JetBrains Mono — OFL-1.1
+  Inter — undefined
+  DM Sans — undefined
+  Manrope — undefined
+  Work Sans — undefined
+  Figtree — undefined
+  Outfit — undefined
+  Space Grotesk — undefined
+  Archivo — undefined
+  Source Sans 3 — undefined
+  Nunito Sans — undefined
+  Oswald — undefined
+  Bebas Neue — undefined
+  Anton — undefined
+  Archivo Narrow — undefined
+  EB Garamond — undefined
+  Source Serif 4 — undefined
+  Lora — undefined
+  Crimson Pro — undefined
+  Newsreader — undefined
+  Libre Baskerville — undefined
+  Playfair Display — undefined
+  Bodoni Moda — undefined
+  DM Serif Display — undefined
+  Instrument Serif — undefined
+  Abril Fatface — undefined
+  Fraunces — undefined
+  Roboto Slab — undefined
+  Zilla Slab — undefined
+  JetBrains Mono — undefined
+  IBM Plex Mono — undefined
+  Space Mono — undefined
 
 Reserved font names are unchanged; none of these files is modified.
