@@ -6,7 +6,12 @@
     "licence": "OFL-1.1",
     "file": "inter.woff2",
     "weight": "100 900",
-    "bytes": 48256
+    "bytes": 48256,
+    "italic": {
+      "file": "inter-italic.woff2",
+      "weight": "100 900",
+      "bytes": 51832
+    }
   },
   {
     "family": "DM Sans",
@@ -15,7 +20,12 @@
     "licence": "OFL-1.1",
     "file": "dm-sans.woff2",
     "weight": "100 900",
-    "bytes": 36932
+    "bytes": 36932,
+    "italic": {
+      "file": "dm-sans-italic.woff2",
+      "weight": "100 900",
+      "bytes": 39712
+    }
   },
   {
     "family": "Manrope",
@@ -33,7 +43,12 @@
     "licence": "OFL-1.1",
     "file": "work-sans.woff2",
     "weight": "100 900",
-    "bytes": 50316
+    "bytes": 50316,
+    "italic": {
+      "file": "work-sans-italic.woff2",
+      "weight": "100 900",
+      "bytes": 48180
+    }
   },
   {
     "family": "Figtree",
@@ -42,7 +57,12 @@
     "licence": "OFL-1.1",
     "file": "figtree.woff2",
     "weight": "300 900",
-    "bytes": 20156
+    "bytes": 20156,
+    "italic": {
+      "file": "figtree-italic.woff2",
+      "weight": "300 900",
+      "bytes": 20928
+    }
   },
   {
     "family": "Outfit",
@@ -69,7 +89,12 @@
     "licence": "OFL-1.1",
     "file": "archivo.woff2",
     "weight": "100 900",
-    "bytes": 34928
+    "bytes": 34928,
+    "italic": {
+      "file": "archivo-italic.woff2",
+      "weight": "100 900",
+      "bytes": 39156
+    }
   },
   {
     "family": "Source Sans 3",
@@ -78,7 +103,12 @@
     "licence": "OFL-1.1",
     "file": "source-sans-3.woff2",
     "weight": "200 900",
-    "bytes": 28740
+    "bytes": 28740,
+    "italic": {
+      "file": "source-sans-3-italic.woff2",
+      "weight": "200 900",
+      "bytes": 28532
+    }
   },
   {
     "family": "Nunito Sans",
@@ -87,7 +117,12 @@
     "licence": "OFL-1.1",
     "file": "nunito-sans.woff2",
     "weight": "200 900",
-    "bytes": 31076
+    "bytes": 31076,
+    "italic": {
+      "file": "nunito-sans-italic.woff2",
+      "weight": "200 900",
+      "bytes": 33080
+    }
   },
   {
     "family": "Oswald",
@@ -123,7 +158,12 @@
     "licence": "OFL-1.1",
     "file": "archivo-narrow.woff2",
     "weight": "400 700",
-    "bytes": 18692
+    "bytes": 18692,
+    "italic": {
+      "file": "archivo-narrow-italic.woff2",
+      "weight": "400 700",
+      "bytes": 20980
+    }
   },
   {
     "family": "EB Garamond",
@@ -132,7 +172,12 @@
     "licence": "OFL-1.1",
     "file": "eb-garamond.woff2",
     "weight": "400 800",
-    "bytes": 44336
+    "bytes": 44336,
+    "italic": {
+      "file": "eb-garamond-italic.woff2",
+      "weight": "400 800",
+      "bytes": 47940
+    }
   },
   {
     "family": "Source Serif 4",
@@ -141,7 +186,12 @@
     "licence": "OFL-1.1",
     "file": "source-serif-4.woff2",
     "weight": "200 900",
-    "bytes": 50824
+    "bytes": 50824,
+    "italic": {
+      "file": "source-serif-4-italic.woff2",
+      "weight": "200 900",
+      "bytes": 51516
+    }
   },
   {
     "family": "Lora",
@@ -150,7 +200,12 @@
     "licence": "OFL-1.1",
     "file": "lora.woff2",
     "weight": "400 700",
-    "bytes": 37788
+    "bytes": 37788,
+    "italic": {
+      "file": "lora-italic.woff2",
+      "weight": "400 700",
+      "bytes": 40772
+    }
   },
   {
     "family": "Crimson Pro",
@@ -159,7 +214,12 @@
     "licence": "OFL-1.1",
     "file": "crimson-pro.woff2",
     "weight": "200 900",
-    "bytes": 48200
+    "bytes": 48200,
+    "italic": {
+      "file": "crimson-pro-italic.woff2",
+      "weight": "200 900",
+      "bytes": 51432
+    }
   },
   {
     "family": "Newsreader",
@@ -168,7 +228,12 @@
     "licence": "OFL-1.1",
     "file": "newsreader.woff2",
     "weight": "200 800",
-    "bytes": 58084
+    "bytes": 58084,
+    "italic": {
+      "file": "newsreader-italic.woff2",
+      "weight": "200 800",
+      "bytes": 64520
+    }
   },
   {
     "family": "Libre Baskerville",
@@ -177,7 +242,12 @@
     "licence": "OFL-1.1",
     "file": "libre-baskerville.woff2",
     "weight": "400 700",
-    "bytes": 33872
+    "bytes": 33872,
+    "italic": {
+      "file": "libre-baskerville-italic.woff2",
+      "weight": "400 700",
+      "bytes": 31244
+    }
   },
   {
     "family": "Playfair Display",
@@ -186,7 +256,12 @@
     "licence": "OFL-1.1",
     "file": "playfair-display.woff2",
     "weight": "400 900",
-    "bytes": 38404
+    "bytes": 38404,
+    "italic": {
+      "file": "playfair-display-italic.woff2",
+      "weight": "400 900",
+      "bytes": 38804
+    }
   },
   {
     "family": "Bodoni Moda",
@@ -195,7 +270,12 @@
     "licence": "OFL-1.1",
     "file": "bodoni-moda.woff2",
     "weight": "400 900",
-    "bytes": 25884
+    "bytes": 25884,
+    "italic": {
+      "file": "bodoni-moda-italic.woff2",
+      "weight": "400 900",
+      "bytes": 30328
+    }
   },
   {
     "family": "DM Serif Display",
@@ -204,7 +284,12 @@
     "licence": "OFL-1.1",
     "file": "dm-serif-display.woff2",
     "weight": "400",
-    "bytes": 24744
+    "bytes": 24744,
+    "italic": {
+      "file": "dm-serif-display-italic.woff2",
+      "weight": "400",
+      "bytes": 24572
+    }
   },
   {
     "family": "Instrument Serif",
@@ -213,7 +298,12 @@
     "licence": "OFL-1.1",
     "file": "instrument-serif.woff2",
     "weight": "400",
-    "bytes": 21032
+    "bytes": 21032,
+    "italic": {
+      "file": "instrument-serif-italic.woff2",
+      "weight": "400",
+      "bytes": 22128
+    }
   },
   {
     "family": "Abril Fatface",
@@ -231,7 +321,12 @@
     "licence": "OFL-1.1",
     "file": "fraunces.woff2",
     "weight": "100 900",
-    "bytes": 36620
+    "bytes": 36620,
+    "italic": {
+      "file": "fraunces-italic.woff2",
+      "weight": "100 900",
+      "bytes": 45656
+    }
   },
   {
     "family": "Roboto Slab",
@@ -249,7 +344,12 @@
     "licence": "OFL-1.1",
     "file": "zilla-slab.woff2",
     "weight": "400",
-    "bytes": 26468
+    "bytes": 26468,
+    "italic": {
+      "file": "zilla-slab-italic.woff2",
+      "weight": "400",
+      "bytes": 27516
+    }
   },
   {
     "family": "JetBrains Mono",
@@ -258,7 +358,12 @@
     "licence": "OFL-1.1",
     "file": "jetbrains-mono.woff2",
     "weight": "100 800",
-    "bytes": 40404
+    "bytes": 40404,
+    "italic": {
+      "file": "jetbrains-mono-italic.woff2",
+      "weight": "100 800",
+      "bytes": 42964
+    }
   },
   {
     "family": "IBM Plex Mono",
@@ -267,7 +372,12 @@
     "licence": "OFL-1.1",
     "file": "ibm-plex-mono.woff2",
     "weight": "400",
-    "bytes": 14708
+    "bytes": 14708,
+    "italic": {
+      "file": "ibm-plex-mono-italic.woff2",
+      "weight": "400",
+      "bytes": 16448
+    }
   },
   {
     "family": "Space Mono",
@@ -276,6 +386,11 @@
     "licence": "OFL-1.1",
     "file": "space-mono.woff2",
     "weight": "400",
-    "bytes": 16520
+    "bytes": 16520,
+    "italic": {
+      "file": "space-mono-italic.woff2",
+      "weight": "400",
+      "bytes": 18300
+    }
   }
 ]
